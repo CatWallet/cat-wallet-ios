@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0367540C20F94F8600876FC1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367540B20F94F8600876FC1 /* Utils.swift */; };
 		1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */; };
 		290B2B541F8F50030053C83E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 290B2B561F8F50030053C83E /* Localizable.strings */; };
 		290B2B5F1F9177860053C83E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B2B5E1F9177860053C83E /* UIImage.swift */; };
@@ -483,6 +484,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0367540B20F94F8600876FC1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290B2B551F8F50030053C83E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		290B2B5E1F9177860053C83E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 				29A13E311F6B1B6C00E432A2 /* Style */,
 				2996F14B1F6CA725005C33AE /* Extensions */,
 				2912CCF81F6A830700C6CBE3 /* AppDelegate.swift */,
+				0367540B20F94F8600876FC1 /* Utils.swift */,
 				29D72A291F6A8D1500CE9209 /* AppCoordinator.swift */,
 				293E626E1FA2ED1400CB0A66 /* InCoordinator.swift */,
 				BB3B86C4204D2EF10061FCBA /* InCoordinator+Navigable.swift */,
@@ -2620,7 +2623,7 @@
 					2912CCF41F6A830700C6CBE3 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
@@ -3036,6 +3039,7 @@
 				29FA00D0201CA66A002F7DC5 /* DAppError.swift in Sources */,
 				291EC9DF1F7053C50004EDD0 /* NavigationController.swift in Sources */,
 				2995739F1FA1F294006F17FD /* QRURLParser.swift in Sources */,
+				0367540C20F94F8600876FC1 /* Utils.swift in Sources */,
 				77EAD88420E1B82300D14AA2 /* WalletInfoViewController.swift in Sources */,
 				29C9F5F91F720BD30025C494 /* FloatLabelCell.swift in Sources */,
 				77B641032097211F00BEF3EB /* TransactionsTableView.swift in Sources */,
@@ -3531,20 +3535,20 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = Trust/Trust.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 265;
-				DEVELOPMENT_TEAM = 9873B38DWV;
+				DEVELOPMENT_TEAM = 96XG5CYU7R;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Trust/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixdays.trust;
+				PRODUCT_BUNDLE_IDENTIFIER = com.catwallet.trust;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7edbff9c-3e3f-4ba3-b84f-19ac095b8e95";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.sixdays.trust";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -3559,19 +3563,19 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = Trust/Trust.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 265;
-				DEVELOPMENT_TEAM = 9873B38DWV;
+				DEVELOPMENT_TEAM = 96XG5CYU7R;
 				ENABLE_BITCODE = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Trust/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixdays.trust;
+				PRODUCT_BUNDLE_IDENTIFIER = com.catwallet.trust;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7edbff9c-3e3f-4ba3-b84f-19ac095b8e95";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.sixdays.trust";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

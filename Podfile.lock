@@ -93,7 +93,7 @@ DEPENDENCIES:
   - URLNavigator
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - APIKit
     - BigInt
@@ -193,4 +193,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8238544185cd8c336b9cbd4d1bdd5629a86c5b11
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

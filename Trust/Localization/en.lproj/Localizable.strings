@@ -1,5 +1,5 @@
 "Advanced" = "Advanced";
-"app.device.jailbreak.description" = "Any 'jailbreak' app can access Trust's keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.";
+"app.device.jailbreak.description" = "Any 'jailbreak' app can access CAT's keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.";
 "app.device.jailbreak.title" = "DEVICE SECURITY COMPROMISED";
 "Cancel" = "Cancel";
 "configureTransaction.error.gasFeeTooHigh" = "Gas Fee too high. Max available: %@";
@@ -56,7 +56,7 @@
 "settings.donate.button.title" = "Donate";
 "settings.emailUs.button.title" = "Email Us";
 "settings.error.failedToSendEmail" = "Failed to send email. Make sure you have Mail app installed.";
-"settings.feedback.email.title" = "Trust Feedback";
+"settings.feedback.email.title" = "Feedback";
 "settings.navigation.title" = "Settings";
 "settings.network.button.title" = "Network";
 "settings.openSourceDevelopment.label.title" = "Open Source Development";
@@ -126,9 +126,9 @@
 "welldone.description.label.text" = "Help us grow by sharing this app with your friends!";
 "welldone.navigation.title" = "Thank you!";
 "welldone.viewmodel.sharing.text1" = "Here is the app I use to store my ETH and ERC20 tokens.";
-"welldone.viewmodel.sharing.text2" = "Check out Trust - the wallet that lets me securely store my Ethereum and ERC20 tokens.";
-"welldone.viewmodel.sharing.text3" = "I securely store Ethereum and ERC20 tokens in the Trust wallet";
-"welldone.viewmodel.sharing.text4" = "I secure my Ethereum and ERC20 tokens in the Trust wallet.";
+"welldone.viewmodel.sharing.text2" = "Check out CAT - the wallet that lets me securely store my Ethereum and ERC20 tokens.";
+"welldone.viewmodel.sharing.text3" = "I securely store Ethereum and ERC20 tokens in the CAT wallet";
+"welldone.viewmodel.sharing.text4" = "I secure my Ethereum and ERC20 tokens in the CAT wallet.";
 "browser.home.button.title" = "Home";
 "browser.reload.button.title" = "Reload";
 "configureTransaction.gasPriceGwei.label.title" = "Gas Price (Gwei)";
@@ -251,10 +251,10 @@
 "Watch" = "Watch";
 "Done" = "Done";
 "Manage" = "Manage";
-"passphrase.seed.label.title" = "These 12 words are the only way to restore your Trust wallet. \nSave them somewhere safe and secret.";
-"settings.analitics.answer.description" = "Help Trust improve user experience by sharing app daily diagnostic.";
-"settings.analitics.branch.description" = "Help Trust improve user engagment by sharing deep links redirects.";
-"settings.analitics.crashlytics.description" = "Help Trust developers to improve its product and service by automatically sending crash reports.";
+"passphrase.seed.label.title" = "These 12 words are the only way to restore your CAT wallet. \nSave them somewhere safe and secret.";
+"settings.analitics.answer.description" = "Help CAT improve user experience by sharing app daily diagnostic.";
+"settings.analitics.branch.description" = "Help CAT improve user engagment by sharing deep links redirects.";
+"settings.analitics.crashlytics.description" = "Help CAT developers to improve its product and service by automatically sending crash reports.";
 "settings.privacy.title" = "Privacy";
 "Skip" = "Skip";
 "VerifyBackupPhrase" = "Verify Backup Phrase";

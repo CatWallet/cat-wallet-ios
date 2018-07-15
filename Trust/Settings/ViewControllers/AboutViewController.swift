@@ -28,13 +28,13 @@ final class AboutViewController: FormViewController {
 
             <<< link(
                 title: NSLocalizedString("settings.sourceCode.button.title", value: "Source Code", comment: ""),
-                value: "https://github.com/TrustWallet/trust-wallet-ios",
+                value: "https://github.com/CatWallet/cat-wallet-ios",
                 image: R.image.settings_colorful_source_code()
             )
 
             <<< link(
                 title: NSLocalizedString("settings.reportBug.button.title", value: "Report a Bug", comment: ""),
-                value: "https://github.com/TrustWallet/trust-wallet-ios/issues/new",
+                value: "https://github.com/CatWallet/cat-wallet-ios/issues/new",
                 image: R.image.settings_colorful_report_a_bug()
             )
 
@@ -52,6 +52,12 @@ final class AboutViewController: FormViewController {
                 value: Constants.dappsOpenSea,
                 image: R.image.opensea()
             )
+
+            <<< link(
+                title: NSLocalizedString("Trust", value: "Trust", comment: ""),
+                value: Constants.trustApp,
+                image: R.image.trust()
+            )
     }
 
     private func link(
@@ -64,7 +70,8 @@ final class AboutViewController: FormViewController {
             $0.value = value
         }.onCellSelection { [weak self] (_, row) in
             guard let `self` = self, let value = row.value, let url = URL(string: value) else { return }
-            self.delegate?.didPressURL(url, in: self)
+            UIApplication.shared.open(url, options: [:], completionHandler: .none)
+//            self.delegate?.didPressURL(url, in: self)
         }.cellSetup { cell, _ in
             cell.imageView?.image = image
             cell.imageView?.layer.cornerRadius = 6

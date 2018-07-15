@@ -30,7 +30,7 @@ func applyStyle() {
 struct AppGlobalStyle {
     static let navigationBarTintColor = UIColor.white
     static let docPickerNavigationBarTintColor = Colors.darkBlue
-    static let barTintColor = Colors.darkBlue
+    static let barTintColor = Colors.red
 }
 
 struct StyleLayout {

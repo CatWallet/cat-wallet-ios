@@ -10,17 +10,18 @@ public struct Constants {
     public static let keychainKeyPrefix = "trustwallet"
 
     // social
-    public static let website = "https://trustwalletapp.com"
-    public static let twitterUsername = "trustwalletapp"
-    public static let telegramUsername = "trustwallet"
-    public static let facebookUsername = "trustwalletapp"
+    public static let website = "https://catwallet.com"
+    public static let twitterUsername = "catwalletapp"
+    public static let telegramUsername = "catwallet"
+    public static let facebookUsername = "catwalletapp"
 
     // support
-    public static let supportEmail = "support@trustwalletapp.com"
+    public static let supportEmail = "support@catwallet.com"
     public static let donationAddress = "0x9f8284ce2cf0c8ce10685f537b1fff418104a317"
 
     public static let dappsBrowserURL = "https://dapps.trustwalletapp.com/"
     public static let dappsOpenSea = "https://opensea.io"
+    public static let trustApp = "https://trustwalletapp.com"
     public static let dappsRinkebyOpenSea = "https://rinkeby.opensea.io"
 
     public static let images = "https://trustwalletapp.com/images"
@@ -34,6 +35,6 @@ public struct UnitConfiguration {
 }
 
 public struct URLSchemes {
-    public static let trust = "trust://"
+    public static let trust = "catwallet://"
     public static let browser = trust + "browser"
 }

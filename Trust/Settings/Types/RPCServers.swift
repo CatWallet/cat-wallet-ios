@@ -91,12 +91,12 @@ enum RPCServer {
     var rpcURL: URL {
         let urlString: String = {
             switch self {
-            case .main: return "https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk"
+            case .main: return "https://mainnet.infura.io/TejPKvmSjVukp9t0U4IJ"
             case .classic: return "https://web3.gastracker.io"
             case .callisto: return "https://clo-geth.0xinfra.com"
-            case .kovan: return "https://kovan.infura.io/llyrtzQ3YhkdESt2Fzrk"
-            case .ropsten: return "https://ropsten.infura.io/llyrtzQ3YhkdESt2Fzrk"
-            case .rinkeby: return "https://rinkeby.infura.io/llyrtzQ3YhkdESt2Fzrk"
+            case .kovan: return "https://kovan.infura.io/TejPKvmSjVukp9t0U4IJ"
+            case .ropsten: return "https://ropsten.infura.io/TejPKvmSjVukp9t0U4IJ"
+            case .rinkeby: return "https://rinkeby.infura.io/TejPKvmSjVukp9t0U4IJ"
             case .poa: return "https://poa.infura.io"
             case .sokol: return "https://sokol.poa.network"
             case .gochain: return "https://rpc.gochain.io"
@@ -110,10 +110,10 @@ enum RPCServer {
     var wssURL: URL {
         let urlString: String = {
             switch self {
-            case .main: return "wss://mainnet.infura.io/ws/llyrtzQ3YhkdESt2Fzrk"
-            case .ropsten: return "wss://ropsten.infura.io/ws/llyrtzQ3YhkdESt2Fzrk"
-            case .rinkeby: return "wss://rinkeby.infura.io/ws/llyrtzQ3YhkdESt2Fzrk"
-            case .kovan: return "wss://kovan.infura.io/ws/llyrtzQ3YhkdESt2Fzrk"
+            case .main: return "wss://mainnet.infura.io/ws/TejPKvmSjVukp9t0U4IJ"
+            case .ropsten: return "wss://ropsten.infura.io/ws/TejPKvmSjVukp9t0U4IJ"
+            case .rinkeby: return "wss://rinkeby.infura.io/ws/TejPKvmSjVukp9t0U4IJ"
+            case .kovan: return "wss://kovan.infura.io/ws/TejPKvmSjVukp9t0U4IJ"
             case .poa: return "wss://poa.infura.io"
             case .sokol: return "wss://localhost"
             case .classic, .callisto, .gochain: return "wss://localhost"
