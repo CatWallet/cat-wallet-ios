@@ -1,14 +1,11 @@
-# Trust - Ethereum Wallet and Web3 DApp Browser for iOS
+# CAT Wallet - Ethereum Wallet and Web3 DApp Browser for iOS
 
-[![Build Status](https://travis-ci.org/TrustWallet/trust-wallet-ios.svg?branch=master)](https://travis-ci.org/TrustWallet/trust-wallet-ios)
-[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/TrustWallet/trust-wallet-ios/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/TrustWallet/trust-wallet-ios/branches/master)
+[![Build Status](https://travis-ci.org/CatWallet/cat-wallet-ios.svg?branch=master)](https://travis-ci.org/CatWallet/cat-wallet-ios)
+[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/CatWallet/cat-wallet-ios/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/CatWallet/cat-wallet-ios/branches/master)
 [![License](https://img.shields.io/badge/license-GPL3-green.svg?style=flat)](https://github.com/fastlane/fastlane/blob/master/LICENSE)
 
-[<img src="https://raw.githubusercontent.com/TrustWallet/trust-wallet-ios/master/resources/iphone_cover.png">](https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409)
 
-[<img src=resources/app-store-badge.png height="88">](https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409)
-
-Welcome to Trust's open source iOS app!
+Welcome to CAT Wallet's open source iOS app!
 
 ## Getting Started
 
@@ -38,3 +35,7 @@ behavior violating this base foundation of respect.
 
 Help with localization?
 Here is a public link to join localization project: https://lokalise.co/signup/3947163159df13df851b51.98101647/all/
+
+## Credit
+
+CAT Wallet is a fork of the [Trust Wallet](https://github.com/TrustWallet/trust-wallet-ios/) 
