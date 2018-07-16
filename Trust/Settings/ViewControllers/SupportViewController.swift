@@ -28,19 +28,19 @@ final class SupportViewController: FormViewController {
 
             <<< link(
                 title: R.string.localizable.settingsFaqButtonTitle(),
-                value: "https://catwallet.com/faq.html",
+                value: "https://support.catwallet.com/support/catwallet1",
                 image: R.image.settings_colorful_faq()
             )
 
             <<< link(
                 title: R.string.localizable.settingsPrivacyTitle(),
-                value: "https://catwallet.com/privacy-policy.html",
+                value: "https://support.catwallet.com/portal/kb/articles/privacy-policy",
                 image: R.image.settings_colorful_privacy_and_policy()
             )
 
             <<< link(
                 title: R.string.localizable.settingsTermsOfServiceButtonTitle(),
-                value: "https://catwallet.com/terms.html",
+                value: "https://support.catwallet.com/portal/kb/articles/terms-of-use",
                 image: R.image.settings_colorful_terms_of_service()
             )
 
