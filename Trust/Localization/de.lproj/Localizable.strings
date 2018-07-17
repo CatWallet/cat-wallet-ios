@@ -228,3 +228,7 @@
 "settings.browser.clearCache.title" = "Browser-Cache leeren";
 "settings.browser.searchEngine.title" = "Suchmaschine";
 "settings.browser.title" = "DApp-Browser";
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";

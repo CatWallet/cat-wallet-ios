@@ -229,3 +229,7 @@
 "settings.browser.searchEngine.title" = "搜索引擎";
 "settings.browser.title" = "DApp 浏览器";
 "transaction.deployContract.label.title" = "部署智能合约";
+"transaction.AddNotes" = "加备注";
+"transaction.EditNotes" = "改备注";
+"transaction.NotesTitle" = "备注";
+"transaction.NotesDetails" = "这一笔是为啥?";

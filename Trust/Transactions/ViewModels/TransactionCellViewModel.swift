@@ -11,6 +11,7 @@ struct TransactionCellViewModel {
     private let chainState: ChainState
     private let currentWallet: Wallet
     private let shortFormatter = EtherNumberFormatter.short
+    private let transactionsStore: TransactionsStorage
 
     private let transactionViewModel: TransactionViewModel
 
@@ -18,12 +19,14 @@ struct TransactionCellViewModel {
         transaction: Transaction,
         config: Config,
         chainState: ChainState,
-        currentWallet: Wallet
+        currentWallet: Wallet,
+        transactionsStore: TransactionsStorage
     ) {
         self.transaction = transaction
         self.config = config
         self.chainState = chainState
         self.currentWallet = currentWallet
+        self.transactionsStore = transactionsStore
         self.transactionViewModel = TransactionViewModel(
             transaction: transaction,
             config: config,
@@ -129,5 +132,10 @@ struct TransactionCellViewModel {
 
     var statusImage: UIImage? {
         return transactionViewModel.statusImage
+    }
+
+    var notesText: String! {
+        let transactionNotes = self.transactionsStore.getNotes(forPrimaryKey: self.transaction.uniqueID)
+        return transactionNotes?.notes ?? ""
     }
 }

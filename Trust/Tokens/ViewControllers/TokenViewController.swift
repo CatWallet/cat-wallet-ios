@@ -178,6 +178,16 @@ extension TokenViewController: UITableViewDataSource, UITableViewDelegate {
         return StyleLayout.TableView.heightForHeaderInSection
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        if cellViewModel.notesText.isEmpty {
+            return TransactionsLayout.tableView.height
+        }
+        else {
+            return TransactionsLayout.tableView.heightWithNotes
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.didPress(transaction: viewModel.item(for: indexPath.row, section: indexPath.section), in: self)
         tableView.deselectRow(at: indexPath, animated: true)

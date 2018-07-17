@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0367540C20F94F8600876FC1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367540B20F94F8600876FC1 /* Utils.swift */; };
+		0367540E20FD704E00876FC1 /* TransactionNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367540D20FD704E00876FC1 /* TransactionNotes.swift */; };
 		1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */; };
 		290B2B541F8F50030053C83E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 290B2B561F8F50030053C83E /* Localizable.strings */; };
 		290B2B5F1F9177860053C83E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B2B5E1F9177860053C83E /* UIImage.swift */; };
@@ -485,6 +486,7 @@
 
 /* Begin PBXFileReference section */
 		0367540B20F94F8600876FC1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		0367540D20FD704E00876FC1 /* TransactionNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotes.swift; sourceTree = "<group>"; };
 		0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290B2B551F8F50030053C83E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		290B2B5E1F9177860053C83E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -1870,6 +1872,7 @@
 				29E14FD01F7F457D00185568 /* TransactionsStorage.swift */,
 				29E14FDA1F7F4F3D00185568 /* Transaction.swift */,
 				29AD8A081F93F8B2008E10E7 /* Session.swift */,
+				0367540D20FD704E00876FC1 /* TransactionNotes.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -2986,6 +2989,7 @@
 				BB58B92D206F70E800A70A3C /* HistoryStore.swift in Sources */,
 				291ED0921F6FA5D900E7E93A /* RequestViewController.swift in Sources */,
 				299B5E341FCBC5180051361C /* ConfirmPaymentViewModel.swift in Sources */,
+				0367540E20FD704E00876FC1 /* TransactionNotes.swift in Sources */,
 				902CAB5B2051835E00F96FFE /* BookmarkViewCell.swift in Sources */,
 				771AA94E1FF971CD00D25403 /* DappAction.swift in Sources */,
 				29F1C8471FEB6664003780D8 /* EditTokenTableViewCell.swift in Sources */,

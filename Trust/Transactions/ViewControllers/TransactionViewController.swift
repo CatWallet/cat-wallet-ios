@@ -24,15 +24,18 @@ final class TransactionViewController: UIViewController {
 
     let session: WalletSession
     let transaction: Transaction
+    let transactionsStore: TransactionsStorage
     let config = Config()
     weak var delegate: TransactionViewControllerDelegate?
 
     init(
         session: WalletSession,
-        transaction: Transaction
+        transaction: Transaction,
+        transactionsStore: TransactionsStorage
     ) {
         self.session = session
         self.transaction = transaction
+        self.transactionsStore = transactionsStore
 
         stackViewController.scrollView.alwaysBounceVertical = true
         stackViewController.stackView.spacing = TransactionAppearance.spacing
@@ -75,6 +78,8 @@ final class TransactionViewController: UIViewController {
             item(title: viewModel.nonceTitle, value: viewModel.nonce),
             TransactionAppearance.divider(color: dividerColor, alpha: 1, layoutInsets: dividerOffset),
         ]
+
+        items.append(notesView())
 
         if viewModel.detailsAvailable {
             items.append(moreDetails())
@@ -122,6 +127,39 @@ final class TransactionViewController: UIViewController {
         return stackView
     }
 
+    private func notesView() -> UIView {
+        let button = Button(size: .large, style: .border)
+        button.setTitle(R.string.localizable.transactionAddNotes(), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(editNote), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [button])
+
+        if let transactionNotes = transactionsStore.getNotes(forPrimaryKey: transaction.uniqueID),
+            !transactionNotes.notes.isEmpty {
+            let noteLabel = UILabel()
+            noteLabel.font = UIFont.systemFont(ofSize: 15)
+            noteLabel.textAlignment = .center
+            noteLabel.translatesAutoresizingMaskIntoConstraints = false
+            noteLabel.numberOfLines = 0
+            noteLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+            noteLabel.text = transactionNotes.notes
+//            noteLabel.adjustsFontSizeToFitWidth = true
+            noteLabel.sizeToFit()
+            stackView.insertArrangedSubview(noteLabel, at: 0)
+
+            // if we already have notes, button needs to say Edit instead
+            button.setTitle(R.string.localizable.transactionEditNotes(), for: .normal)
+        }
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        stackView.isLayoutMarginsRelativeArrangement = true
+
+        return stackView
+    }
+
     func showAlertSheet(title: String, value: String, sourceView: UIView) {
         let alertController = UIAlertController(
             title: nil,
@@ -142,6 +180,37 @@ final class TransactionViewController: UIViewController {
     @objc func more() {
         guard let url = viewModel.detailsURL else { return }
         delegate?.didPressURL(url)
+    }
+
+    @objc func editNote() {
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: R.string.localizable.transactionNotesTitle(), message: R.string.localizable.transactionNotesDetails(), preferredStyle: .alert)
+        
+        //2. Add the text field
+        alert.addTextField { [weak self] (textField) in
+            guard let `self` = self else { return }
+            if let transactionNotes = self.transactionsStore.getNotes(forPrimaryKey: self.transaction.uniqueID) {
+                textField.text = transactionNotes.notes
+            }
+        }
+        
+        // 3. Grab the value from the text field when done
+        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: { [weak self, weak alert] (_) in
+            guard let `self` = self else { return }
+            let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+            let transactionNotes = TransactionNotes()
+            transactionNotes.uniqueID = self.transaction.uniqueID
+            transactionNotes.notes = textField.text!
+            self.transactionsStore.addNotes([transactionNotes])
+
+            // refresh subview. This is assuming notesView is second to last, this assumption could change in the future
+            self.stackViewController.removeItemAtIndex( self.stackViewController.items.count - 2 )
+            self.stackViewController.insertItem(self.notesView(), atIndex: self.stackViewController.items.count - 2 )
+        }))
+        alert.addAction( UIAlertAction(title: R.string.localizable.cancel(), style: UIAlertActionStyle.cancel, handler: nil)  )
+
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
     }
 
     @objc func share(_ sender: UIBarButtonItem) {

@@ -8,6 +8,7 @@ final class TransactionViewCell: UITableViewCell {
 
     let statusImageView = UIImageView()
     let titleLabel = UILabel()
+    let notesLabel = UILabel()
     let amountLabel = UILabel()
     let subTitleLabel = UILabel()
 
@@ -22,10 +23,13 @@ final class TransactionViewCell: UITableViewCell {
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.lineBreakMode = .byTruncatingMiddle
 
+        notesLabel.translatesAutoresizingMaskIntoConstraints = false
+        notesLabel.lineBreakMode = .byTruncatingTail
+
         amountLabel.textAlignment = .right
         amountLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let titlesStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
+        let titlesStackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel, notesLabel])
         titlesStackView.translatesAutoresizingMaskIntoConstraints = false
         titlesStackView.axis = .vertical
         titlesStackView.distribution = .fillProportionally
@@ -74,6 +78,10 @@ final class TransactionViewCell: UITableViewCell {
         subTitleLabel.text = viewModel.subTitle
         subTitleLabel.textColor = viewModel.subTitleTextColor
         subTitleLabel.font = viewModel.subTitleFont
+
+        notesLabel.text = viewModel.notesText
+        notesLabel.textColor = viewModel.subTitleTextColor
+        notesLabel.font = viewModel.subTitleFont
 
         amountLabel.text = viewModel.amountText
         amountLabel.font = viewModel.amountFont

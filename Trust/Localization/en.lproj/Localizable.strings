@@ -275,3 +275,7 @@
 "BackupPhrase" = "Backup Phrase";
 "Address" = "Address";
 "CreatingWallet" = "Creating Wallet";
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";

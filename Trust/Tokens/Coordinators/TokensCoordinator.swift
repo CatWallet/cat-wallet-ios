@@ -220,7 +220,8 @@ extension TokensCoordinator: TokenViewControllerDelegate {
     func didPress(transaction: Transaction, in controller: UIViewController) {
         let controller = TransactionViewController(
             session: session,
-            transaction: transaction
+            transaction: transaction,
+            transactionsStore: transactionsStore
         )
         controller.delegate = self
         NavigationController.openFormSheet(

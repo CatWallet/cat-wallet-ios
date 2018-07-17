@@ -273,3 +273,7 @@
 "MainWallet" = "メインウォレット";
 "ImportedWallets" = "インポートウォレット";
 "BackupPhrase" = "バックアップ フレーズ";
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
