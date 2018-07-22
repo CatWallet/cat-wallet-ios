@@ -3,6 +3,7 @@
 import UIKit
 import Branch
 import RealmSwift
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -16,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
+        Parse.initialize(with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
+            configuration.server = "https://catwallet.azurewebsites.net/parse"
+            configuration.applicationId = "catwallet"
+        }))
+
+        
         let sharedMigration = SharedMigrationInitializer()
         sharedMigration.perform()
         let realm = try! Realm(configuration: sharedMigration.config)

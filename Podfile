@@ -5,6 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'Trust' do
   use_frameworks!
 
+  pod 'Parse'
   pod 'BigInt', '~> 3.0'
   pod 'R.swift'
   pod 'JSONRPCKit', :git=> 'https://github.com/bricklife/JSONRPCKit.git'
