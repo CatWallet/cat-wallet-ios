@@ -6,17 +6,15 @@ import TrustCore
 
 final class MigrationInitializer: Initializer {
 
-    let account: Wallet
-    let chainID: Int
+    let account: WalletInfo
     lazy var config: Realm.Configuration = {
-        return RealmConfiguration.configuration(for: account, chainID: chainID)
+        return RealmConfiguration.configuration(for: account)
     }()
 
     init(
-        account: Wallet, chainID: Int
+        account: WalletInfo
     ) {
         self.account = account
-        self.chainID = chainID
     }
 
     func perform() {
@@ -29,7 +27,7 @@ final class MigrationInitializer: Initializer {
                     guard let oldObject = oldObject else { return }
                     guard let newObject = newObject else { return }
                     guard let value = oldObject["contract"] as? String else { return }
-                    guard let address = Address(string: value) else { return }
+                    guard let address = EthereumAddress(string: value) else { return }
 
                     newObject["contract"] = address.description
                 }

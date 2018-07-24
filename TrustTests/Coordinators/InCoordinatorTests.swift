@@ -22,13 +22,19 @@ class InCoordinatorTests: XCTestCase {
         XCTAssertNotNil(tabbarController)
 
         XCTAssert((tabbarController?.viewControllers?[0] as? UINavigationController)?.viewControllers[0] is MasterBrowserViewController)
-        XCTAssert((tabbarController?.viewControllers?[1] as? UINavigationController)?.viewControllers[0] is TokensViewController)
+        XCTAssert((tabbarController?.viewControllers?[1] as? UINavigationController)?.viewControllers[0] is WalletViewController)
         XCTAssert((tabbarController?.viewControllers?[2] as? UINavigationController)?.viewControllers[0] is SettingsViewController)
     }
 
     func testChangeRecentlyUsedAccount() {
-        let account1: Trust.WalletInfo = WalletInfo(wallet: .make(type: .address(Address(string: "0x1000000000000000000000000000000000000000")!)))
-        let account2: Trust.WalletInfo = WalletInfo(wallet: .make(type: .address(Address(string: "0x2000000000000000000000000000000000000000")!)))
+        let account1: Trust.WalletInfo = WalletInfo(
+            type: .address(.ethereum, EthereumAddress(string: "0x1000000000000000000000000000000000000000")!),
+            info: .make()
+        )
+        let account2: Trust.WalletInfo = WalletInfo(
+            type: .address(.ethereum, EthereumAddress(string: "0x2000000000000000000000000000000000000000")!),
+            info: .make()
+        )
 
         let keystore = FakeKeystore(
             wallets: [
@@ -61,7 +67,7 @@ class InCoordinatorTests: XCTestCase {
         )
         coordinator.showTabBar(for: .make())
 
-        coordinator.showPaymentFlow(for: .send(type: .ether(destination: .none)))
+        coordinator.sendFlow(for: .make())
 
         // Needs to inject navigation controller to wallet coordinator
         // let controller = coordinator.tokensCoordinator?.navigationController.viewControllers.last
@@ -77,7 +83,7 @@ class InCoordinatorTests: XCTestCase {
         )
         coordinator.showTabBar(for: .make())
 
-        coordinator.showPaymentFlow(for: .request(token: .make()))
+        coordinator.requestFlow(for: .make())
 
         // Needs to inject navigation controller to wallet coordinator
         // let controller = coordinator.tokensCoordinator?.navigationController.viewControllers.last
@@ -97,6 +103,6 @@ class InCoordinatorTests: XCTestCase {
 
         let viewController = (coordinator.tabBarController?.selectedViewController as? UINavigationController)?.viewControllers[0]
 
-        XCTAssert(viewController is TokensViewController)
+        XCTAssert(viewController is WalletViewController)
     }
 }

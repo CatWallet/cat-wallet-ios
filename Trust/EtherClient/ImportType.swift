@@ -6,6 +6,6 @@ import TrustCore
 enum ImportType {
     case keystore(string: String, password: String)
     case privateKey(privateKey: String)
-    case mnemonic(words: [String], password: String)
-    case address(address: Address)
+    case mnemonic(words: [String], password: String, derivationPath: DerivationPath)
+    case address(address: EthereumAddress)
 }

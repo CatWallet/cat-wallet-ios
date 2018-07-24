@@ -2,54 +2,45 @@
 
 import Foundation
 import TrustCore
-
-enum RefreshType {
-    case balance
-    case ethBalance
-}
+import RealmSwift
 
 final class WalletSession {
     let account: WalletInfo
-    let balanceCoordinator: BalanceCoordinator
+    lazy var balanceCoordinator: BalanceCoordinator = {
+        return BalanceCoordinator(storage: tokensStorage)
+    }()
     let config: Config
-    let chainState: ChainState
-    var balance: Balance? {
-        return balanceCoordinator.balance
-    }
+    let realm: Realm
+    let sharedRealm: Realm
 
     var sessionID: String {
-        return "\(account.address.description.lowercased())-\(config.chainID)"
+        return "\(account.description))"
     }
 
-    var balanceViewModel: Subscribable<BalanceBaseViewModel> = Subscribable(nil)
-    var nonceProvider: NonceProvider
+    // storage
+
+    lazy var walletStorage: WalletStorage = {
+        return WalletStorage(realm: sharedRealm)
+    }()
+    lazy var tokensStorage: TokensDataStore = {
+        return TokensDataStore(realm: realm, account: account)
+    }()
+    lazy var transactionsStorage: TransactionsStorage = {
+        return TransactionsStorage(
+            realm: realm,
+            account: account
+        )
+    }()
 
     init(
         account: WalletInfo,
-        config: Config,
-        balanceCoordinator: BalanceCoordinator,
-        nonceProvider: NonceProvider
+        realm: Realm,
+        sharedRealm: Realm,
+        config: Config
     ) {
         self.account = account
+        self.realm = realm
+        self.sharedRealm = sharedRealm
         self.config = config
-        self.chainState = ChainState(config: config)
-        self.nonceProvider = nonceProvider
-        self.balanceCoordinator = balanceCoordinator
-        self.chainState.start()
-        self.balanceCoordinator.delegate = self
-    }
-
-    func refresh() {
-        balanceCoordinator.refresh()
-    }
-
-    func stop() {
-        chainState.stop()
-    }
-}
-
-extension WalletSession: BalanceCoordinatorDelegate {
-    func didUpdate(viewModel: BalanceViewModel) {
-        balanceViewModel.value = viewModel
     }
 }

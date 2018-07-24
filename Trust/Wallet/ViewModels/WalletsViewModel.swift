@@ -2,6 +2,7 @@
 
 import Foundation
 import UIKit
+import TrustCore
 
 class WalletsViewModel {
 
@@ -9,15 +10,18 @@ class WalletsViewModel {
     private let networks: [WalletInfo] = []
     private let importedWallet: [WalletInfo] = []
 
-    let sections: [[WalletInfo]]
+    var sections: [WalletAccountViewModel] = []
 
-    init(keystore: Keystore) {
+    init(
+        keystore: Keystore
+    ) {
         self.keystore = keystore
+    }
 
-        sections = [
-            keystore.wallets,
-            keystore.wallets,
-        ]
+    func refresh() {
+        self.sections = self.keystore.wallets.compactMap {
+            return WalletAccountViewModel(wallet: $0, account: $0.currentAccount, currentWallet: keystore.recentlyUsedWallet)
+        }
     }
 
     var title: String {
@@ -25,29 +29,18 @@ class WalletsViewModel {
     }
 
     var numberOfSection: Int {
-        return 2
+        return 1
     }
 
     func numberOfRows(in section: Int) -> Int {
-        return sections[section].count
+        return sections.count
     }
 
-    func titleForHeader(in section: Int) -> String? {
-        let enabled = numberOfRows(in: section) > 0
-        switch section {
-        case 0: return enabled ? R.string.localizable.mainWallet() : .none
-        case 1: return enabled ? R.string.localizable.importedWallets() : .none
-        default: return .none
-        }
+    func cellViewModel(for indexPath: IndexPath) -> WalletAccountViewModel {
+        return sections[indexPath.row]
     }
 
-    func heightForHeader(in section: Int) -> CGFloat {
-        let enabled = numberOfRows(in: section) > 0
-        return enabled ? StyleLayout.TableView.heightForHeaderInSection : 0.001
-    }
-
-    func cellViewModel(for indexPath: IndexPath) -> WalletInfoViewModel {
-        let wallet = sections[indexPath.section][indexPath.row]
-        return WalletInfoViewModel(wallet: wallet)
+    func canEditRowAt(for indexPath: IndexPath) -> Bool {
+        return cellViewModel(for: indexPath).canDelete
     }
 }

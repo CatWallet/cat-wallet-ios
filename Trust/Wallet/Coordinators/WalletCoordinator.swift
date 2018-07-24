@@ -31,24 +31,41 @@ final class WalletCoordinator: Coordinator {
         self.entryPoint = entryPoint
         switch entryPoint {
         case .welcome:
-            let controller = WelcomeViewController()
-            controller.delegate = self
-            controller.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
-            navigationController.viewControllers = [controller]
+            if let _ = keystore.mainWallet {
+                setSelectCoin()
+            } else {
+                setWelcomeView()
+            }
         case .importWallet:
-            let controller = ImportWalletViewController(keystore: keystore)
-            controller.delegate = self
-            controller.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
-            navigationController.viewControllers = [controller]
+            if let _ = keystore.mainWallet {
+                setSelectCoin()
+            } else {
+                setImportMainWallet()
+            }
         case .createInstantWallet:
             createInstantWallet()
         }
     }
 
-    func pushImportWallet() {
-        let controller = ImportWalletViewController(keystore: keystore)
+    private func pushImportWalletView(for coin: Coin) {
+        let controller = ImportWalletViewController(keystore: keystore, for: coin)
         controller.delegate = self
         navigationController.pushViewController(controller, animated: true)
+    }
+
+    private func setWelcomeView() {
+        let controller = WelcomeViewController()
+        controller.delegate = self
+        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
+        navigationController.viewControllers = [controller]
+    }
+
+    func pushImportWallet() {
+        if let _ = keystore.mainWallet {
+            pushSelectCoin()
+        } else {
+            importMainWallet()
+        }
     }
 
     func createInstantWallet() {
@@ -58,7 +75,7 @@ final class WalletCoordinator: Coordinator {
         keystore.createAccount(with: password) { result in
             switch result {
             case .success(let account):
-                self.keystore.exportMnemonic(account: account) { mnemonicResult in
+                self.keystore.exportMnemonic(wallet: account) { mnemonicResult in
                     self.navigationController.topViewController?.hideLoading(animated: false)
                     switch mnemonicResult {
                     case .success(let words):
@@ -81,7 +98,7 @@ final class WalletCoordinator: Coordinator {
         navigationController.navigationBar.shadowImage = UIImage()
     }
 
-    func pushBackup(for account: Account, words: [String]) {
+    func pushBackup(for account: Wallet, words: [String]) {
         configureWhiteNavigation()
         let controller = DarkPassphraseViewController(
             account: account,
@@ -92,6 +109,19 @@ final class WalletCoordinator: Coordinator {
         controller.navigationItem.backBarButtonItem = nil
         controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController.setNavigationBarHidden(false, animated: true)
+        navigationController.pushViewController(controller, animated: true)
+    }
+
+    private func setImportMainWallet() {
+        let controller = ImportMainWalletViewController(keystore: keystore)
+        controller.delegate = self
+        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
+        navigationController.viewControllers = [controller]
+    }
+
+    func importMainWallet() {
+        let controller = ImportMainWalletViewController(keystore: keystore)
+        controller.delegate = self
         navigationController.pushViewController(controller, animated: true)
     }
 
@@ -107,31 +137,45 @@ final class WalletCoordinator: Coordinator {
         delegate?.didFinish(with: account, in: self)
     }
 
-    func verify(account: Account, words: [String]) {
+    func verify(account: Wallet, words: [String]) {
         let controller = DarkVerifyPassphraseViewController(account: account, words: words)
         controller.delegate = self
         navigationController.setNavigationBarHidden(false, animated: true)
         navigationController.pushViewController(controller, animated: true)
     }
 
-    func walletCreated(wallet: WalletInfo) {
-        let controller = WalletCreatedController(wallet: wallet)
+    func walletCreated(wallet: WalletInfo, type: WalletDoneType) {
+        let controller = WalletCreatedController(viewModel: WalletCreatedViewModel(wallet: wallet, type: type))
         controller.delegate = self
         controller.navigationItem.backBarButtonItem = nil
         controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        navigationController.setNavigationBarHidden(false, animated: true)
+        navigationController.setNavigationBarHidden(true, animated: true)
         navigationController.pushViewController(controller, animated: true)
     }
 
-    func showConfirm(for account: Account, completedBackup: Bool) {
-        let w = Wallet(type: .hd(account))
-        let wallet = WalletInfo(wallet: w, info: WalletObject.from(w))
-        let initialName = WalletInfo.initialName(index: keystore.wallets.count - 1)
+    private func pushSelectCoin() {
+        let controller = SelectCoinViewController(coins: Config.current.servers)
+        controller.delegate = self
+        navigationController.pushViewController(controller, animated: true)
+    }
+
+    private func setSelectCoin() {
+        let controller = SelectCoinViewController(coins: Config.current.servers)
+        controller.delegate = self
+        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
+        navigationController.viewControllers = [controller]
+    }
+
+    func showConfirm(for account: Wallet, completedBackup: Bool) {
+        let type = WalletType.hd(account)
+        let wallet = WalletInfo(type: type, info: WalletObject.from(type))
+        let initialName = R.string.localizable.mainWallet()
         keystore.store(object: wallet.info, fields: [
             .name(initialName),
             .backup(completedBackup),
+            .mainWallet(true),
         ])
-        walletCreated(wallet: wallet)
+        walletCreated(wallet: wallet, type: .created)
     }
 
     func done(for wallet: WalletInfo) {
@@ -152,23 +196,23 @@ extension WalletCoordinator: WelcomeViewControllerDelegate {
 extension WalletCoordinator: ImportWalletViewControllerDelegate {
     func didImportAccount(account: WalletInfo, fields: [WalletInfoField], in viewController: ImportWalletViewController) {
         keystore.store(object: account.info, fields: fields)
-        didCreateAccount(account: account)
+        walletCreated(wallet: account, type: .imported)
     }
 }
 
 extension WalletCoordinator: PassphraseViewControllerDelegate {
-    func didPressVerify(in controller: PassphraseViewController, with account: Account, words: [String]) {
+    func didPressVerify(in controller: PassphraseViewController, with account: Wallet, words: [String]) {
         // show verify
         verify(account: account, words: words)
     }
 }
 
 extension WalletCoordinator: VerifyPassphraseViewControllerDelegate {
-    func didFinish(in controller: VerifyPassphraseViewController, with account: Account) {
+    func didFinish(in controller: VerifyPassphraseViewController, with account: Wallet) {
         showConfirm(for: account, completedBackup: true)
     }
 
-    func didSkip(in controller: VerifyPassphraseViewController, with account: Account) {
+    func didSkip(in controller: VerifyPassphraseViewController, with account: Wallet) {
         controller.confirm(
             title: NSLocalizedString("verifyPassphrase.skip.confirm.title", value: "Are you sure you want to skip this step?", comment: ""),
             message: NSLocalizedString("verifyPassphrase.skip.confirm.message", value: "Loss of backup phrase can put your wallet at risk!", comment: ""),
@@ -187,5 +231,22 @@ extension WalletCoordinator: VerifyPassphraseViewControllerDelegate {
 extension WalletCoordinator: WalletCreatedControllerDelegate {
     func didPressDone(wallet: WalletInfo, in controller: WalletCreatedController) {
         done(for: wallet)
+    }
+}
+extension WalletCoordinator: ImportMainWalletViewControllerDelegate {
+    func didImportWallet(wallet: WalletInfo, in controller: ImportMainWalletViewController) {
+        let fields: [WalletInfoField] = [
+            .name(R.string.localizable.mainWallet()),
+            .backup(true),
+            .mainWallet(true),
+        ]
+        keystore.store(object: wallet.info, fields: fields)
+        walletCreated(wallet: wallet, type: .imported)
+    }
+}
+
+extension WalletCoordinator: SelectCoinViewControllerDelegate {
+    func didSelect(coin: Coin, in controller: SelectCoinViewController) {
+        pushImportWalletView(for: coin)
     }
 }

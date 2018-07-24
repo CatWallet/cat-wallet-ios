@@ -12,6 +12,7 @@ protocol WalletInfoViewControllerDelegate: class {
 enum WalletInfoField {
     case name(String)
     case backup(Bool)
+    case mainWallet(Bool)
 }
 
 final class WalletInfoViewController: FormViewController {
@@ -51,7 +52,7 @@ final class WalletInfoViewController: FormViewController {
 
         <<< AppFormAppearance.textFieldFloat(tag: Values.name) {
             $0.add(rule: RuleRequired())
-            $0.value = self.wallet.info.name
+            $0.value = self.viewModel.name
         }.cellUpdate { [weak self] cell, _ in
             cell.textField.placeholder = self?.viewModel.nameTitle
             cell.textField.rightViewMode = .always

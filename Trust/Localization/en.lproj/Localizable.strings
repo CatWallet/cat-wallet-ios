@@ -24,7 +24,7 @@
 "emptyView.noTokens.label.title" = "You haven't received any tokens yet!";
 "errorView.description.label.title" = "Something went wrong... Try again.";
 "export.backup.button.title" = "Backup Wallet";
-"export.controlYourMoney.label.title" = "Since only you control your money, you must backup your wallet in case this app is deleted, or your device is lost.";
+"export.controlYourMoney.label.title" = "Since only you control your money, you'll need to save your backup keystore in case this app is deleted.";
 "export.enterCurrentPassword.textField.title" = "Enter current password to export your wallet";
 "export.enterPassword.textField.title" = "Enter password to encrypt your wallet";
 "export.neverStored.label.title" = "Your wallet is never saved to cloud storage or standard device backups.";
@@ -145,10 +145,8 @@
 "lock.enter.passcode.view.model.try.after.one.minute" = "Try after 1 minute.";
 "Name" = "Name";
 "send.action.copy.transaction.title" = "Copy Transaction ID";
-"settings.dappbroser.button.title" = "DApps Browser";
 "settings.emailUsReadFAQ.button.title" = "Email Us (Read FAQ first)";
 "settings.faq.button.title" = "FAQ";
-"settings.wallets.balance" = "Balance: %@ ETH";
 "transaction.cell.failed.title" = "Failed";
 "transaction.cell.pending.title" = "Pending";
 "transactions.receive.button.title" = "Receive";
@@ -279,3 +277,12 @@
 "transaction.EditNotes" = "Edit Notes";
 "transaction.NotesTitle" = "Input Notes";
 "transaction.NotesDetails" = "What this transaction is for?";
+"WalletImported" = "Wallet Imported";
+"SelectCoin" = "Select Coin";
+"ImportMainWallet" = "Import Main Wallet";
+"Developer" = "Developer";
+"NodeSettings" = "Node Settings";
+"TestNetworks" = "Test Networks";
+"EnableTestNetworks" = "Enable Test Networks";
+"Network" = "Network";
+"MultiCoinWallet" = "Multi-Coin Wallet";

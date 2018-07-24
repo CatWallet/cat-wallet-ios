@@ -24,14 +24,12 @@ target 'Trust' do
   pod 'Fabric'
   pod 'Crashlytics', '~> 3.10'
   pod 'Kingfisher', '~> 4.0'
-  pod 'TrustCore', '~> 0.0.7'
+  pod 'TrustCore', :git=>'https://github.com/TrustWallet/trust-core', :branch=>'master'
   pod 'TrustKeystore', :git=>'https://github.com/TrustWallet/trust-keystore', :branch=>'master'
   pod 'Branch'
   pod 'SAMKeychain'
   pod 'TrustWeb3Provider', :git=>'https://github.com/TrustWallet/trust-web3-provider', :commit=>'f4e0ebb1b8fa4812637babe85ef975d116543dfd'
-  pod 'JdenticonSwift'
   pod 'URLNavigator'
-  pod 'RandomColorSwift'
   pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :branch=>'master'
 
   target 'TrustTests' do

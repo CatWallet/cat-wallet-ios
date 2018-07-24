@@ -1,6 +1,7 @@
 // Copyright DApps Platform Inc. All rights reserved.
 
 import Foundation
+import TrustKeystore
 
 struct FormSection {
     let footer: String?
@@ -28,47 +29,64 @@ struct WalletInfoViewModel {
         return R.string.localizable.manage()
     }
 
+    var name: String {
+        if wallet.info.name.isEmpty {
+            return WalletInfo.emptyName
+        }
+        return wallet.info.name
+    }
+
     var nameTitle: String {
         return R.string.localizable.name()
     }
 
     var sections: [FormSection] {
-        switch wallet.wallet.type {
-        case .privateKey(let account):
+        switch wallet.type {
+        case .privateKey:
             return [
                 FormSection(
                     rows: [
-                        .exportKeystore(account),
-                        .exportPrivateKey(account),
+                        .exportKeystore(wallet.currentAccount),
+                        .exportPrivateKey(wallet.currentAccount),
                     ]
                 ),
                 FormSection(
-                    footer: wallet.address.description,
+                    footer: wallet.currentAccount.address.description,
                     rows: [
-                        .copyAddress(account.address),
+                        .copyAddress(wallet.address),
                     ]
                 ),
             ]
         case .hd(let account):
+            if wallet.multiWallet {
+                return [
+                    FormSection(
+                        footer: R.string.localizable.multiCoinWallet(),
+                        rows: [
+                            .exportRecoveryPhrase(account),
+                        ]
+                    ),
+                ]
+            }
             return [
                 FormSection(
                     rows: [
                         .exportRecoveryPhrase(account),
-                        //.exportKeystore(account),
-                        .exportPrivateKey(account),
+                        .exportKeystore(wallet.currentAccount),
+                        .exportPrivateKey(wallet.currentAccount),
                     ]
                 ),
                 FormSection(
-                    footer: wallet.address.description,
+                    footer: wallet.currentAccount.address.description,
                     rows: [
-                        .copyAddress(account.address),
+                        .copyAddress(wallet.address),
                     ]
                 ),
             ]
-        case .address(let address):
+        case .address(_, let address):
             return [
                 FormSection(
-                    footer: wallet.address.description,
+                    footer: wallet.currentAccount.address.description,
                     rows: [
                         .copyAddress(address),
                     ]

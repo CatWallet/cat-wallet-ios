@@ -12,12 +12,14 @@ protocol TransactionViewControllerDelegate: class {
 final class TransactionViewController: UIViewController {
 
     private lazy var viewModel: TransactionDetailsViewModel = {
-        return .init(
+        return TransactionDetailsViewModel(
             transaction: self.transaction,
             config: self.config,
-            chainState: self.session.chainState,
-            currentWallet: self.session.account.wallet,
-            currencyRate: self.session.balanceCoordinator.currencyRate
+            chainState: ChainState(server: tokenViewModel.server),
+            currentAccount: tokenViewModel.currentAccount,
+            currencyRate: session.balanceCoordinator.currencyRate,
+            server: tokenViewModel.server,
+            token: tokenViewModel.token
         )
     }()
     let stackViewController = StackViewController()
@@ -26,16 +28,19 @@ final class TransactionViewController: UIViewController {
     let transaction: Transaction
     let transactionsStore: TransactionsStorage
     let config = Config()
+    let tokenViewModel: TokenViewModel
     weak var delegate: TransactionViewControllerDelegate?
 
     init(
         session: WalletSession,
         transaction: Transaction,
-        transactionsStore: TransactionsStorage
+        transactionsStore: TransactionsStorage,
+        tokenViewModel: TokenViewModel
     ) {
         self.session = session
         self.transaction = transaction
         self.transactionsStore = transactionsStore
+        self.tokenViewModel = tokenViewModel
 
         stackViewController.scrollView.alwaysBounceVertical = true
         stackViewController.stackView.spacing = TransactionAppearance.spacing

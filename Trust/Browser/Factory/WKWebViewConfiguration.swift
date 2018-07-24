@@ -3,11 +3,10 @@
 import Foundation
 import WebKit
 import JavaScriptCore
-
+import TrustCore
 extension WKWebViewConfiguration {
 
-    static func make(for account: Wallet, with sessionConfig: Config, in messageHandler: WKScriptMessageHandler) -> WKWebViewConfiguration {
-        let address = account.address.description.lowercased()
+    static func make(for server: RPCServer, address: Address, with sessionConfig: Config, in messageHandler: WKScriptMessageHandler) -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
         var js = ""
 
@@ -23,9 +22,9 @@ extension WKWebViewConfiguration {
 
         js +=
         """
-        const addressHex = "\(address)"
-        const rpcURL = "\(sessionConfig.server.rpcURL.absoluteString)"
-        const chainID = "\(sessionConfig.chainID)"
+        const addressHex = "\(address.description.lowercased())"
+        const rpcURL = "\(server.rpcURL.absoluteString)"
+        const chainID = "\(server.chainID)"
 
         function executeCallback (id, error, value) {
             Trust.executeCallback(id, error, value)

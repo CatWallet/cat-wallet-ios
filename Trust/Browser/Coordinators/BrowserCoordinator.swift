@@ -43,7 +43,7 @@ final class BrowserCoordinator: NSObject, Coordinator {
     }()
 
     lazy var browserViewController: BrowserViewController = {
-        let controller = BrowserViewController(account: session.account.wallet, config: session.config)
+        let controller = BrowserViewController(account: session.account, config: session.config, server: server)
         controller.delegate = self
         controller.webView.uiDelegate = self
         return controller
@@ -61,6 +61,13 @@ final class BrowserCoordinator: NSObject, Coordinator {
     var urlParser: BrowserURLParser {
         let engine = SearchEngine(rawValue: preferences.get(for: .browserSearchEngine)) ?? .default
         return BrowserURLParser(engine: engine)
+    }
+
+    var server: RPCServer {
+        if session.account.multiWallet {
+            return .main
+        }
+        return session.account.coin!.server
     }
 
     weak var delegate: BrowserCoordinatorDelegate?
@@ -92,18 +99,21 @@ final class BrowserCoordinator: NSObject, Coordinator {
         navigationController.dismiss(animated: true, completion: nil)
     }
 
-    private func executeTransaction(account: Account, action: DappAction, callbackID: Int, transaction: UnconfirmedTransaction, type: ConfirmType) {
+    private func executeTransaction(account: Account, action: DappAction, callbackID: Int, transaction: UnconfirmedTransaction, type: ConfirmType, server: RPCServer) {
         let configurator = TransactionConfigurator(
             session: session,
             account: account,
-            transaction: transaction
+            transaction: transaction,
+            server: server,
+            chainState: ChainState(server: server)
         )
         let coordinator = ConfirmCoordinator(
             session: session,
             configurator: configurator,
             keystore: keystore,
             account: account,
-            type: type
+            type: type,
+            server: server
         )
         addCoordinator(coordinator)
         coordinator.didCompleted = { [unowned self] result in
@@ -271,25 +281,24 @@ extension BrowserCoordinator: BrowserViewControllerDelegate {
     }
 
     func didCall(action: DappAction, callbackID: Int) {
-        switch session.account.wallet.type {
-        case .privateKey(let account), .hd(let account) :
-            switch action {
-            case .signTransaction(let unconfirmedTransaction):
-                executeTransaction(account: account, action: action, callbackID: callbackID, transaction: unconfirmedTransaction, type: .signThenSend)
-            case .sendTransaction(let unconfirmedTransaction):
-                executeTransaction(account: account, action: action, callbackID: callbackID, transaction: unconfirmedTransaction, type: .signThenSend)
-            case .signMessage(let hexMessage):
-                signMessage(with: .message(Data(hex: hexMessage)), account: account, callbackID: callbackID)
-            case .signPersonalMessage(let hexMessage):
-                signMessage(with: .personalMessage(Data(hex: hexMessage)), account: account, callbackID: callbackID)
-            case .signTypedMessage(let typedData):
-                signMessage(with: .typedMessage(typedData), account: account, callbackID: callbackID)
-            case .unknown:
-                break
-            }
-        case .address:
+        guard let account = session.account.currentAccount else {
             self.rootViewController.browserViewController.notifyFinish(callbackID: callbackID, value: .failure(DAppError.cancelled))
             self.navigationController.topViewController?.displayError(error: InCoordinatorError.onlyWatchAccount)
+            return
+        }
+        switch action {
+        case .signTransaction(let unconfirmedTransaction):
+            executeTransaction(account: account, action: action, callbackID: callbackID, transaction: unconfirmedTransaction, type: .signThenSend, server: browserViewController.server)
+        case .sendTransaction(let unconfirmedTransaction):
+            executeTransaction(account: account, action: action, callbackID: callbackID, transaction: unconfirmedTransaction, type: .signThenSend, server: browserViewController.server)
+        case .signMessage(let hexMessage):
+            signMessage(with: .message(Data(hex: hexMessage)), account: account, callbackID: callbackID)
+        case .signPersonalMessage(let hexMessage):
+            signMessage(with: .personalMessage(Data(hex: hexMessage)), account: account, callbackID: callbackID)
+        case .signTypedMessage(let typedData):
+            signMessage(with: .typedMessage(typedData), account: account, callbackID: callbackID)
+        case .unknown:
+            break
         }
     }
 

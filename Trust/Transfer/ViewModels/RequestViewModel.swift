@@ -6,39 +6,33 @@ import UIKit
 
 struct RequestViewModel {
 
-    let account: Wallet
-    let config: Config
-    let token: TokenObject
+    let coinTypeViewModel: CoinTypeViewModel
 
     init(
-        account: Wallet,
-        config: Config,
-        token: TokenObject
+        coinTypeViewModel: CoinTypeViewModel
     ) {
-        self.account = account
-        self.config = config
-        self.token = token
+        self.coinTypeViewModel = coinTypeViewModel
     }
 
     var title: String {
-        return token.displayName
+        return coinTypeViewModel.name
     }
 
     var myAddressText: String {
-        return account.address.description
+        return coinTypeViewModel.address.description
     }
 
     var shareMyAddressText: String {
         return String(
             format: NSLocalizedString("request.myAddressIs.label.title", value: "My %@ address is: %@", comment: ""),
-            config.server.name, myAddressText
+            coinTypeViewModel.name, myAddressText
         )
     }
 
     var headlineText: String {
         return String(
             format: NSLocalizedString("request.myPublicaddress.label.title", value: "My Public %@ wallet address", comment: ""),
-            config.server.name
+            coinTypeViewModel.name
         )
     }
 

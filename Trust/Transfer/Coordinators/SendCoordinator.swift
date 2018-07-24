@@ -12,12 +12,11 @@ protocol SendCoordinatorDelegate: class {
 }
 
 final class SendCoordinator: RootCoordinator {
-    let transferType: TransferType
+    let transfer: Transfer
     let session: WalletSession
     let account: Account
     let navigationController: NavigationController
     let keystore: Keystore
-    let storage: TokensDataStore
     var coordinators: [Coordinator] = []
     weak var delegate: SendCoordinatorDelegate?
     var rootViewController: UIViewController {
@@ -27,47 +26,53 @@ final class SendCoordinator: RootCoordinator {
     private lazy var controller: SendViewController = {
         let controller = SendViewController(
             session: session,
-            storage: storage,
+            storage: session.tokensStorage,
             account: account,
-            transferType: transferType
+            transfer: transfer,
+            chainState: chainState
         )
         controller.navigationItem.backBarButtonItem = nil
-        controller.navigationItem.titleView = BalanceTitleView.make(from: self.session, transferType)
         controller.hidesBottomBarWhenPushed = true
-        switch transferType {
-        case .ether(let destination):
+        switch transfer.type {
+        case .ether(_, let destination):
             controller.addressRow?.value = destination?.description
             controller.addressRow?.cell.row.updateCell()
-        case .token, .dapp, .nft: break
+        case .token, .dapp: break
         }
         controller.delegate = self
         return controller
     }()
 
+    lazy var chainState: ChainState = {
+        let state = ChainState(server: transfer.server)
+        state.fetch()
+        return state
+    }()
+
     init(
-        transferType: TransferType,
+        transfer: Transfer,
         navigationController: NavigationController = NavigationController(),
         session: WalletSession,
         keystore: Keystore,
-        storage: TokensDataStore,
         account: Account
     ) {
-        self.transferType = transferType
+        self.transfer = transfer
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .formSheet
         self.session = session
         self.account = account
         self.keystore = keystore
-        self.storage = storage
     }
 }
 
 extension SendCoordinator: SendViewControllerDelegate {
-    func didPressConfirm(transaction: UnconfirmedTransaction, transferType: TransferType, in viewController: SendViewController) {
+    func didPressConfirm(transaction: UnconfirmedTransaction, transfer: Transfer, in viewController: SendViewController) {
         let configurator = TransactionConfigurator(
             session: session,
             account: account,
-            transaction: transaction
+            transaction: transaction,
+            server: transfer.server,
+            chainState: ChainState(server: transfer.server)
         )
 
         let coordinator = ConfirmCoordinator(
@@ -76,7 +81,8 @@ extension SendCoordinator: SendViewControllerDelegate {
             configurator: configurator,
             keystore: keystore,
             account: account,
-            type: .signThenSend
+            type: .signThenSend,
+            server: transfer.server
         )
         coordinator.didCompleted = { [weak self] result in
             guard let `self` = self else { return }

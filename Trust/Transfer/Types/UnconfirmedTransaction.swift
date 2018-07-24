@@ -5,9 +5,9 @@ import BigInt
 import TrustCore
 
 struct UnconfirmedTransaction {
-    let transferType: TransferType
+    let transfer: Transfer
     let value: BigInt
-    let to: Address?
+    let to: EthereumAddress?
     let data: Data?
 
     let gasLimit: BigInt?

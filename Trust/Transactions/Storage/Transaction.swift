@@ -17,6 +17,13 @@ final class Transaction: Object, Decodable {
     @objc dynamic var nonce: Int = 0
     @objc dynamic var date = Date()
     @objc dynamic var internalState: Int = TransactionState.completed.rawValue
+
+    @objc private dynamic var rawCoin = -1
+    public var coin: Coin {
+        get { return Coin(rawValue: rawCoin)! }
+        set { rawCoin = newValue.rawValue }
+    }
+
     var localizedOperations = List<LocalizedOperationObject>()
 
     convenience init(
@@ -30,10 +37,10 @@ final class Transaction: Object, Decodable {
         gasUsed: String,
         nonce: Int,
         date: Date,
+        coin: Coin,
         localizedOperations: [LocalizedOperationObject],
         state: TransactionState
     ) {
-
         self.init()
         self.id = id
         self.uniqueID = from + "-" + String(nonce)
@@ -46,6 +53,7 @@ final class Transaction: Object, Decodable {
         self.gasUsed = gasUsed
         self.nonce = nonce
         self.date = date
+        self.coin = coin
         self.internalState = state.rawValue
 
         let list = List<LocalizedOperationObject>()
@@ -87,7 +95,7 @@ final class Transaction: Object, Decodable {
         let operations = try container.decode([LocalizedOperationObject].self, forKey: .operations)
 
         guard
-            let fromAddress = Address(string: from) else {
+            let fromAddress = EthereumAddress(string: from) else {
                 let context = DecodingError.Context(codingPath: [TransactionCodingKeys.from],
                                                     debugDescription: "Address can't be decoded as a TrustKeystore.Address")
                 throw DecodingError.dataCorrupted(context)
@@ -100,18 +108,21 @@ final class Transaction: Object, Decodable {
             return .completed
         }()
 
-        self.init(id: id,
-                  blockNumber: blockNumber,
-                  from: fromAddress.description,
-                  to: to,
-                  value: value,
-                  gas: gas,
-                  gasPrice: gasPrice,
-                  gasUsed: gasUsed,
-                  nonce: rawNonce,
-                  date: Date(timeIntervalSince1970: TimeInterval(timeStamp) ?? 0),
-                  localizedOperations: operations,
-                  state: state)
+        self.init(
+            id: id,
+            blockNumber: blockNumber,
+            from: fromAddress.description,
+            to: to,
+            value: value,
+            gas: gas,
+            gasPrice: gasPrice,
+            gasUsed: gasUsed,
+            nonce: rawNonce,
+            date: Date(timeIntervalSince1970: TimeInterval(timeStamp) ?? 0),
+            coin: .ethereum,
+            localizedOperations: operations,
+            state: state
+        )
     }
 
     override static func primaryKey() -> String? {
@@ -122,20 +133,20 @@ final class Transaction: Object, Decodable {
         return TransactionState(int: self.internalState)
     }
 
-    var toAddress: Address? {
-        return Address(string: to)
+    var toAddress: EthereumAddress? {
+        return EthereumAddress(string: to)
     }
 
-    var fromAddress: Address? {
-        return Address(string: from)
+    var fromAddress: EthereumAddress? {
+        return EthereumAddress(string: from)
     }
 
-    var contractAddress: Address {
+    var contractAddress: EthereumAddress? {
         guard
             let operation = operation,
             let contract = operation.contract,
-            let contractAddress = Address(string: contract) else {
-            return TokensDataStore.etherToken().address
+            let contractAddress = EthereumAddress(string: contract) else {
+                return .none
         }
         return contractAddress
     }

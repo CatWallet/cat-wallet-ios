@@ -10,7 +10,6 @@ protocol WalletCreatedControllerDelegate: class {
 final class WalletCreatedController: UIViewController {
 
     weak var delegate: WalletCreatedControllerDelegate?
-    let wallet: WalletInfo
 
     lazy var doneButton: UIButton = {
         let button = Button(size: .large, style: .solid)
@@ -37,8 +36,12 @@ final class WalletCreatedController: UIViewController {
         return imageView
     }()
 
-    init(wallet: WalletInfo) {
-        self.wallet = wallet
+    let viewModel: WalletCreatedViewModel
+
+    init(
+        viewModel: WalletCreatedViewModel
+    ) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -50,16 +53,16 @@ final class WalletCreatedController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [
             imageView,
             .spacer(),
-            .label(style: .heading, text: R.string.localizable.walletCreated()),
+            .label(style: .heading, text: viewModel.type.title),
             .spacer(),
             TransactionAppearance.item(
                 title: R.string.localizable.name(),
-                subTitle: wallet.info.name
+                subTitle: viewModel.title
             ),
             .spacer(),
             TransactionAppearance.item(
                 title: R.string.localizable.myWalletAddress(),
-                subTitle: wallet.address.description
+                subTitle: viewModel.subtitle
             ),
         ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +88,7 @@ final class WalletCreatedController: UIViewController {
     }
 
     @objc func doneAction() {
-        delegate?.didPressDone(wallet: wallet, in: self)
+        delegate?.didPressDone(wallet: viewModel.wallet, in: self)
     }
 
     required init?(coder aDecoder: NSCoder) {

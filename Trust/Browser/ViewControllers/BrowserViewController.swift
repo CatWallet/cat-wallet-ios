@@ -24,7 +24,7 @@ protocol BrowserViewControllerDelegate: class {
 final class BrowserViewController: UIViewController {
 
     private var myContext = 0
-    let account: Wallet
+    let account: WalletInfo
     let sessionConfig: Config
 
     private struct Keys {
@@ -75,17 +75,22 @@ final class BrowserViewController: UIViewController {
 
     //Take a look at this issue : https://stackoverflow.com/questions/26383031/wkwebview-causes-my-view-controller-to-leak
     lazy var config: WKWebViewConfiguration = {
-        let config = WKWebViewConfiguration.make(for: account, with: sessionConfig, in: ScriptMessageProxy(delegate: self))
+        //TODO
+        let config = WKWebViewConfiguration.make(for: server, address: account.address, with: sessionConfig, in: ScriptMessageProxy(delegate: self))
         config.websiteDataStore = WKWebsiteDataStore.default()
         return config
     }()
 
+    let server: RPCServer
+
     init(
-        account: Wallet,
-        config: Config
+        account: WalletInfo,
+        config: Config,
+        server: RPCServer
     ) {
         self.account = account
         self.sessionConfig = config
+        self.server = server
 
         super.init(nibName: nil, bundle: nil)
 
@@ -284,7 +289,10 @@ extension BrowserViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let command = DappAction.fromMessage(message) else { return }
         let requester = DAppRequester(title: webView.title, url: webView.url)
-        let action = DappAction.fromCommand(command, requester: requester)
+        //TODO: Refactor
+        let token = TokensDataStore.token(for: server)
+        let transfer = Transfer(server: server, type: .dapp(token, requester))
+        let action = DappAction.fromCommand(command, transfer: transfer)
 
         delegate?.didCall(action: action, callbackID: command.id)
     }

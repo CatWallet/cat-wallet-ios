@@ -5,9 +5,12 @@ import JSONRPCKit
 import APIKit
 import BigInt
 import Result
+import TrustCore
 
 final class GetNonceProvider: NonceProvider {
     let storage: TransactionsStorage
+    let server: RPCServer
+    let address: Address
     var remoteNonce: BigInt? = .none
     var latestNonce: BigInt? {
         guard let nonce = storage.latestTransaction?.nonce else {
@@ -29,9 +32,13 @@ final class GetNonceProvider: NonceProvider {
     }
 
     init(
-        storage: TransactionsStorage
+        storage: TransactionsStorage,
+        server: RPCServer,
+        address: Address
     ) {
         self.storage = storage
+        self.server = server
+        self.address = address
 
         fetchLatestNonce()
     }
@@ -59,8 +66,8 @@ final class GetNonceProvider: NonceProvider {
     }
 
     func fetch(completion: @escaping (Result<BigInt, AnyError>) -> Void) {
-        let request = EtherServiceRequest(batch: BatchFactory().create(GetTransactionCountRequest(
-            address: storage.account.address.description,
+        let request = EtherServiceRequest(for: server, batch: BatchFactory().create(GetTransactionCountRequest(
+            address: address.description,
             state: "latest"
         )))
         Session.send(request) { [weak self] result in

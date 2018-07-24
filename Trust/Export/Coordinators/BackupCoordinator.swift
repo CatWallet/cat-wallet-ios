@@ -37,7 +37,7 @@ final class BackupCoordinator: Coordinator {
     func finish(result: Result<Bool, AnyError>) {
         switch result {
         case .success:
-            delegate?.didFinish(wallet: Wallet(type: .privateKey(account)), in: self)
+            delegate?.didFinish(wallet: account.wallet!, in: self)
         case .failure:
             delegate?.didCancel(coordinator: self)
         }
@@ -109,7 +109,7 @@ extension BackupCoordinator: EnterPasswordCoordinatorDelegate {
 
     func didEnterPassword(password: String, account: Account, in coordinator: EnterPasswordCoordinator) {
         coordinator.navigationController.dismiss(animated: true) { [unowned self] in
-            if let currentPassword = self.keystore.getPassword(for: account) {
+            if let currentPassword = self.keystore.getPassword(for: account.wallet!) {
                 self.presentShareActivity(for: account, password: currentPassword, newPassword: password)
             } else {
                 self.presentShareActivity(for: account, password: password, newPassword: password)

@@ -12,7 +12,10 @@ protocol ImportWalletViewControllerDelegate: class {
 final class ImportWalletViewController: FormViewController {
 
     let keystore: Keystore
-    private let viewModel = ImportWalletViewModel()
+    let coin: Coin
+    private lazy var viewModel: ImportWalletViewModel = {
+        return ImportWalletViewModel(coin: coin)
+    }()
 
     struct Values {
         static let segment = "segment"
@@ -21,7 +24,7 @@ final class ImportWalletViewController: FormViewController {
         static let password = "password"
         static let name = "name"
         static let watch = "watch"
-        static let mnemonic = "mnemonic"
+        static let phrase = "phrase"
     }
 
     var segmentRow: SegmentedRow<String>? {
@@ -30,8 +33,8 @@ final class ImportWalletViewController: FormViewController {
     var keystoreRow: TextAreaRow? {
         return form.rowBy(tag: Values.keystore)
     }
-    var mnemonicRow: TextAreaRow? {
-        return form.rowBy(tag: Values.mnemonic)
+    var phraseRow: TextAreaRow? {
+        return form.rowBy(tag: Values.phrase)
     }
     var privateKeyRow: TextAreaRow? {
         return form.rowBy(tag: Values.privateKey)
@@ -49,9 +52,11 @@ final class ImportWalletViewController: FormViewController {
     weak var delegate: ImportWalletViewControllerDelegate?
 
     init(
-        keystore: Keystore
+        keystore: Keystore,
+        for coin: Coin
     ) {
         self.keystore = keystore
+        self.coin = coin
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -60,7 +65,6 @@ final class ImportWalletViewController: FormViewController {
 
         title = viewModel.title
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: R.image.import_options(), style: .done, target: self, action: #selector(importOptions)),
             UIBarButtonItem(image: R.image.qr_code_icon(), style: .done, target: self, action: #selector(openReader)),
         ]
 
@@ -86,7 +90,7 @@ final class ImportWalletViewController: FormViewController {
                     ImportSelectionType.privateKey.title,
                     ImportSelectionType.address.title,
                 ]
-                $0.value = ImportSelectionType.keystore.title
+                $0.value = ImportSelectionType.mnemonic.title
             }
 
             // Keystore JSON
@@ -127,7 +131,7 @@ final class ImportWalletViewController: FormViewController {
                     return self?.segmentRow?.value != ImportSelectionType.mnemonic.title
                 })
             }
-            <<< AppFormAppearance.textArea(tag: Values.mnemonic) { [weak self] in
+            <<< AppFormAppearance.textArea(tag: Values.phrase) { [weak self] in
                 $0.placeholder = self?.viewModel.mnemonicPlaceholder
                 $0.textAreaHeight = .fixed(cellHeight: 140)
                 $0.add(rule: RuleRequired())
@@ -166,9 +170,8 @@ final class ImportWalletViewController: FormViewController {
             }
     }
 
-    func didImport(account: Wallet, name: String) {
-        let walletInfo = WalletInfo(wallet: account)
-        delegate?.didImportAccount(account: walletInfo, fields: [.name(name)], in: self)
+    func didImport(account: WalletInfo, name: String) {
+        delegate?.didImportAccount(account: account, fields: [.name(name)], in: self)
     }
 
     func importWallet() {
@@ -179,9 +182,9 @@ final class ImportWalletViewController: FormViewController {
         let privateKeyInput = privateKeyRow?.value?.trimmed ?? ""
         let password = passwordRow?.value ?? ""
         let addressInput = addressRow?.value?.trimmed ?? ""
-        let mnemonicInput = mnemonicRow?.value?.trimmed ?? ""
+        let phraseInput = phraseRow?.value?.trimmed ?? ""
         let name = nameRow?.value?.trimmed ?? ""
-        let words = mnemonicInput.components(separatedBy: " ").map { $0.trimmed.lowercased() }
+        let words = phraseInput.components(separatedBy: " ").map { $0.trimmed.lowercased() }
 
         displayLoading(text: NSLocalizedString("importWallet.importingIndicator.label.title", value: "Importing wallet...", comment: ""), animated: false)
 
@@ -193,14 +196,14 @@ final class ImportWalletViewController: FormViewController {
             case .privateKey:
                 return .privateKey(privateKey: privateKeyInput)
             case .mnemonic:
-                return .mnemonic(words: words, password: password)
+                return .mnemonic(words: words, password: password, derivationPath: coin.derivationPath(at: 0))
             case .address:
-                let address = Address(string: addressInput)! // Address validated by form view.
+                let address = EthereumAddress(string: addressInput)! // EthereumAddress validated by form view.
                 return .address(address: address)
             }
         }()
 
-        keystore.importWallet(type: importType) { result in
+        keystore.importWallet(type: importType, coin: coin) { result in
             self.hideLoading(animated: false)
             switch result {
             case .success(let account):
@@ -213,34 +216,9 @@ final class ImportWalletViewController: FormViewController {
 
     @objc func demo() {
         //Used for taking screenshots to the App Store by snapshot
-        let demoWallet = Wallet(type: .address(Address(string: "0xD663bE6b87A992C5245F054D32C7f5e99f5aCc47")!))
-        let walletInfo = WalletInfo(wallet: demoWallet, info: WalletObject.from(demoWallet))
+        let demoWallet = WalletType.address(Coin.ethereum, EthereumAddress(string: "0xD663bE6b87A992C5245F054D32C7f5e99f5aCc47")!)
+        let walletInfo = WalletInfo(type: demoWallet, info: WalletObject.from(demoWallet))
         delegate?.didImportAccount(account: walletInfo, fields: [], in: self)
-    }
-
-    @objc func importOptions(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(
-            title: NSLocalizedString("importWallet.import.alertSheet.title", value: "Import Wallet Options", comment: ""),
-            message: .none,
-            preferredStyle: .actionSheet
-        )
-        alertController.popoverPresentationController?.barButtonItem = sender
-        alertController.addAction(UIAlertAction(
-            title: NSLocalizedString("importWallet.import.alertSheet.option.title", value: "iCloud/Dropbox/Google Drive", comment: ""),
-            style: .default
-        ) { _ in
-            self.showDocumentPicker()
-        })
-        alertController.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel) { _ in })
-        present(alertController, animated: true)
-    }
-
-    func showDocumentPicker() {
-        let types = ["public.text", "public.content", "public.item", "public.data"]
-        let controller = TrustDocumentPickerViewController(documentTypes: types, in: .import)
-        controller.delegate = self
-        controller.modalPresentationStyle = .formSheet
-        present(controller, animated: true, completion: nil)
     }
 
     @objc func openReader() {
@@ -263,8 +241,8 @@ final class ImportWalletViewController: FormViewController {
             addressRow?.value = result.address
             addressRow?.reload()
         case .mnemonic:
-            mnemonicRow?.value = string
-            mnemonicRow?.reload()
+            phraseRow?.value = string
+            phraseRow?.reload()
         }
     }
 
@@ -303,7 +281,7 @@ extension ImportWalletViewController: QRCodeReaderDelegate {
 
 extension WalletInfo {
     static var emptyName: String {
-        return "ETH " + R.string.localizable.wallet()
+        return "Unnamed " + R.string.localizable.wallet()
     }
 
     static func initialName(index numberOfWallets: Int) -> String {

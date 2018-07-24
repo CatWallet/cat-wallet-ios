@@ -18,6 +18,7 @@ final class ConfirmCoordinator: RootCoordinator {
     let configurator: TransactionConfigurator
     var didCompleted: ((Result<ConfirmResult, AnyError>) -> Void)?
     let type: ConfirmType
+    let server: RPCServer
 
     var coordinators: [Coordinator] = []
     weak var delegate: ConfirmCoordinatorDelegate?
@@ -31,7 +32,8 @@ final class ConfirmCoordinator: RootCoordinator {
             session: session,
             keystore: keystore,
             configurator: configurator,
-            confirmType: type
+            confirmType: type,
+            server: server
         )
     }()
 
@@ -41,7 +43,8 @@ final class ConfirmCoordinator: RootCoordinator {
         configurator: TransactionConfigurator,
         keystore: Keystore,
         account: Account,
-        type: ConfirmType
+        type: ConfirmType,
+        server: RPCServer
     ) {
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .formSheet
@@ -50,6 +53,7 @@ final class ConfirmCoordinator: RootCoordinator {
         self.keystore = keystore
         self.account = account
         self.type = type
+        self.server = server
 
         controller.didCompleted = { [weak self] result in
             guard let `self` = self else { return }

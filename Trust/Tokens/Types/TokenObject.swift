@@ -10,35 +10,64 @@ struct TokenObjectList: Decodable {
     let contract: TokenObject
 }
 
+enum TokenObjectType: String {
+    case coin
+    case ERC20
+}
+
 final class TokenObject: Object, Decodable {
     static let DEFAULT_BALANCE = 0.00
+    static let DEFAULT_ORDER = 100000
 
     @objc dynamic var contract: String = ""
     @objc dynamic var name: String = ""
+
+    @objc private dynamic var rawCoin = -1
+    public var coin: Coin {
+        get { return Coin(rawValue: rawCoin)! }
+        set { rawCoin = newValue.rawValue }
+    }
+
+    @objc private dynamic var rawType = ""
+    public var type: TokenObjectType {
+        get { return TokenObjectType(rawValue: rawType)! }
+        set { rawType = newValue.rawValue }
+    }
+
     @objc dynamic var symbol: String = ""
     @objc dynamic var decimals: Int = 0
     @objc dynamic var value: String = ""
     @objc dynamic var isCustom: Bool = false
     @objc dynamic var isDisabled: Bool = false
     @objc dynamic var balance: Double = DEFAULT_BALANCE
+    @objc dynamic var createdAt: Date = Date()
+    @objc dynamic var order: Int = DEFAULT_ORDER
 
     convenience init(
         contract: String = "",
         name: String = "",
+        coin: Coin,
+        type: TokenObjectType,
         symbol: String = "",
         decimals: Int = 0,
         value: String,
         isCustom: Bool = false,
-        isDisabled: Bool = false
+        isDisabled: Bool = false,
+        order: Int = DEFAULT_ORDER
     ) {
         self.init()
         self.contract = contract
         self.name = name
+        self.coin = coin
+        self.rawCoin = coin.rawValue
+        self.type = type
+        self.rawType = type.rawValue
         self.symbol = symbol
         self.decimals = decimals
         self.value = value
         self.isCustom = isCustom
         self.isDisabled = isDisabled
+        self.order = order
     }
 
     private enum TokenObjectCodingKeys: String, CodingKey {
@@ -46,6 +75,8 @@ final class TokenObject: Object, Decodable {
         case name
         case symbol
         case decimals
+        case type
+        case coin
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -54,10 +85,12 @@ final class TokenObject: Object, Decodable {
         let name = try container.decode(String.self, forKey: .name)
         let symbol = try container.decode(String.self, forKey: .symbol)
         let decimals = try container.decode(Int.self, forKey: .decimals)
-        if let convertedAddress = Address(string: contract)?.description {
+        let coin = try container.decode(Coin.self, forKey: .coin)
+        let type = try container.decode(TokenObjectType.self, forKey: .type)
+        if let convertedAddress = EthereumAddress(string: contract)?.description {
             contract = convertedAddress
         }
-        self.init(contract: contract, name: name, symbol: symbol, decimals: decimals, value: "0", isCustom: false, isDisabled: false)
+        self.init(contract: contract, name: name, coin: coin, type: type, symbol: symbol, decimals: decimals, value: "0", isCustom: false, isDisabled: false)
     }
 
     required init() {
@@ -72,8 +105,8 @@ final class TokenObject: Object, Decodable {
         super.init(realm: realm, schema: schema)
     }
 
-    var address: Address {
-        return Address(string: contract)!
+    var address: EthereumAddress {
+        return EthereumAddress(string: contract)!
     }
 
     var valueBigInt: BigInt {
@@ -85,7 +118,7 @@ final class TokenObject: Object, Decodable {
     }
 
     override static func ignoredProperties() -> [String] {
-        return ["type"]
+        return ["type", "coin"]
     }
 
     override func isEqual(_ object: Any?) -> Bool {
@@ -97,12 +130,12 @@ final class TokenObject: Object, Decodable {
         return name.isEmpty ? symbol : (name + " (" + symbol + ")")
     }
 
-    var imagePath: String {
-        let config = Config.current
+    private var imagePath: String {
         let formatter = ImageURLFormatter()
-        if TokensDataStore.etherToken(for: config) == self {
-            return formatter.image(chainID: config.chainID)
-        } else {
+        switch type {
+        case .coin:
+            return formatter.image(for: coin)
+        case .ERC20:
             return formatter.image(for: contract)
         }
     }
@@ -111,11 +144,34 @@ final class TokenObject: Object, Decodable {
         return URL(string: imagePath)
     }
 
+    var placeholder: UIImage? {
+        switch type {
+        case .coin: return R.image.ethereum_logo_256()
+        case .ERC20: return R.image.erc20()
+        }
+    }
+
     var displayName: String {
         return "\(self.name) (\(self.symbol))"
     }
 
-    var contractAddress: Address {
-        return Address(string: contract)!
+    var contractAddress: EthereumAddress {
+        return EthereumAddress(string: contract)!
+    }
+}
+
+extension TokenObjectType: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawType = try container.decode(String.self)
+        guard let type = TokenObjectType(rawValue: rawType) else {
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid type")
+        }
+        self = type
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.rawValue)
     }
 }

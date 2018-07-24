@@ -3,6 +3,7 @@
 import Foundation
 import RealmSwift
 import Realm
+import TrustCore
 
 final class WalletObject: Object {
 
@@ -10,20 +11,15 @@ final class WalletObject: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var createdAt: Date = Date()
     @objc dynamic var completedBackup: Bool = false
+    @objc dynamic var mainWallet: Bool = false
 
     override static func primaryKey() -> String? {
         return "id"
     }
 
-    static func from(_ wallet: Wallet) -> WalletObject {
+    static func from(_ type: WalletType) -> WalletObject {
         let info = WalletObject()
-        info.id = wallet.primaryKey
+        info.id = type.description
         return info
-    }
-}
-
-extension Wallet {
-    var primaryKey: String {
-        return description
     }
 }

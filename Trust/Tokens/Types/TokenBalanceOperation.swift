@@ -1,19 +1,17 @@
 // Copyright DApps Platform Inc. All rights reserved.
 
 import TrustCore
+import BigInt
 
 final class TokenBalanceOperation: TrustOperation {
-    private var network: NetworkProtocol
-    private let address: Address
+    private var balanceProvider: BalanceNetworkProvider
     private let store: TokensDataStore
 
     init(
-        network: NetworkProtocol,
-        address: Address,
+        balanceProvider: BalanceNetworkProvider,
         store: TokensDataStore
-        ) {
-        self.network = network
-        self.address = address
+    ) {
+        self.balanceProvider = balanceProvider
         self.store = store
     }
 
@@ -27,8 +25,8 @@ final class TokenBalanceOperation: TrustOperation {
 
     private func updateBalance() {
         executing(true)
-        network.tokenBalance(for: address) { [weak self] result in
-            guard let strongSelf = self, let balance = result else {
+        balanceProvider.balance().done { [weak self] balance in
+            guard let strongSelf = self else {
                 self?.executing(false)
                 self?.finish(true)
                 return
@@ -37,8 +35,8 @@ final class TokenBalanceOperation: TrustOperation {
         }
     }
 
-    private func updateModel(with balance: Balance) {
-        self.store.update(balance: balance.value, for: self.address)
+    private func updateModel(with balance: BigInt) {
+        self.store.update(balance: balance, for: balanceProvider.addressUpdate)
         self.executing(false)
         self.finish(true)
     }

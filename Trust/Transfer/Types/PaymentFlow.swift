@@ -3,6 +3,6 @@
 import Foundation
 
 enum PaymentFlow {
-    case send(type: TransferType)
-    case request(token: TokenObject)
+    case send(type: Transfer)
+    case request(TokenObject)
 }

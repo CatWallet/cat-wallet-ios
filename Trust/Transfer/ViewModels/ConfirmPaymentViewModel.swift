@@ -7,7 +7,9 @@ struct ConfirmPaymentViewModel {
 
     let type: ConfirmType
 
-    init(type: ConfirmType) {
+    init(
+        type: ConfirmType
+    ) {
         self.type = type
     }
 
@@ -28,16 +30,16 @@ struct ConfirmPaymentViewModel {
         return .white
     }
 
-    func getActionButtonText(_ status: BalanceStatus, config: Config, transferType: TransferType) -> String {
+    func getActionButtonText(_ status: BalanceStatus, config: Config, transfer: Transfer) -> String {
         if status.sufficient {
             return actionButtonText
         }
 
         let format = status.insufficientText
-        let networkSymbol = config.server.symbol
+        let networkSymbol = transfer.server.symbol
 
-        switch transferType {
-        case .ether, .dapp, .nft:
+        switch transfer.type {
+        case .ether, .dapp:
             return String(format: format, networkSymbol)
         case .token(let token):
             switch status {

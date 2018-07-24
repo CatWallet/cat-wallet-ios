@@ -5,9 +5,12 @@ import Foundation
 
 extension WalletInfo {
     static func make(
-        wallet: Wallet = .make(),
-        info: WalletObject = .make()
+        type: WalletType = WalletType.privateKey(.make()),
+        info: WalletObject = WalletObject.from(WalletType.privateKey(.make()))
     ) -> WalletInfo {
-        return WalletInfo(wallet: wallet, info: info)
+        return WalletInfo(
+            type: type,
+            info: info
+        )
     }
 }

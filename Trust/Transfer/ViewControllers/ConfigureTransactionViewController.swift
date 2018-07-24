@@ -12,7 +12,7 @@ class ConfigureTransactionViewController: FormViewController {
 
     let configuration: TransactionConfiguration
     let config: Config
-    let transferType: TransferType
+    let transfer: Transfer
     let currencyRate: CurrencyRate?
     private let fullFormatter = EtherNumberFormatter.full
 
@@ -27,7 +27,7 @@ class ConfigureTransactionViewController: FormViewController {
     lazy var viewModel: ConfigureTransactionViewModel = {
         return ConfigureTransactionViewModel(
             config: self.config,
-            transferType: self.transferType
+            transfer: self.transfer
         )
     }()
 
@@ -64,19 +64,19 @@ class ConfigureTransactionViewController: FormViewController {
     }
 
     private var gasViewModel: GasViewModel {
-        return GasViewModel(fee: totalFee, server: config.server, currencyRate: currencyRate, formatter: fullFormatter)
+        return GasViewModel(fee: totalFee, server: transfer.server, currencyRate: currencyRate, formatter: fullFormatter)
     }
 
     weak var delegate: ConfigureTransactionViewControllerDelegate?
 
     init(
         configuration: TransactionConfiguration,
-        transferType: TransferType,
+        transfer: Transfer,
         config: Config,
         currencyRate: CurrencyRate?
     ) {
         self.configuration = configuration
-        self.transferType = transferType
+        self.transfer = transfer
         self.config = config
         self.currencyRate = currencyRate
 
@@ -147,7 +147,7 @@ class ConfigureTransactionViewController: FormViewController {
         +++ Section()
 
         <<< AppFormAppearance.textFieldFloat(tag: Values.nonce) {
-            $0.title = NSLocalizedString("Nonce", value: "Nonce", comment: "")
+            $0.title = R.string.localizable.nonce()
             $0.value = "\(self.configuration.nonce)"
         }.cellUpdate { cell, _ in
             cell.textField.keyboardType = .numberPad
@@ -175,7 +175,7 @@ class ConfigureTransactionViewController: FormViewController {
         }
 
         guard totalFee <= ConfigureTransaction.gasFeeMax else {
-            return displayError(error: ConfigureTransactionError.gasFeeTooHigh)
+            return displayError(error: ConfigureTransactionError.gasFeeTooHigh(transfer.server))
         }
 
         let data: Data = {

@@ -4,6 +4,7 @@ import BigInt
 import Foundation
 import UIKit
 import TrustCore
+import TrustKeystore
 
 struct TransactionDetailsViewModel {
 
@@ -23,10 +24,12 @@ struct TransactionDetailsViewModel {
     private let shortFormatter = EtherNumberFormatter.short
     private let fullFormatter = EtherNumberFormatter.full
     private let currencyRate: CurrencyRate?
+    private let server: RPCServer
+    private let token: TokenObject
     private var monetaryAmountViewModel: MonetaryAmountViewModel {
         return MonetaryAmountViewModel(
             amount: transactionViewModel.shortValue.amount,
-            address: transaction.contractAddress,
+            contract: token.contract,
             currencyRate: currencyRate
         )
     }
@@ -34,8 +37,10 @@ struct TransactionDetailsViewModel {
         transaction: Transaction,
         config: Config,
         chainState: ChainState,
-        currentWallet: Wallet,
-        currencyRate: CurrencyRate?
+        currentAccount: Account,
+        currencyRate: CurrencyRate?,
+        server: RPCServer,
+        token: TokenObject
     ) {
         self.transaction = transaction
         self.config = config
@@ -44,9 +49,11 @@ struct TransactionDetailsViewModel {
         self.transactionViewModel = TransactionViewModel(
             transaction: transaction,
             config: config,
-            chainState: chainState,
-            currentWallet: currentWallet
+            currentAccount: currentAccount,
+            server: server
         )
+        self.server = server
+        self.token = token
     }
 
     var title: String {
@@ -80,7 +87,7 @@ struct TransactionDetailsViewModel {
     }
 
     var detailsURL: URL? {
-        return ConfigExplorer(server: config.server).transactionURL(for: transaction.id)
+        return ConfigExplorer(server: server).transactionURL(for: transaction.id)
     }
 
     var transactionID: String {
@@ -93,7 +100,7 @@ struct TransactionDetailsViewModel {
 
     var address: String {
         if transaction.toAddress == nil {
-            return Address.zero.description
+            return EthereumAddress.zero.description
         }
         if transactionViewModel.direction == .incoming {
             return transaction.from
@@ -118,7 +125,7 @@ struct TransactionDetailsViewModel {
     }
 
     var nonceTitle: String {
-        return NSLocalizedString("Nonce", value: "Nonce", comment: "")
+        return R.string.localizable.nonce()
     }
 
     var gasViewModel: GasViewModel {
@@ -132,7 +139,7 @@ struct TransactionDetailsViewModel {
             }
         }()
 
-        return GasViewModel(fee: gasFee, server: config.server, currencyRate: currencyRate, formatter: fullFormatter)
+        return GasViewModel(fee: gasFee, server: server, currencyRate: currencyRate, formatter: fullFormatter)
     }
 
     var gasFee: String {
