@@ -28,19 +28,19 @@ final class SupportViewController: FormViewController {
 
             <<< link(
                 title: R.string.localizable.settingsFaqButtonTitle(),
-                value: "https://support.catwallet.com/support/catwallet1",
+                value: "https://support.vimo.co/portal/kb/mobile-apps/cat-wallet",
                 image: R.image.settings_colorful_faq()
             )
 
             <<< link(
                 title: R.string.localizable.settingsPrivacyTitle(),
-                value: "https://support.catwallet.com/portal/kb/articles/privacy-policy",
+                value: "http://www.vimo.co/privacy",
                 image: R.image.settings_colorful_privacy_and_policy()
             )
 
             <<< link(
                 title: R.string.localizable.settingsTermsOfServiceButtonTitle(),
-                value: "https://support.catwallet.com/portal/kb/articles/terms-of-use",
+                value: "http://www.vimo.co/termsofuse",
                 image: R.image.settings_colorful_terms_of_service()
             )
 
