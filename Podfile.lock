@@ -4,6 +4,7 @@ PODS:
     - Result (~> 3.0)
   - BigInt (3.0.1):
     - SipHash (~> 1.2)
+  - Bolts/Tasks (1.9.0)
   - Branch (0.24.1):
     - Branch/Core (= 0.24.1)
   - Branch/Core (0.24.1)
@@ -22,6 +23,10 @@ PODS:
   - Moya/Core (10.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
+  - Parse (1.17.1):
+    - Parse/Core (= 1.17.1)
+  - Parse/Core (1.17.1):
+    - Bolts/Tasks (~> 1.9)
   - PromiseKit (6.2.4):
     - PromiseKit/CorePromise (= 6.2.4)
     - PromiseKit/Foundation (= 6.2.4)
@@ -74,6 +79,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - MBProgressHUD
   - Moya (~> 10.0.1)
+  - Parse
   - PromiseKit (~> 6.0)
   - QRCodeReaderViewController (from `https://github.com/yannickl/QRCodeReaderViewController.git`, branch `master`)
   - R.swift
@@ -93,6 +99,7 @@ SPEC REPOS:
     - Alamofire
     - APIKit
     - BigInt
+    - Bolts
     - Branch
     - Crashlytics
     - CryptoSwift
@@ -102,6 +109,7 @@ SPEC REPOS:
     - Kingfisher
     - MBProgressHUD
     - Moya
+    - Parse
     - PromiseKit
     - R.swift
     - R.swift.Library
@@ -159,6 +167,7 @@ SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   APIKit: 7460983f490d3bde6aaaaa4164d18c9865a6f91d
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Branch: 8b59411a12867bde4fe8c9d3c0f107c5811e303e
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
@@ -169,6 +178,7 @@ SPEC CHECKSUMS:
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   Moya: 9e621707ff754eeb51ff3ec51a3d54e517c0733a
+  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   PromiseKit: 625b1fc69944fc839503748101c5968cf54b527b
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
@@ -188,6 +198,6 @@ SPEC CHECKSUMS:
   TrustWeb3Provider: 50fa391bdf170feb43dd4419992931510a5751d8
   URLNavigator: af5582fbbb3586c958be16835d799bfdb23a4793
 
-PODFILE CHECKSUM: 5f60c2a43f30d6192f158b09df8deacbccb2c773
+PODFILE CHECKSUM: 9d00b209b7786f706c1dd7849ce76a63d1fd0c49
 
 COCOAPODS: 1.5.3

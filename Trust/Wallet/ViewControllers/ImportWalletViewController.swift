@@ -110,6 +110,7 @@ final class ImportWalletViewController: FormViewController {
                 cell.textField.isSecureTextEntry = true
                 cell.textField.textAlignment = .left
                 cell.textField.placeholder = R.string.localizable.password()
+                cell.textField.keyboardType = UIKeyboardType.default
             }
 
             // Private Key
