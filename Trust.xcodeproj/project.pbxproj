@@ -433,6 +433,10 @@
 		A2B7ECAE2039001300828E7D /* ExportPrivateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B7ECAD2039001300828E7D /* ExportPrivateKeyViewController.swift */; };
 		A2E43B4E20802879001FAD3D /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E43B4D20802879001FAD3D /* UINavigationController.swift */; };
 		A2E895D020953404003D5303 /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E895CF20953404003D5303 /* QRGenerator.swift */; };
+		AD150DF7210BD4DE001BA4E2 /* LinkEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD150DF6210BD4DE001BA4E2 /* LinkEmailViewController.swift */; };
+		AD150DF9210BD50B001BA4E2 /* LinkEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD150DF8210BD50B001BA4E2 /* LinkEmailViewModel.swift */; };
+		AD150DFB210BD54B001BA4E2 /* LinkCellPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD150DFA210BD54B001BA4E2 /* LinkCellPhoneViewModel.swift */; };
+		AD150DFD210BD56D001BA4E2 /* LinkCellPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD150DFC210BD56D001BA4E2 /* LinkCellPhoneViewController.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
 		BB1CC266203BA4440042E56C /* SendMaxAmountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1CC265203BA4440042E56C /* SendMaxAmountTest.swift */; };
@@ -930,6 +934,10 @@
 		A2E895CF20953404003D5303 /* QRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerator.swift; sourceTree = "<group>"; };
 		A3B747245A27436E621E7E41 /* Pods-TrustUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrustUITests/Pods-TrustUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD150DF6210BD4DE001BA4E2 /* LinkEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailViewController.swift; sourceTree = "<group>"; };
+		AD150DF8210BD50B001BA4E2 /* LinkEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailViewModel.swift; sourceTree = "<group>"; };
+		AD150DFA210BD54B001BA4E2 /* LinkCellPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCellPhoneViewModel.swift; sourceTree = "<group>"; };
+		AD150DFC210BD56D001BA4E2 /* LinkCellPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCellPhoneViewController.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A86C20416AF600649DA0 /* BalanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatus.swift; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
@@ -1489,6 +1497,8 @@
 				29525B9D203C34CF00900DE9 /* SupportViewModel.swift */,
 				2928500D2096A69E00EC5AFB /* AboutViewModel.swift */,
 				736D6ED020DBE925008C2CC4 /* AnaliticsViewModel.swift */,
+				AD150DF8210BD50B001BA4E2 /* LinkEmailViewModel.swift */,
+				AD150DFA210BD54B001BA4E2 /* LinkCellPhoneViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1889,6 +1899,8 @@
 				2928500B2096A34900EC5AFB /* AboutViewController.swift */,
 				291F9E9F20FF3C6B00D5266A /* DeveloperViewController.swift */,
 				779141D12102F44D007E8E16 /* WalletViewController.swift */,
+				AD150DF6210BD4DE001BA4E2 /* LinkEmailViewController.swift */,
+				AD150DFC210BD56D001BA4E2 /* LinkCellPhoneViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2844,6 +2856,7 @@
 				29F114F21FA7966300114A29 /* PrivateKeyRule.swift in Sources */,
 				BB3E2A0E20A04F4B000F8B76 /* ENSRecord.swift in Sources */,
 				77E81D962036883B00534C99 /* NotificationsViewModel.swift in Sources */,
+				AD150DF7210BD4DE001BA4E2 /* LinkEmailViewController.swift in Sources */,
 				7778713E2086F93700CF7303 /* Colors.swift in Sources */,
 				296106C41F7640C50006164B /* TokenViewCellViewModel.swift in Sources */,
 				29F1C853200363B2003780D8 /* PassphraseViewController.swift in Sources */,
@@ -2886,6 +2899,7 @@
 				73C41C75201B65AD00243C6C /* LockCreatePasscodeCoordinator.swift in Sources */,
 				7301BA9220A3117000E1AFE5 /* AutoLock.swift in Sources */,
 				296106C81F7646590006164B /* TokensViewModel.swift in Sources */,
+				AD150DFB210BD54B001BA4E2 /* LinkCellPhoneViewModel.swift in Sources */,
 				299B5E471FD2C87F0051361C /* ConfigureTransactionError.swift in Sources */,
 				77E81D94203687FB00534C99 /* NotificationsViewController.swift in Sources */,
 				296FC59920B6874800B923EF /* ExportPhraseCoordinator.swift in Sources */,
@@ -2991,6 +3005,7 @@
 				2923D9B11FDA49D8000CF3F8 /* Initializer.swift in Sources */,
 				294DFBAE1FE6F254004CEB56 /* TokenObject.swift in Sources */,
 				29CAEB8E1F70A2FB00F7357D /* TransactionCellViewModel.swift in Sources */,
+				AD150DFD210BD56D001BA4E2 /* LinkCellPhoneViewController.swift in Sources */,
 				298542E81FBAD0B200CB5081 /* OperationType.swift in Sources */,
 				29BE3FD01F7071A200F6BFC2 /* UIColor.swift in Sources */,
 				73ACEEFB20163C94003DD71D /* LockView.swift in Sources */,
@@ -3114,6 +3129,7 @@
 				7712437620FD45440097296E /* ImportMainWalletViewController.swift in Sources */,
 				2923D9B51FDA4E07000CF3F8 /* PasswordGenerator.swift in Sources */,
 				4EEE540F20799701007D300D /* CoinTicker.swift in Sources */,
+				AD150DF9210BD50B001BA4E2 /* LinkEmailViewModel.swift in Sources */,
 				298542F51FBD8E6A00CB5081 /* ConfigExplorer.swift in Sources */,
 				29A13E2C1F6A955700E432A2 /* CreateWalletViewModel.swift in Sources */,
 				29F1C84A1FEB6D6B003780D8 /* EditTokenViewModel.swift in Sources */,

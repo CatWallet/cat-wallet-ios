@@ -75,7 +75,16 @@ final class SettingsViewController: FormViewController, Coordinator {
         title = NSLocalizedString("settings.navigation.title", value: "Settings", comment: "")
 
         form = Section()
-
+            //+++ Section("ACCOUNT")
+            //TODO
+            //https://cocoapods.org/pods/Eureka
+            <<< emailRow()
+            <<< cellPhoneRow()
+            <<< ButtonRow(){
+                $0.title = "Log Off"
+            }
+            
+            +++ Section("MAIN")
             <<< walletsRow(for: session.account)
 
             +++ Section(NSLocalizedString("settings.security.label.title", value: "Security", comment: ""))
@@ -301,6 +310,32 @@ final class SettingsViewController: FormViewController, Coordinator {
         addCoordinator(coordinator)
         navigationController?.present(coordinator.navigationController, animated: true, completion: nil)
     }
+    
+    private func emailRow() -> ButtonRow {
+        return AppFormAppearance.button { row in
+            row.cellStyle = .value1
+            row.presentationMode = .show(controllerProvider:ControllerProvider<UIViewController>.callback {
+                return LinkEmailViewController()
+            }, onDismiss: nil)
+            }.cellUpdate { cell, _ in
+                //cell.imageView?.image = R.image.settings_colorful_privacy()
+                cell.textLabel?.text = "Link to Email"
+                cell.accessoryType = .disclosureIndicator
+        }
+    }
+    
+    private func cellPhoneRow() -> ButtonRow {
+        return AppFormAppearance.button { row in
+            row.cellStyle = .value1
+            row.presentationMode = .show(controllerProvider:ControllerProvider<UIViewController>.callback {
+                return LinkCellPhoneViewController()
+            }, onDismiss: nil)
+            }.cellUpdate { cell, _ in
+                //cell.imageView?.image = R.image.settings_colorful_privacy()
+                cell.textLabel?.text = "Link to Cell Phone"
+                cell.accessoryType = .disclosureIndicator
+        }
+    } 
 
     private func linkProvider(
         type: URLServiceProvider
