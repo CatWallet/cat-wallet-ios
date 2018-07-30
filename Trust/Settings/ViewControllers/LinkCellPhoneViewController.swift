@@ -5,7 +5,6 @@ import Eureka
 
 
 final class LinkCellPhoneViewController: FormViewController{
-    
     let viewModel = LinkCellPhoneViewModel()
     
     init(){
