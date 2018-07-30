@@ -28,19 +28,19 @@ final class SupportViewController: FormViewController {
 
             <<< link(
                 title: NSLocalizedString("settings.faq.button.title", value: "FAQ", comment: ""),
-                value: "https://trustwalletapp.com/faq.html",
+                value: "https://support.catwallet.com/support/catwallet1",
                 image: R.image.settings_faq()
             )
 
             <<< link(
                 title: NSLocalizedString("settings.privacyPolicy.button.title", value: "Privacy Policy", comment: ""),
-                value: "https://trustwalletapp.com/privacy-policy.html",
+                value: "https://support.catwallet.com/portal/kb/articles/privacy-policy",
                 image: R.image.settings_privacy_policy()
             )
 
             <<< link(
                 title: NSLocalizedString("settings.termsOfService.button.title", value: "Terms of Service", comment: ""),
-                value: "https://trustwalletapp.com/terms.html",
+                value: "https://support.catwallet.com/portal/kb/articles/terms-of-use",
                 image: R.image.settings_terms()
             )
 
@@ -88,7 +88,7 @@ final class SupportViewController: FormViewController {
         Helpful information to developers:
         iOS Version: \(UIDevice.current.systemVersion)
         Device Model: \(UIDevice.current.model)
-        Trust Version: \(Bundle.main.fullVersion)
+        CAT Version: \(Bundle.main.fullVersion)
         Current locale: \(Locale.preferredLanguages.first ?? "")
         """
     }

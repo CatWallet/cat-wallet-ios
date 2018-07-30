@@ -344,10 +344,12 @@ final class SettingsViewController: FormViewController, Coordinator {
             $0.title = type.title
         }.onCellSelection { [weak self] _, _ in
             guard let `self` = self else { return }
+            // if no native app, will still open in an external browswer
             if let localURL = type.localURL, UIApplication.shared.canOpenURL(localURL) {
                 UIApplication.shared.open(localURL, options: [:], completionHandler: .none)
             } else {
-                self.openURLInBrowser(type.remoteURL)
+                UIApplication.shared.open(type.remoteURL, options: [:], completionHandler: .none)
+                //                self.openURLInBrowser(type.remoteURL)
             }
         }.cellSetup { cell, _ in
             cell.imageView?.image = type.image

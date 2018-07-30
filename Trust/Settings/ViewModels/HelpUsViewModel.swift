@@ -16,17 +16,17 @@ struct HelpUsViewModel {
         ),
         NSLocalizedString(
             "welldone.viewmodel.sharing.text2",
-            value: "Check out Trust - the wallet that lets me securely store my Ethereum and ERC20 tokens.",
+            value: "Check out CAT - the wallet that lets me securely store my Ethereum and ERC20 tokens.",
             comment: ""
         ),
         NSLocalizedString(
             "welldone.viewmodel.sharing.text3",
-            value: "I securely store Ethereum and ERC20 tokens in the Trust wallet",
+            value: "I securely store Ethereum and ERC20 tokens in the CAT wallet",
             comment: ""
         ),
         NSLocalizedString(
             "welldone.viewmodel.sharing.text4",
-            value: "I secure my Ethereum and ERC20 tokens in the Trust wallet.",
+            value: "I secure my Ethereum and ERC20 tokens in the CAT wallet.",
             comment: ""
         ),
     ]

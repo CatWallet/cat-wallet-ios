@@ -1,5 +1,5 @@
 "Advanced" = "高級設置";
-"app.device.jailbreak.description" = "任何“越獄”應用都可以訪問 Trust 的鑰匙串數據和竊取你的錢包！請立刻抹掉這個錢包，並在另外一台安全設備上恢復。";
+"app.device.jailbreak.description" = "任何“越獄”應用都可以訪問 招财猫 的鑰匙串數據和竊取你的錢包！請立刻抹掉這個錢包，並在另外一台安全設備上恢復。";
 "app.device.jailbreak.title" = "設備安全受損";
 "Cancel" = "取消";
 "configureTransaction.error.gasFeeTooHigh" = "Gas 費用太高，最大可用: %@";
@@ -57,7 +57,7 @@
 "settings.donate.button.title" = "捐贈";
 "settings.emailUs.button.title" = "郵件聯繫我們";
 "settings.error.failedToSendEmail" = "無法發送郵件。請確保你已經安裝了郵件應用。";
-"settings.feedback.email.title" = "Trust 反饋";
+"settings.feedback.email.title" = "招财猫 反饋";
 "settings.navigation.title" = "設置";
 "settings.network.button.title" = "網絡";
 "settings.openSourceDevelopment.label.title" = "開源式開發";
@@ -128,9 +128,9 @@
 "welldone.description.label.text" = "通過與你的朋友分享這個應用來幫助我們成長！";
 "welldone.navigation.title" = "謝謝！";
 "welldone.viewmodel.sharing.text1" = "這個是我用來存儲以太幣和 ERC20 通證應用。";
-"welldone.viewmodel.sharing.text2" = "請看 Trust - 讓我安全地存儲以太幣和 ERC20 通證的錢包。";
-"welldone.viewmodel.sharing.text3" = "我安全地將以太幣和 ERC20 通證存儲在 Trust 錢包裡。";
-"welldone.viewmodel.sharing.text4" = "我在 Trust 錢包里安全地儲存以太幣和 ERC20 通證。";
+"welldone.viewmodel.sharing.text2" = "請看 招财猫 - 讓我安全地存儲以太幣和 ERC20 通證的錢包。";
+"welldone.viewmodel.sharing.text3" = "我安全地將以太幣和 ERC20 通證存儲在 招财猫 錢包裡。";
+"welldone.viewmodel.sharing.text4" = "我在 招财猫 錢包里安全地儲存以太幣和 ERC20 通證。";
 "browser.home.button.title" = "返回主頁";
 "browser.reload.button.title" = "重新加載";
 "configureTransaction.gasPriceGwei.label.title" = "Gas 價格 (Gwei)";
