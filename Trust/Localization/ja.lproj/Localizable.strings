@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
 "Advanced" = "発展";
 "app.device.jailbreak.description" = "すべての脱獄アプリは CAT のキーチェーンのデータにアクセスし、あなたのウォレットを盗むことができます！このウォレットをすぐに取り除き、安全なデバイスに戻してください。";
 "app.device.jailbreak.title" = "デバイスのセキュリティが損なわれます";

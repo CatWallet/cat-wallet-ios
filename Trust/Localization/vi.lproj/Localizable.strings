@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
 "Advanced" = "Nâng cao";
 "app.device.jailbreak.description" = "Bất kỳ ứng dụng 'jailbreak' nào cũng có thể truy cập dữ liệu chuỗi khóa của CAT và ăn cắp ví của bạn! Xóa ví tiền này và khôi phục lại trên một thiết bị khác an toàn hơn.";
 "app.device.jailbreak.title" = "BẢO MẬT THIẾT BỊ ĐÃ BỊ XÂM PHẠM";

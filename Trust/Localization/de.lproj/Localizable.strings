@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
 "Advanced" = "Erweitert";
 "app.device.jailbreak.description" = "Jede Jailbreak-App kann auf CAT-Schlüsselbunddaten zugreifen und Ihre Wallet stehlen! Deinstallieren Sie diese Wallet sofort und installieren Sie sie auf einem sicheren Gerät neu.";
 "app.device.jailbreak.title" = "GERÄTESICHERHEIT BEEINTRÄCHTIGT";

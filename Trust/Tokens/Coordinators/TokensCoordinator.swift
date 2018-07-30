@@ -212,6 +212,7 @@ extension TokensCoordinator: TokenViewControllerDelegate {
 
     func didPress(transaction: Transaction, in controller: UIViewController) {
         let controller = TransactionViewController(
+            transactionsStore: transactionsStore,
             session: session,
             transaction: transaction
         )

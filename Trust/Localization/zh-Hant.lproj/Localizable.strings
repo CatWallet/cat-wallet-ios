@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "加备注";
+"transaction.EditNotes" = "改备注";
+"transaction.NotesTitle" = "备注";
+"transaction.NotesDetails" = "这一笔是为啥?";
 "Advanced" = "高級設置";
 "app.device.jailbreak.description" = "任何“越獄”應用都可以訪問 招财猫 的鑰匙串數據和竊取你的錢包！請立刻抹掉這個錢包，並在另外一台安全設備上恢復。";
 "app.device.jailbreak.title" = "設備安全受損";

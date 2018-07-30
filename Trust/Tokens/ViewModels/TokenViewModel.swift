@@ -194,7 +194,9 @@ final class TokenViewModel {
     }
 
     func cellViewModel(for indexPath: IndexPath) -> TransactionCellViewModel {
-        return TransactionCellViewModel(transaction: tokenTransactionSections[indexPath.section].items[indexPath.row], config: config, chainState: session.chainState, currentWallet: session.account.wallet)
+        // pass transactionStore so that UI can know if there is user notes to allocate space
+        return TransactionCellViewModel(transactionsStore: transactionsStore,
+                                        transaction: tokenTransactionSections[indexPath.section].items[indexPath.row], config: config, chainState: session.chainState, currentWallet: session.account.wallet)
     }
 
     func hasContent() -> Bool {

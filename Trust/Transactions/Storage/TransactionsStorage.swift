@@ -60,6 +60,16 @@ class TransactionsStorage {
             realm.add(items, update: true)
         }
     }
+    
+    func getNotes(forPrimaryKey: String) -> TransactionNotes? {
+        return realm.object(ofType: TransactionNotes.self, forPrimaryKey: forPrimaryKey)
+    }
+    
+    func addNotes(_ items: [TransactionNotes]) {
+        try! realm.write {
+            realm.add(items, update: true)
+        }
+    }
 
     private func tokens(from transactions: [Transaction]) -> [Token] {
         let tokens: [Token] = transactions.compactMap { transaction in

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031651A1210FBC97002ABE9E /* TransactionNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031651A0210FBC97002ABE9E /* TransactionNotes.swift */; };
 		1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */; };
 		290B2B541F8F50030053C83E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 290B2B561F8F50030053C83E /* Localizable.strings */; };
 		290B2B5F1F9177860053C83E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B2B5E1F9177860053C83E /* UIImage.swift */; };
@@ -483,6 +484,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031651A0210FBC97002ABE9E /* TransactionNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotes.swift; sourceTree = "<group>"; };
 		0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290B2B551F8F50030053C83E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		290B2B5E1F9177860053C83E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -1868,6 +1870,7 @@
 				29E14FD01F7F457D00185568 /* TransactionsStorage.swift */,
 				29E14FDA1F7F4F3D00185568 /* Transaction.swift */,
 				29AD8A081F93F8B2008E10E7 /* Session.swift */,
+				031651A0210FBC97002ABE9E /* TransactionNotes.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -3169,6 +3172,7 @@
 				29A0E1851F706B8C00BAAAED /* String.swift in Sources */,
 				296AF9A71F736EC70058AF78 /* RPCServers.swift in Sources */,
 				771A847A2032344D00528D28 /* PreferencesController.swift in Sources */,
+				031651A1210FBC97002ABE9E /* TransactionNotes.swift in Sources */,
 				296AF9A91F737F6F0058AF78 /* SendRawTransactionRequest.swift in Sources */,
 				293112121FC4F48400966EEA /* ServiceProvider.swift in Sources */,
 				77B806AF20776EDA005FDCBE /* HistoryViewModel.swift in Sources */,

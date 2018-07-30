@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
 "Advanced" = "متقدم";
 "app.device.jailbreak.description" = "اي تطبيق جيل بريك قد يخترق سلسة الامان في هاتفك. امسح محفظتك فورا و اعد تأمين هاتفك";
 "app.device.jailbreak.title" = "تأمين الجهاز تعرض للاختراق";

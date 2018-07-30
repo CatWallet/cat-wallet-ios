@@ -1,3 +1,7 @@
+"transaction.AddNotes" = "Add Notes";
+"transaction.EditNotes" = "Edit Notes";
+"transaction.NotesTitle" = "Input Notes";
+"transaction.NotesDetails" = "What this transaction is for?";
 "Advanced" = "Avanzate";
 "app.device.jailbreak.description" = "Qualsiasi app \"jailbreak\" può accedere ai dati del portachiavi di CAT e rubare il tuo portafoglio! Pulisci questo portafoglio immediatamente e ripristinalo su un dispositivo sicuro.";
 "app.device.jailbreak.title" = "SICUREZZA DEL DISPOSITIVO COMPROMESSA";
