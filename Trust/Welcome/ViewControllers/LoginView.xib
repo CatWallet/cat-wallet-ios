@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Trust" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="9Ab-0x-Bsr" id="yqE-Wb-1iN"/>
+                <outlet property="registerHelpLabel" destination="lcP-E6-Stb" id="mXn-1X-p6a"/>
+                <outlet property="registerIdentityField" destination="tFU-LM-moH" id="YLj-CQ-Ijd"/>
+                <outlet property="segmentControl" destination="bDJ-jb-feg" id="CZ2-FJ-uUg"/>
+                <outlet property="sendButton" destination="fkk-n2-8qP" id="X76-vc-ivN"/>
+                <outlet property="view" destination="nmS-Q8-FDZ" id="AdU-51-WIO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nmS-Q8-FDZ">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register so that anyone can send you Ether with just your email or phone number." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcP-E6-Stb">
+                    <rect key="frame" x="19.5" y="80" width="335" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="AKf-bX-YNB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bDJ-jb-feg">
+                    <rect key="frame" x="20" y="180" width="335" height="29"/>
+                    <segments>
+                        <segment title="Email"/>
+                        <segment title="Phone"/>
+                    </segments>
+                    <color key="tintColor" red="0.08235294118" green="0.65490196079999996" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="registerMethodSelected:" destination="-1" eventType="valueChanged" id="SyB-C6-PMp"/>
+                    </connections>
+                </segmentedControl>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="tFU-LM-moH">
+                    <rect key="frame" x="20" y="230" width="335" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkk-n2-8qP">
+                    <rect key="frame" x="60" y="280" width="255" height="50"/>
+                    <color key="backgroundColor" red="0.082352941176470587" green="0.65490196078431373" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="mgB-1u-Bnc"/>
+                    </constraints>
+                    <state key="normal" title="Send Verification Code">
+                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="sendClicked:" destination="-1" eventType="touchUpInside" id="vKo-5h-DUO"/>
+                    </connections>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9Ab-0x-Bsr">
+                    <rect key="frame" x="191" y="416" width="37" height="37"/>
+                </activityIndicatorView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f86-eL-HNN">
+                    <rect key="frame" x="315" y="30" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="YuN-AL-Yoc"/>
+                        <constraint firstAttribute="height" constant="50" id="rvy-xh-aBE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
+                    <state key="normal" title="X"/>
+                    <connections>
+                        <action selector="cancelClicked:" destination="-1" eventType="touchUpInside" id="LQe-Sj-IP5"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="lcP-E6-Stb" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="0XK-9F-wop"/>
+                <constraint firstItem="fkk-n2-8qP" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="0mU-Do-yYa"/>
+                <constraint firstItem="tFU-LM-moH" firstAttribute="top" secondItem="lcP-E6-Stb" secondAttribute="top" constant="150" id="4c7-4h-0BC"/>
+                <constraint firstItem="bDJ-jb-feg" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="4nL-Ay-EEN"/>
+                <constraint firstItem="9Ab-0x-Bsr" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="6EM-Ch-90Y"/>
+                <constraint firstItem="0GC-aq-YZI" firstAttribute="trailing" secondItem="f86-eL-HNN" secondAttribute="trailing" constant="10" id="9jx-K7-d6l"/>
+                <constraint firstItem="bDJ-jb-feg" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="Hq8-v7-K3Y"/>
+                <constraint firstItem="tFU-LM-moH" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="Jeo-U2-2k0"/>
+                <constraint firstItem="bDJ-jb-feg" firstAttribute="top" secondItem="lcP-E6-Stb" secondAttribute="top" constant="100" id="Rgw-ms-U3z"/>
+                <constraint firstItem="tFU-LM-moH" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="TrI-YI-OzP"/>
+                <constraint firstItem="9Ab-0x-Bsr" firstAttribute="centerY" secondItem="0GC-aq-YZI" secondAttribute="centerY" id="V3R-x2-rMJ"/>
+                <constraint firstItem="lcP-E6-Stb" firstAttribute="top" secondItem="0GC-aq-YZI" secondAttribute="top" constant="60" id="hiN-Ry-2DA"/>
+                <constraint firstItem="lcP-E6-Stb" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="mzD-X4-fPg"/>
+                <constraint firstItem="f86-eL-HNN" firstAttribute="top" secondItem="0GC-aq-YZI" secondAttribute="top" constant="10" id="uA9-g1-qdC"/>
+                <constraint firstItem="fkk-n2-8qP" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-120" id="xYf-Jg-3b2"/>
+                <constraint firstItem="fkk-n2-8qP" firstAttribute="top" secondItem="tFU-LM-moH" secondAttribute="bottom" constant="20" id="zDH-z8-bPg"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="0GC-aq-YZI"/>
+            <point key="canvasLocation" x="187.5" y="711.5"/>
+        </view>
+    </objects>
+</document>

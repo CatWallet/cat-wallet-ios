@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		031651A1210FBC97002ABE9E /* TransactionNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031651A0210FBC97002ABE9E /* TransactionNotes.swift */; };
+		031651A3210FCFB4002ABE9E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031651A2210FCFB4002ABE9E /* Utils.swift */; };
+		035865C2210EC84C00F9DD1D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035865C1210EC84C00F9DD1D /* LoginViewController.swift */; };
+		035865C4210EC86600F9DD1D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035865C3210EC86500F9DD1D /* LoginView.xib */; };
 		1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */; };
 		290B2B541F8F50030053C83E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 290B2B561F8F50030053C83E /* Localizable.strings */; };
 		290B2B5F1F9177860053C83E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290B2B5E1F9177860053C83E /* UIImage.swift */; };
@@ -485,6 +488,9 @@
 
 /* Begin PBXFileReference section */
 		031651A0210FBC97002ABE9E /* TransactionNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionNotes.swift; sourceTree = "<group>"; };
+		031651A2210FCFB4002ABE9E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		035865C1210EC84C00F9DD1D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		035865C3210EC86500F9DD1D /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290B2B551F8F50030053C83E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		290B2B5E1F9177860053C83E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -1058,6 +1064,7 @@
 				2996F14B1F6CA725005C33AE /* Extensions */,
 				2912CCF81F6A830700C6CBE3 /* AppDelegate.swift */,
 				29D72A291F6A8D1500CE9209 /* AppCoordinator.swift */,
+				031651A2210FCFB4002ABE9E /* Utils.swift */,
 				293E626E1FA2ED1400CB0A66 /* InCoordinator.swift */,
 				BB3B86C4204D2EF10061FCBA /* InCoordinator+Navigable.swift */,
 				29850D241F6B27A800791A49 /* R.generated.swift */,
@@ -1417,6 +1424,8 @@
 			children = (
 				2912CD311F6A83EE00C6CBE3 /* WelcomeViewController.swift */,
 				615F105C1FCBF55E008A45AF /* OnboardingCollectionViewController.swift */,
+				035865C1210EC84C00F9DD1D /* LoginViewController.swift */,
+				035865C3210EC86500F9DD1D /* LoginView.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2693,6 +2702,7 @@
 				771AA966200D5F1900D25403 /* WordCollectionViewCell.xib in Resources */,
 				29AD3D5520F5BA2E007893C9 /* WalletTableViewCell.xib in Resources */,
 				775DF43F203E38D3009CD082 /* NonFungibleTokenViewCell.xib in Resources */,
+				035865C4210EC86600F9DD1D /* LoginView.xib in Resources */,
 				73DE7B3320987D8F00AE04E6 /* NonFungibleCollectionViewCell.xib in Resources */,
 				296106CE1F777E410006164B /* LaunchScreen.storyboard in Resources */,
 				290B2B541F8F50030053C83E /* Localizable.strings in Resources */,
@@ -2947,6 +2957,7 @@
 				296421971F70C1F200EB363B /* ErrorView.swift in Sources */,
 				903682F1204A6DB800013479 /* BookmarkViewController.swift in Sources */,
 				734AFD1520F1558800864E8E /* NotificationBadge.swift in Sources */,
+				031651A3210FCFB4002ABE9E /* Utils.swift in Sources */,
 				29358DA91F79FD1C00925D61 /* CALayer.swift in Sources */,
 				29C80D491FB51C380037B1E0 /* Dictionary.swift in Sources */,
 				BB767E2E205E10FD00263658 /* Debounce.swift in Sources */,
@@ -3267,6 +3278,7 @@
 				29AD3D5420F5BA2E007893C9 /* WalletTableViewCell.swift in Sources */,
 				29BB94931F6FC380009B09CC /* BalanceViewModel.swift in Sources */,
 				BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */,
+				035865C2210EC84C00F9DD1D /* LoginViewController.swift in Sources */,
 				29D03F1D1F712183006E548C /* Button.swift in Sources */,
 				CCCD74FD1FD2D38D004A087D /* CheckDeviceCoordinator.swift in Sources */,
 				73BAA8D3201B2FF800D6DD75 /* LockEnterPasscodeViewController.swift in Sources */,
