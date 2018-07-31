@@ -25,14 +25,14 @@ target 'Trust' do
   pod 'Crashlytics', '~> 3.10'
   pod 'Kingfisher', '~> 4.0'
   pod 'TrustCore', '~> 0.0.7'
-  pod 'TrustKeystore', :git=>'https://github.com/TrustWallet/trust-keystore', :branch=>'master'
+  pod 'TrustKeystore', :git=>'https://github.com/TrustWallet/trust-keystore', :commit=>'9efdccfcace4d42874838243cb2b4710636fd563'
   pod 'Branch'
   pod 'SAMKeychain'
   pod 'TrustWeb3Provider', :git=>'https://github.com/TrustWallet/trust-web3-provider', :commit=>'f4e0ebb1b8fa4812637babe85ef975d116543dfd'
   pod 'JdenticonSwift'
   pod 'URLNavigator'
   pod 'RandomColorSwift'
-  pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :branch=>'master'
+  pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :commit=>'82c06558df5e6a75bd9c195a4e76536618e76a9a'
 
   target 'TrustTests' do
     inherit! :search_paths
