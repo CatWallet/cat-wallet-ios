@@ -38,7 +38,7 @@ final class BrowserNavigationBar: UINavigationBar {
         textField.autoresizingMask = [.flexibleWidth]
         textField.setContentHuggingPriority(.required, for: .horizontal)
         textField.placeholder = NSLocalizedString("browser.url.textfield.placeholder", value: "Search or enter website url", comment: "")
-        textField.keyboardType = .webSearch
+        textField.keyboardType = .default
 
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.setImage(R.image.toolbarMenu(), for: .normal)

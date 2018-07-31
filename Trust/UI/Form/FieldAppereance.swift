@@ -34,4 +34,24 @@ final class FieldAppereance {
         recipientRightView.axis = .horizontal
         return recipientRightView
     }
+    
+    static func emailCellPhoneFieldRightView(
+        pasteAction: @escaping () -> Void
+        ) -> UIView {
+        let pasteButton = Button(size: .normal, style: .borderless)
+        pasteButton.translatesAutoresizingMaskIntoConstraints = false
+        pasteButton.setTitle(NSLocalizedString("send.paste.button.title", value: "Paste", comment: ""), for: .normal)
+        UITapGestureRecognizer(addToView: pasteButton) {
+            pasteAction()
+        }
+        
+        let recipientRightView = UIStackView(arrangedSubviews: [
+            pasteButton
+            ])
+        recipientRightView.translatesAutoresizingMaskIntoConstraints = false
+        recipientRightView.distribution = .equalSpacing
+        recipientRightView.spacing = 2
+        recipientRightView.axis = .horizontal
+        return recipientRightView
+    }
 }

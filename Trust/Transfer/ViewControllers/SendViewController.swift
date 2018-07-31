@@ -54,7 +54,7 @@ class SendViewController: FormViewController {
         storage: TokensDataStore,
         account: Account,
         transferType: TransferType = .ether(destination: .none)
-    ) {
+        ) {
         self.session = session
         self.account = account
         self.transferType = transferType
@@ -62,31 +62,62 @@ class SendViewController: FormViewController {
         super.init(nibName: nil, bundle: nil)
         title = viewModel.title
         view.backgroundColor = viewModel.backgroundColor
-
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: R.string.localizable.next(),
             style: .done,
             target: self,
             action: #selector(send)
         )
-
+        
         let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
         fields().forEach { cell in
             section.append(cell)
         }
-        form = Section()
-            +++ section
+        form = Section("How do you want to send:")
+            <<< SegmentedRow<String>("segments"){
+                $0.options = ["Recipient Address", "Email", "Cell Phone"]
+                $0.value = "Recipient Address"
+            }
+            +++ Section() {
+                $0.tag = "cellPhone_s"
+                $0.hidden = "$segments != 'Cell Phone'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+            <<< cellPhoneField()
+            +++ Section() {
+                $0.tag = "Email_s"
+                $0.hidden = "$segments != 'Email'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+            <<< emailField()
+            +++ Section() {
+                $0.tag = "Recipient_s"
+                $0.hidden = "$segments != 'Recipient Address'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+            <<< addressField()
+            +++ Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion()) {
+                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.header?.height = {0}
+                 }
+            <<< amountField()
+        
+            //+++ section
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.applyTintAdjustment()
     }
-
+    
     private func fields() -> [BaseRow] {
         return viewModel.views.map { field(for: $0) }
     }
-
+    
     private func field(for type: SendViewType) -> BaseRow {
         switch type {
         case .address:
@@ -97,7 +128,42 @@ class SendViewController: FormViewController {
             return collectibleField(with: token)
         }
     }
-
+    
+    func emailField() -> TextFloatLabelRow {
+        let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
+            pasteAction: { [unowned self] in self.pasteAction()
+            }
+        )
+        return AppFormAppearance.textFieldFloat(tag: "email") {
+            $0.add(rule: EthereumAddressRule())
+            $0.validationOptions = .validatesOnDemand
+            } .cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = "Email"
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "email-field"
+                cell.textField.keyboardType = UIKeyboardType.default
+        }
+    }
+    
+    func cellPhoneField() -> TextFloatLabelRow {
+        let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
+            pasteAction: { [unowned self] in self.pasteAction() }
+        )
+        return AppFormAppearance.textFieldFloat(tag: "cellPhone") {
+            $0.add(rule: EthereumAddressRule())
+            $0.validationOptions = .validatesOnDemand
+            }.cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = "Cell Phone"
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "cellPhone-field"
+                cell.textField.keyboardType = UIKeyboardType.default
+        }
+    }
+    
     func addressField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.addressFieldRightView(
             pasteAction: { [unowned self] in self.pasteAction() },
@@ -106,15 +172,15 @@ class SendViewController: FormViewController {
         return AppFormAppearance.textFieldFloat(tag: Values.address) {
             $0.add(rule: EthereumAddressRule())
             $0.validationOptions = .validatesOnDemand
-        }.cellUpdate { cell, _ in
-            cell.textField.textAlignment = .left
-            cell.textField.placeholder = NSLocalizedString("send.recipientAddress.textField.placeholder", value: "Recipient Address", comment: "")
-            cell.textField.rightView = recipientRightView
-            cell.textField.rightViewMode = .always
-            cell.textField.accessibilityIdentifier = "amount-field"
+            }.cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = NSLocalizedString("send.recipientAddress.textField.placeholder", value: "Recipient Address", comment: "")
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "amount-field"
         }
     }
-
+    
     func amountField() -> TextFloatLabelRow {
         let fiatButton = Button(size: .normal, style: .borderless)
         fiatButton.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +190,7 @@ class SendViewController: FormViewController {
         let amountRightView = UIStackView(arrangedSubviews: [
             maxButton,
             fiatButton,
-        ])
+            ])
         amountRightView.translatesAutoresizingMaskIntoConstraints = false
         amountRightView.distribution = .equalSpacing
         amountRightView.spacing = 1
@@ -132,17 +198,17 @@ class SendViewController: FormViewController {
         return AppFormAppearance.textFieldFloat(tag: Values.amount) {
             $0.add(rule: RuleRequired())
             $0.validationOptions = .validatesOnDemand
-        }.cellUpdate {[weak self] cell, _ in
-            cell.textField.isCopyPasteDisabled = true
-            cell.textField.textAlignment = .left
-            cell.textField.delegate = self
-            cell.textField.placeholder = "\(self?.viewModel.currentPair.left ?? "") " + NSLocalizedString("send.amount.textField.placeholder", value: "Amount", comment: "")
-            cell.textField.keyboardType = .decimalPad
-            cell.textField.rightView = amountRightView
-            cell.textField.rightViewMode = .always
+            }.cellUpdate {[weak self] cell, _ in
+                cell.textField.isCopyPasteDisabled = true
+                cell.textField.textAlignment = .left
+                cell.textField.delegate = self
+                cell.textField.placeholder = "\(self?.viewModel.currentPair.left ?? "") " + NSLocalizedString("send.amount.textField.placeholder", value: "Amount", comment: "")
+                cell.textField.keyboardType = .decimalPad
+                cell.textField.rightView = amountRightView
+                cell.textField.rightViewMode = .always
         }
     }
-
+    
     func collectibleField(with token: NonFungibleTokenObject) -> SendNFTRow {
         let cell = SendNFTRow(tag: Values.collectible)
         let viewModel = NFTDetailsViewModel(token: token)
@@ -155,7 +221,7 @@ class SendViewController: FormViewController {
         }
         return cell
     }
-
+    
     func clear() {
         let fields = [addressRow, amountRow]
         for field in fields {
@@ -163,7 +229,7 @@ class SendViewController: FormViewController {
             field?.reload()
         }
     }
-
+    
     @objc func send() {
         let errors = form.validate()
         guard errors.isEmpty else { return }
@@ -203,7 +269,7 @@ class SendViewController: FormViewController {
         guard let value = UIPasteboard.general.string?.trimmed else {
             return displayError(error: SendInputErrors.emptyClipBoard)
         }
-
+        
         guard CryptoAddressValidator.isValidAddress(value) else {
             return displayError(error: Errors.invalidAddress)
         }
@@ -264,19 +330,19 @@ extension SendViewController: QRCodeReaderDelegate {
     func reader(_ reader: QRCodeReaderViewController!, didScanResult result: String!) {
         reader.stopScanning()
         reader.dismiss(animated: true) { [weak self] in
-           self?.activateAmountView()
+            self?.activateAmountView()
         }
-
+        
         guard let result = QRURLParser.from(string: result) else { return }
         addressRow?.value = result.address
         addressRow?.reload()
-
+        
         if let dataString = result.params["data"] {
             data = Data(hex: dataString.drop0x)
         } else {
             data = Data()
         }
-
+        
         if let value = result.params["amount"] {
             amountRow?.value = EtherNumberFormatter.full.string(from: BigInt(value) ?? BigInt(), units: .ether)
         } else {

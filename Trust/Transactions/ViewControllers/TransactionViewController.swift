@@ -189,6 +189,8 @@ final class TransactionViewController: UIViewController {
         //2. Add the text field
         alert.addTextField { [weak self] (textField) in
             guard let `self` = self else { return }
+            textField.keyboardType = .default
+
             if let transactionNotes = self.transactionsStore.getNotes(forPrimaryKey: self.transaction.uniqueID) {
                 textField.text = transactionNotes.notes
             }
