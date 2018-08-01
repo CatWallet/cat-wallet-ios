@@ -2,6 +2,7 @@
 
 import Foundation
 import TrustCore
+import Parse
 import UIKit
 import URLNavigator
 
@@ -46,7 +47,9 @@ class AppCoordinator: NSObject, Coordinator {
 
         if keystore.hasWallets {
             let wallet = keystore.recentlyUsedWallet ?? keystore.wallets.first!
-            showTransactions(for: wallet)
+            if !promptedUserForRegistration(for: wallet) {
+                showTransactions(for: wallet)
+            }
         } else {
             resetToWelcomeScreen()
         }
@@ -58,6 +61,18 @@ class AppCoordinator: NSObject, Coordinator {
         }
     }
 
+    func promptedUserForRegistration(for walletToShowAfter: WalletInfo) -> Bool {
+        // Give user a chance to register
+        if PFUser.current() == nil {
+            let registerViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+            registerViewController.initialWallet = walletToShowAfter     // show this wallet's balance afer we are done
+            registerViewController.appCoordinator = self
+            navigationController.present(registerViewController, animated: true, completion: nil)
+            return true
+        }
+        return false
+    }
+    
     func showTransactions(for wallet: WalletInfo) {
         let coordinator = InCoordinator(
             navigationController: navigationController,
@@ -148,7 +163,9 @@ extension AppCoordinator: InitialWalletCreationCoordinatorDelegate {
     func didAddAccount(_ account: WalletInfo, in coordinator: InitialWalletCreationCoordinator) {
         coordinator.navigationController.dismiss(animated: true, completion: nil)
         removeCoordinator(coordinator)
-        showTransactions(for: account)
+        if !promptedUserForRegistration(for: account) {
+            showTransactions(for: account)
+        }
     }
 }
 
