@@ -27,6 +27,7 @@ target 'Trust' do
   pod 'TrustCore', '~> 0.0.7'
   pod 'TrustKeystore', :git=>'https://github.com/TrustWallet/trust-keystore', :commit=>'9efdccfcace4d42874838243cb2b4710636fd563'
   pod 'Branch'
+  pod 'PhoneNumberKit'
   pod 'SAMKeychain'
   pod 'TrustWeb3Provider', :git=>'https://github.com/TrustWallet/trust-web3-provider', :commit=>'f4e0ebb1b8fa4812637babe85ef975d116543dfd'
   pod 'JdenticonSwift'

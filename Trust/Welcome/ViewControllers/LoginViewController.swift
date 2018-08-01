@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 import Parse
+import PhoneNumberKit
 
 class LoginViewController: UIViewController {
 
@@ -18,6 +19,8 @@ class LoginViewController: UIViewController {
     var sentCode = false
     var emailVerification = true
     var savedPhoneOrEmail = ""
+    
+    let phoneNumberKit = PhoneNumberKit()
     
     private let refreshControl = UIRefreshControl()
     
@@ -84,12 +87,27 @@ class LoginViewController: UIViewController {
     @IBAction func sendClicked(_ sender: Any) {
         sendButton.isEnabled = false
         
+        let input = registerIdentityField.text!.lowercased().trimmed
+        if input.isEmpty {
+            showAlert(title: R.string.localizable.registerEmptyError(), message: "")
+            return
+        }
+
         if !sentCode {   // Send user verification code
-            var key = "phone"
-            if emailVerification {
-                key = "email"
+            var params = ["email": input]
+            savedPhoneOrEmail = input
+            if !emailVerification {
+                do {
+                    let num = try phoneNumberKit.parse( input )
+                    savedPhoneOrEmail = phoneNumberKit.format(num, toType: .e164)
+                    params = ["phone":  savedPhoneOrEmail]
+                }
+                catch {
+                    // TODO some number fail because no area code, can we figure out my area code to add to it?
+                    showAlert(title: R.string.localizable.registerNumberInvalid(), message: "")
+                    return
+                }
             }
-            let params = [key : registerIdentityField.text!]
             savedPhoneOrEmail = registerIdentityField.text!
 
             showBusy()

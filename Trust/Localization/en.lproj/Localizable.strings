@@ -9,6 +9,8 @@
 "register.sendCodeErrorMessage" = "Error Message: ";
 "register.loginErrorTitle" = "Error logging in";
 "register.assignUserErrorTitle" = "Error changing user";
+"register.emptyError" = "Error, input cannot be empty";
+"register.numberInvalid" = "Invalid phone number";
 
 "transaction.AddNotes" = "Add Notes";
 "transaction.EditNotes" = "Edit Notes";
