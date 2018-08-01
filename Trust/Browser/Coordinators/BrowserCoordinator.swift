@@ -393,6 +393,7 @@ extension BrowserCoordinator: WKUIDelegate {
         )
         alertController.addTextField { (textField) in
             textField.text = defaultText
+            textField.keyboardType = .default
         }
         alertController.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: { _ in
             if let text = alertController.textFields?.first?.text {

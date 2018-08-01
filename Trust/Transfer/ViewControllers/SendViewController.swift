@@ -112,6 +112,7 @@ class SendViewController: FormViewController {
             cell.textField.rightView = recipientRightView
             cell.textField.rightViewMode = .always
             cell.textField.accessibilityIdentifier = "amount-field"
+            cell.textField.keyboardType = .default
         }
     }
 
