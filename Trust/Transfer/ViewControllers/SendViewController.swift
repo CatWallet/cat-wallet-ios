@@ -9,6 +9,7 @@ import BigInt
 import QRCodeReaderViewController
 import TrustCore
 import TrustKeystore
+import Parse
 
 protocol SendViewControllerDelegate: class {
     func didPressConfirm(
@@ -18,6 +19,7 @@ protocol SendViewControllerDelegate: class {
     )
 }
 class SendViewController: FormViewController {
+    var inputCase = ""
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
     }()
@@ -25,14 +27,23 @@ class SendViewController: FormViewController {
     struct Values {
         static let address = "address"
         static let amount = "amount"
+        static let email = "email"
+        static let phone = "phone"
         static let collectible = "collectible"
     }
+    
     let session: WalletSession
     let account: Account
     let transferType: TransferType
     let storage: TokensDataStore
     var addressRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.address) as? TextFloatLabelRow
+    }
+    var emailRow: TextFloatLabelRow? {
+        return form.rowBy(tag: Values.email) as? TextFloatLabelRow
+    }
+    var phoneRow: TextFloatLabelRow? {
+        return form.rowBy(tag: Values.phone) as? TextFloatLabelRow
     }
     var amountRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.amount) as? TextFloatLabelRow
@@ -98,15 +109,15 @@ class SendViewController: FormViewController {
                 $0.hidden = "$segments != 'Recipient Address'"
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
+                
             }
             <<< addressField()
-            +++ Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion()) {
+            +++ Section
+            {
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.header?.height = {0}
-                 }
+            } 
             <<< amountField()
-        
-            //+++ section
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,13 +140,13 @@ class SendViewController: FormViewController {
         }
     }
     
+    
     func emailField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
             pasteAction: { [unowned self] in self.pasteAction()
             }
         )
         return AppFormAppearance.textFieldFloat(tag: "email") {
-            $0.add(rule: EthereumAddressRule())
             $0.validationOptions = .validatesOnDemand
             } .cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
@@ -144,15 +155,20 @@ class SendViewController: FormViewController {
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "email-field"
                 cell.textField.keyboardType = UIKeyboardType.default
-        }
+                cell.textField.autocorrectionType = UITextAutocorrectionType.no
+                cell.textField.autocapitalizationType = UITextAutocapitalizationType.none
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                    self.inputCase = "email"
+                }
+            })
     }
     
     func cellPhoneField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
             pasteAction: { [unowned self] in self.pasteAction() }
         )
-        return AppFormAppearance.textFieldFloat(tag: "cellPhone") {
-            $0.add(rule: EthereumAddressRule())
+        return AppFormAppearance.textFieldFloat(tag: Values.phone) {
             $0.validationOptions = .validatesOnDemand
             }.cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
@@ -160,8 +176,13 @@ class SendViewController: FormViewController {
                 cell.textField.rightView = recipientRightView
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "cellPhone-field"
-                cell.textField.keyboardType = UIKeyboardType.default
-        }
+                cell.textField.keyboardType = UIKeyboardType.numberPad
+            } .onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                   self.inputCase = "phone"
+                  
+                }
+            })
     }
     
     func addressField() -> TextFloatLabelRow {
@@ -170,7 +191,7 @@ class SendViewController: FormViewController {
             qrAction: { [unowned self] in self.openReader() }
         )
         return AppFormAppearance.textFieldFloat(tag: Values.address) {
-            $0.add(rule: EthereumAddressRule())
+            //$0.add(rule: EthereumAddressRule())
             $0.validationOptions = .validatesOnDemand
             }.cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
@@ -178,7 +199,11 @@ class SendViewController: FormViewController {
                 cell.textField.rightView = recipientRightView
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "amount-field"
-        }
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                    self.inputCase = "recipient"
+                }
+            })
     }
     
     func amountField() -> TextFloatLabelRow {
@@ -229,13 +254,49 @@ class SendViewController: FormViewController {
             field?.reload()
         }
     }
+    //get address with email/phone number
+    func getAddress(_ emailOrPhone: String, _ getCase: String) -> String {
+        var getValue = " "
+        var params = [String: String]()
+        if getCase == "email" {
+            params["email"] = emailOrPhone
+            } else if getCase == "phone"{
+                params["phone"] = emailOrPhone
+            } else {
+                return ""
+            }
+                do {
+                    let requestAddress = try PFCloud.callFunction("queryAddress", withParameters: params)
+                    getValue = requestAddress as! String
+                    } catch {
+                        displayError(error: Errors.userNotRegistered)
+                        return getValue
+            }
+        return getValue
+     }
     
     @objc func send() {
         let errors = form.validate()
-        guard errors.isEmpty else { return }
-        let addressString = addressRow?.value?.trimmed ?? ""
         let amountString = viewModel.amount
-        guard let address = Address(string: addressString) else {
+        guard errors.isEmpty else { return }
+        let receivedAddress: String?
+        switch inputCase {
+        case "email":
+            if (emailRow?.value)!.isEmail {
+                receivedAddress = getAddress(emailRow?.value?.trimmed ?? "", inputCase)
+            } else {
+                return displayError(error: Errors.invalidEmail)
+            }
+        case "phone":
+            if (phoneRow?.value)!.isPhoneNumber {
+                receivedAddress = getAddress(phoneRow?.value?.trimmed ?? "", inputCase)
+            } else {
+                return displayError(error: Errors.invalidPhoneNumber)
+            }
+        default:
+            receivedAddress = addressRow?.value?.trimmed ?? ""
+        }
+        guard let address = Address(string: receivedAddress!) else {
             return displayError(error: Errors.invalidAddress)
         }
         let parsedValue: BigInt? = {
@@ -269,7 +330,6 @@ class SendViewController: FormViewController {
         guard let value = UIPasteboard.general.string?.trimmed else {
             return displayError(error: SendInputErrors.emptyClipBoard)
         }
-        
         guard CryptoAddressValidator.isValidAddress(value) else {
             return displayError(error: Errors.invalidAddress)
         }

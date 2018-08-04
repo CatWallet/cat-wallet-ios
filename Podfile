@@ -37,6 +37,8 @@ target 'Trust' do
   target 'TrustTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
   target 'TrustUITests' do

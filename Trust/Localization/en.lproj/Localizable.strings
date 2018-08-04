@@ -62,6 +62,9 @@
 "send.amount.textField.placeholder" = "Amount";
 "send.error.emptyClipBoard" = "Empty ClipBoard";
 "send.error.invalidAddress" = "Invalid Address";
+"send.error.invalidEmail" = "Invalid Email";
+"send.error.invalidPhoneNUmber" = "Invalid Phone Number";
+"send.error.userNotRegistered" = "User is not registered";
 "send.error.wrongInput" = "Wrong Input";
 "send.max.button.title" = "Max";
 "send.paste.button.title" = "Paste";

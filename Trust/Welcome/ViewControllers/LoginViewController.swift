@@ -114,7 +114,6 @@ class LoginViewController: UIViewController {
             else {
                 params["phone"]  = savedPhoneOrEmail
             }
-            
             showBusy()
             PFCloud.callFunction(inBackground: "logIn", withParameters: params) {
                 [weak self] (response: Any?, error: Error?) -> Void in
@@ -139,11 +138,8 @@ class LoginViewController: UIViewController {
                     }
                 }
             }
-
         }
     }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
