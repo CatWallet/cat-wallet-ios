@@ -126,6 +126,25 @@ enum RPCServer {
     var remoteURL: URL {
         let urlString: String = {
             switch self {
+            case .main: return "https://api.trustwalletapp.com"
+            case .classic: return "https://classic.trustwalletapp.com"
+            case .callisto: return "https://callisto.trustwalletapp.com"
+            case .kovan: return "https://kovan.trustwalletapp.com"
+            case .ropsten: return "https://ropsten.trustwalletapp.com"
+            case .rinkeby: return "https://rinkeby.trustwalletapp.com"
+            case .poa: return "https://poa.trustwalletapp.com"
+            case .sokol: return "https://trust-sokol.herokuapp.com"
+            case .gochain: return "https://gochain.trustwalletapp.com"
+            case .custom:
+                return "" // Enable? make optional
+            }
+        }()
+        return URL(string: urlString)!
+    }
+
+    var catRemoteURL: URL {
+        let urlString: String = {
+            switch self {
             case .main: return "https://cat-ethereum.herokuapp.com"
             case .classic: return "https://classic.trustwalletapp.com"
             case .callisto: return "https://callisto.trustwalletapp.com"

@@ -36,7 +36,8 @@ final class Transaction: Object, Decodable {
 
         self.init()
         self.id = id
-        self.uniqueID = from + "-" + String(nonce)
+        // consistently use lower case to avoid the same address being treated as two transactions
+        self.uniqueID = from.lowercased() + "-" + String(nonce)
         self.blockNumber = blockNumber
         self.from = from
         self.to = to

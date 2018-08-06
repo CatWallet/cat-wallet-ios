@@ -14,8 +14,14 @@ enum TrustService {
 }
 
 extension TrustService: TargetType {
-
-    var baseURL: URL { return Config().server.remoteURL }
+    var baseURL: URL {
+        switch self {
+        case .register, .unregister:
+            return Config().server.catRemoteURL
+        default:
+            return Config().server.remoteURL
+        }
+    }
 
     var path: String {
         switch self {
@@ -81,7 +87,7 @@ extension TrustService: TargetType {
     var headers: [String: String]? {
         return [
             "Content-type": "application/json",
-            "client": Bundle.main.bundleIdentifier ?? "",
+            "client": "com.sixdays.trust",
             "client-build": Bundle.main.buildNumber ?? "",
         ]
     }
