@@ -127,7 +127,8 @@ class TransactionsStorage {
             guard let dateKey = $0 as? String else {
                 return
             }
-            let filteredTransactionByDate = Array(transactions.filter { titleFormmater.string(from: $0.date ) == dateKey })
+            let filteredTransactionByDate = Array(transactions.filter { titleFormmater.string(from: $0.date ) == dateKey
+                && $0.uniqueID.lowercased() == $0.uniqueID })  // bandit, remove duplicate entries
             items.append(TransactionSection(title: dateKey, items: filteredTransactionByDate))
         }
         return items
