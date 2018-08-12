@@ -24,6 +24,7 @@ class SendViewController: FormViewController {
     weak var delegate: SendViewControllerDelegate?
     struct Values {
         static let address = "address"
+        static let contact = "contact"
         static let amount = "amount"
         static let collectible = "collectible"
     }
@@ -91,6 +92,8 @@ class SendViewController: FormViewController {
         switch type {
         case .address:
             return addressField()
+        case .contact:
+            return contactField()
         case .amount:
             return amountField()
         case .collectible(let token):
@@ -113,6 +116,22 @@ class SendViewController: FormViewController {
             cell.textField.rightViewMode = .always
             cell.textField.accessibilityIdentifier = "amount-field"
             cell.textField.keyboardType = .default
+        }
+    }
+    
+    func contactField() -> TextFloatLabelRow {
+        let recipientRightView = FieldAppereance.contactFieldRightView (
+            pasteAction: { [unowned self] in self.pasteAction() }
+        )
+        return AppFormAppearance.textFieldFloat(tag: Values.contact) {
+            $0.validationOptions = .validatesOnDemand
+            }.cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = NSLocalizedString("send.contactName.textField.placeholder", value: "Contact Name", comment: "")
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "contact-field"
+                cell.textField.keyboardType = .default
         }
     }
 

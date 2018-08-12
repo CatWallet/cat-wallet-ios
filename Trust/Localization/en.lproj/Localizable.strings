@@ -68,6 +68,7 @@
 "send.max.button.title" = "Max";
 "send.paste.button.title" = "Paste";
 "send.recipientAddress.textField.placeholder" = "Recipient Address";
+"send.contactName.textField.placeholder" = "Contact Name";
 "settings.biometricsDisabled.label.title" = "Passcode";
 "settings.biometricsEnabled.label.title" = "Passcode / %@";
 "settings.community.label.title" = "Community";
