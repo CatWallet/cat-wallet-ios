@@ -120,6 +120,7 @@ class SendViewController: FormViewController {
             cell.textField.rightViewMode = .always
             cell.textField.accessibilityIdentifier = "amount-field"
             cell.textField.keyboardType = .default
+            cell.textField.autocorrectionType = UITextAutocorrectionType.no
         }
     }
     
@@ -140,6 +141,7 @@ class SendViewController: FormViewController {
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "contact-field"
                 cell.textField.keyboardType = .default
+                cell.textField.autocorrectionType = UITextAutocorrectionType.no
         }
     }
 
