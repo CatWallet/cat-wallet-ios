@@ -87,14 +87,40 @@ class SendViewController: FormViewController {
     private func fields() -> [BaseRow] {
         return viewModel.views.map { field(for: $0) }
     }
-
+    
+    enum contacts: String, CustomStringConvertible{
+        case empty = ""
+        case person1 = "1"
+        case person2 = "2"
+        case person3 = "3"
+        
+        var description: String {return rawValue}
+        
+        static let allValues = [
+            person1,
+            person2,
+            person3
+        ]
+    }
+    
     private func field(for type: SendViewType) -> BaseRow {
         switch type {
+        case .savedContact:
+            return PushRow<contacts>("Chose contact") {
+                    $0.title = $0.tag
+                    $0.options = contacts.allValues
+                    $0.value = .empty
+                    }.onPresent({ (_, vc) in
+                        vc.enableDeselection = false
+                        vc.dismissOnSelection = false
+                    }).cellUpdate({ (cell, _ ) in
+                        
+                    })
         case .address:
             return addressField()
         case .switchR:
             return SwitchRow("switchRowTag"){
-                $0.title = "Add Contact"
+                $0.title = "Add contact"
             }
         case .contact:
             return contactField()

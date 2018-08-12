@@ -8,6 +8,7 @@ import APIKit
 
 enum SendViewType {
     case address
+    case savedContact
     case switchR
     case contact
     case amount
@@ -79,7 +80,7 @@ struct SendViewModel {
     var views: [SendViewType] {
         switch transferType {
         case .ether, .dapp, .token:
-            return [.address, .switchR, .contact, .amount]
+            return [.savedContact, .address, .switchR, .contact, .amount]
         case .nft(let token):
             return [.address, .collectible(token)]
         }
