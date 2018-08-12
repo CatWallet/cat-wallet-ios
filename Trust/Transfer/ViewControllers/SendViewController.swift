@@ -92,6 +92,10 @@ class SendViewController: FormViewController {
         switch type {
         case .address:
             return addressField()
+        case .switchR:
+            return SwitchRow("switchRowTag"){
+                $0.title = "Add Contact"
+            }
         case .contact:
             return contactField()
         case .amount:
@@ -125,6 +129,10 @@ class SendViewController: FormViewController {
         )
         return AppFormAppearance.textFieldFloat(tag: Values.contact) {
             $0.validationOptions = .validatesOnDemand
+            $0.hidden = Condition.function(["switchRowTag"], { form in
+                return !((form.rowBy(tag: "switchRowTag") as? SwitchRow)?.value ?? false)
+            })
+            $0.title = "Add Contact!"
             }.cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
                 cell.textField.placeholder = NSLocalizedString("send.contactName.textField.placeholder", value: "Contact Name", comment: "")
