@@ -106,15 +106,17 @@ class SendViewController: FormViewController {
     private func field(for type: SendViewType) -> BaseRow {
         switch type {
         case .savedContact:
-            return PushRow<contacts>("Chose contact") {
+            return PushRow<contacts>("Choose contact") {
                     $0.title = $0.tag
                     $0.options = contacts.allValues
                     $0.value = .empty
                     }.onPresent({ (_, vc) in
                         vc.enableDeselection = false
                         vc.dismissOnSelection = false
-                    }).cellUpdate({ (cell, _ ) in
-                        
+                    }).cellUpdate({ [self] (cell, row ) in
+                        let address = self.form.rowBy(tag: Values.address) as! RowOf<String>
+                        address.value = row.value?.description
+                        address.updateCell()
                     })
         case .address:
             return addressField()
