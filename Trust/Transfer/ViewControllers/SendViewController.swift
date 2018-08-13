@@ -19,6 +19,9 @@ protocol SendViewControllerDelegate: class {
     )
 }
 class SendViewController: FormViewController {
+    let contact = Contact()
+    let realm = try! Realm()
+    var contacts = [String: String]()
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
     }()
@@ -83,13 +86,14 @@ class SendViewController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.applyTintAdjustment()
+        getContacts()
     }
 
     private func fields() -> [BaseRow] {
         return viewModel.views.map { field(for: $0) }
     }
     
-    enum contacts: String, CustomStringConvertible{
+    enum Contacts: String, CustomStringConvertible{
         case empty = ""
         case person1 = "1"
         case person2 = "2"
@@ -107,9 +111,9 @@ class SendViewController: FormViewController {
     private func field(for type: SendViewType) -> BaseRow {
         switch type {
         case .savedContact:
-            return PushRow<contacts>("Choose contact") {
+            return PushRow<Contacts>("Choose contact") {
                     $0.title = $0.tag
-                    $0.options = contacts.allValues
+                    $0.options = Contacts.allValues
                     $0.value = .empty
                     }.onPresent({ (_, vc) in
                         vc.enableDeselection = false
@@ -223,13 +227,19 @@ class SendViewController: FormViewController {
         }
     }
     
-    func addNewContact(_ name: String, _address: String){
-        let contact = Contact()
-        contact.address = "12"
-        contact.name = "mark"
-        let realm = try! Realm()
+    func addNewContact(_ name: String, _ address: String){
+        contact.address = address
+        contact.name = name
         try! realm.write {
             realm.add(contact)
+        }
+    }
+    
+    func getContacts(){
+        let people = try! Realm().objects(Contact.self)
+        for person in people{
+            contacts[person.name!] = person.address
+            print(contacts)
         }
     }
 
