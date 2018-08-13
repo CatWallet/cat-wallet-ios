@@ -9,6 +9,7 @@ import BigInt
 import QRCodeReaderViewController
 import TrustCore
 import TrustKeystore
+import RealmSwift
 
 protocol SendViewControllerDelegate: class {
     func didPressConfirm(
@@ -219,6 +220,16 @@ class SendViewController: FormViewController {
         for field in fields {
             field?.value = ""
             field?.reload()
+        }
+    }
+    
+    func addNewContact(_ name: String, _address: String){
+        let contact = Contact()
+        contact.address = "12"
+        contact.name = "mark"
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(contact)
         }
     }
 

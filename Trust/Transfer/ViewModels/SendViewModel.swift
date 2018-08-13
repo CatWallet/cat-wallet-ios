@@ -5,6 +5,7 @@ import TrustCore
 import BigInt
 import JSONRPCKit
 import APIKit
+import RealmSwift
 
 enum SendViewType {
     case address
@@ -181,4 +182,9 @@ struct SendViewModel {
     mutating func isMaxButtonHidden() -> Bool {
         return currentPair.left != symbol
     }
+}
+
+class Contact: Object {
+    @objc dynamic var name: String?
+    @objc dynamic var address: String?
 }
