@@ -20,8 +20,8 @@ protocol SendViewControllerDelegate: class {
 }
 class SendViewController: FormViewController {
     let contact = Contact()
-    let realm = try! Realm()
-    var contacts = [String: String]()
+    var getData:[MyStruct] = []
+    var mystruct: MyStruct?
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
     }()
@@ -38,6 +38,9 @@ class SendViewController: FormViewController {
     let storage: TokensDataStore
     var addressRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.address) as? TextFloatLabelRow
+    }
+    var contactRow: TextFloatLabelRow? {
+        return form.rowBy(tag: Values.contact) as? TextFloatLabelRow
     }
     var amountRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.amount) as? TextFloatLabelRow
@@ -81,46 +84,42 @@ class SendViewController: FormViewController {
         }
         form = Section()
             +++ section
+            +++ Section()
+            <<< TextAreaRow() {
+                $0.placeholder = "Add noted"
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
+            }
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        getContacts()
         super.viewWillAppear(animated)
         self.navigationController?.applyTintAdjustment()
-        getContacts()
     }
 
     private func fields() -> [BaseRow] {
         return viewModel.views.map { field(for: $0) }
     }
     
-    enum Contacts: String, CustomStringConvertible{
-        case empty = ""
-        case person1 = "1"
-        case person2 = "2"
-        case person3 = "3"
-        
-        var description: String {return rawValue}
-        
-        static let allValues = [
-            person1,
-            person2,
-            person3
-        ]
-    }
-    
     private func field(for type: SendViewType) -> BaseRow {
+        getContacts()
         switch type {
         case .savedContact:
-            return PushRow<Contacts>("Choose contact") {
+            return PushRow<MyStruct>("Choose contact") {
                     $0.title = $0.tag
-                    $0.options = Contacts.allValues
-                    $0.value = .empty
+                    $0.options = getData
+                    $0.value = mystruct
+                    $0.displayValueFor = {
+                    guard let person = $0 else { return nil }
+                    return person.name
+                }
                     }.onPresent({ (_, vc) in
                         vc.enableDeselection = false
                         vc.dismissOnSelection = false
-                    }).cellUpdate({ [self] (cell, row ) in
+                    })
+                .cellUpdate({ [self] (cell, row ) in
                         let address = self.form.rowBy(tag: Values.address) as! RowOf<String>
-                        address.value = row.value?.description
+                        address.value = row.value?.address
                         address.updateCell()
                     })
         case .address:
@@ -228,6 +227,7 @@ class SendViewController: FormViewController {
     }
     
     func addNewContact(_ name: String, _ address: String){
+        let realm = try! Realm()
         contact.address = address
         contact.name = name
         try! realm.write {
@@ -235,11 +235,17 @@ class SendViewController: FormViewController {
         }
     }
     
+    func deleteContact(){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(realm.objects(Contact.self))
+        }
+    }
+    
     func getContacts(){
         let people = try! Realm().objects(Contact.self)
         for person in people{
-            contacts[person.name!] = person.address
-            print(contacts)
+            getData.append(MyStruct(name: person.name!, address: person.address!))
         }
     }
 
@@ -262,6 +268,10 @@ class SendViewController: FormViewController {
         guard let value = parsedValue else {
             return displayError(error: SendInputErrors.wrongInput)
         }
+        if let name = contactRow?.value {
+            addNewContact(name, addressString)
+        }
+        
         let transaction = UnconfirmedTransaction(
             transferType: transferType,
             value: value,
