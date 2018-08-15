@@ -74,8 +74,23 @@ class SendViewController: FormViewController {
         fields().forEach { cell in
             section.append(cell)
         }
-        form = Section()
+        section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+        section.header?.height = {0}
+        form = Section(){
+        
+            $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+            $0.header?.height = { 0 }
+    }
+            <<< SegmentedRow<String>("segments"){
+                $0.options = ["Address", "Email", "Cell Phone","Contacts"]
+                $0.value = "Address"
+                }
             +++ section
+            +++ Section()
+            <<< TextAreaRow() {
+                $0.placeholder = "Add notes (Optional)"
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

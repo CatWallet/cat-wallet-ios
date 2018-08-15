@@ -77,7 +77,8 @@ struct SendViewModel {
     var views: [SendViewType] {
         switch transferType {
         case .ether, .dapp, .token:
-            return [.address, .amount]
+            return [.amount]
+            //return [.address, .amount]
         case .nft(let token):
             return [.address, .collectible(token)]
         }
