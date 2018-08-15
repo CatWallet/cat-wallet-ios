@@ -86,7 +86,7 @@ class SendViewController: FormViewController {
             +++ section
             +++ Section()
             <<< TextAreaRow() {
-                $0.placeholder = "Add noted"
+                $0.placeholder = "Add notes"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
             }
     }
