@@ -19,11 +19,13 @@ protocol SendViewControllerDelegate: class {
     )
 }
 class SendViewController: FormViewController {
+    
     var inputCase = ""
     var unadd: String?
     var mystruct: MyStruct?
     var getData:[MyStruct] = []
     let contact = Contact()
+    @IBOutlet weak var editButton: UIBarButtonItem!
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
     }()
@@ -79,12 +81,15 @@ class SendViewController: FormViewController {
         )
         
         getContacts()
+       
+        
         let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
         fields().forEach { cell in
             section.append(cell)
             section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
             section.header?.height = {0}
         }
+        
         
         form = Section(){
             
@@ -134,9 +139,16 @@ class SendViewController: FormViewController {
                     guard let person = $0 else { return nil }
                     return person.name
                 }
-                }.onPresent({ (_, vc) in
-                    vc.enableDeselection = false
-                    vc.dismissOnSelection = false
+                }.onPresent({ (vc, row) in
+                    row.enableDeselection = false
+                    row.dismissOnSelection = false
+                    let deleteAction = SwipeAction(style: .destructive, title: "Delete", handler: { (action, row, completionHandler) in
+                        print("Delete")
+                        completionHandler?(true)
+                    })
+                    row.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add , target: vc, action: #selector(self.addPressed(sender:)))
+                    //row.trailingSwipe.actions = [deleteAction]
+                    //row.trailingSwipe.performsFirstActionWithFullSwipe = true
                 })
                 .cellUpdate({ [self] (cell, row ) in
                     cell.height = {55}
@@ -323,6 +335,11 @@ class SendViewController: FormViewController {
         for person in people{
             getData.append(MyStruct(name: person.name!, address: person.address!))
         }
+    }
+    
+    @objc func addPressed(sender: UIBarButtonItem){
+        
+        
     }
     
     @objc func send() {
