@@ -139,16 +139,23 @@ class SendViewController: FormViewController {
                     guard let person = $0 else { return nil }
                     return person.name
                 }
-                }.onPresent({ (vc, row) in
-                    row.enableDeselection = false
-                    row.dismissOnSelection = false
-                    let deleteAction = SwipeAction(style: .destructive, title: "Delete", handler: { (action, row, completionHandler) in
-                        print("Delete")
-                        completionHandler?(true)
-                    })
-                    row.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add , target: vc, action: #selector(self.addPressed(sender:)))
-                    //row.trailingSwipe.actions = [deleteAction]
-                    //row.trailingSwipe.performsFirstActionWithFullSwipe = true
+                }.onPresent({ (from, to) in
+                    to.enableDeselection = false
+                    to.dismissOnSelection = false
+                    to.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: from, action: #selector(self.addPressed(sender:)))
+                    to.selectableRowCellUpdate = { (cell, row) in
+                        let deleteAction = SwipeAction(style: .destructive, title: "Delete", handler: { (_ , _ , completionHandler) in
+                            var str: MyStruct
+                            str = self.getData[(row.indexPath?.row)!]
+                            if let getName = str.name{
+                            self.deleteContact(name: getName)
+                           }
+                            completionHandler?(true)
+                        })
+                        row.trailingSwipe.actions = [deleteAction]
+                        row.trailingSwipe.performsFirstActionWithFullSwipe = true
+
+                    }
                 })
                 .cellUpdate({ [self] (cell, row ) in
                     cell.height = {55}
@@ -328,6 +335,15 @@ class SendViewController: FormViewController {
         try! realm.write {
             realm.add(contact)
         }
+        tableView.reloadData()
+    }
+    
+    func deleteContact(name: String){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(realm.objects(Contact.self).filter("name=%@", name))
+        }
+        getContacts()
     }
     
     func getContacts(){
@@ -340,6 +356,33 @@ class SendViewController: FormViewController {
     @objc func addPressed(sender: UIBarButtonItem){
         
         
+        let alert = UIAlertController(title: "Add new contact", message: "Please enter name and ETH address", preferredStyle: UIAlertControllerStyle.alert)
+        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            let nameTextField = alert.textFields![0] as UITextField
+            let addressTextField = alert.textFields![1] as UITextField
+            if let getName = nameTextField.text {
+                guard let address = Address(string: addressTextField.text!) else {
+                    return self.displayError(error: Errors.invalidAddress)
+                }
+                self.addNewContact(getName, address.eip55String)
+                DispatchQueue.main.async {
+                self.getContacts()
+                }
+            }
+            
+            self.tableView.reloadData()
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addTextField { (nameTextField) in
+            nameTextField.placeholder = "Enter a name"
+        }
+        alert.addTextField { (addressTextField) in
+            addressTextField.placeholder = "Enter address"
+        }
+        alert.addAction(addAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func send() {
