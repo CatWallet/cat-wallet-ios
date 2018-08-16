@@ -1,6 +1,7 @@
 // Copyright DApps Platform Inc. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 struct MyStruct : CustomStringConvertible,Equatable{
     var name: String?
@@ -14,4 +15,9 @@ struct MyStruct : CustomStringConvertible,Equatable{
     var description: String {
         return "\(self.name)"
     }
+}
+
+class Contact: Object {
+    @objc dynamic var name: String?
+    @objc dynamic var address: String?
 }
