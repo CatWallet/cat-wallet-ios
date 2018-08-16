@@ -113,6 +113,22 @@ class SendViewController: FormViewController {
 
             }
             <<< addressField()
+            
+            
+            +++ Section() {
+                $0.tag = "Contacts_s"
+                $0.hidden = "$segments != 'Contacts'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+            <<< PushRow<MyStruct>("Contacts"){
+                $0.title = $0.tag
+                }.cellUpdate({ (cell, row) in
+                    cell.height = {55}
+                })
+            
+            
+            
             +++ Section(){
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.header?.height = { 0 }
