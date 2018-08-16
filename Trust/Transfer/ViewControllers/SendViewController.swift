@@ -18,12 +18,16 @@ protocol SendViewControllerDelegate: class {
     )
 }
 class SendViewController: FormViewController {
+    var inputCase = ""
+    var unadd: String?
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
     }()
     weak var delegate: SendViewControllerDelegate?
     struct Values {
         static let address = "address"
+        static let email = "email"
+        static let phone = "phone"
         static let amount = "amount"
         static let collectible = "collectible"
     }
@@ -73,21 +77,56 @@ class SendViewController: FormViewController {
         let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
         fields().forEach { cell in
             section.append(cell)
+            section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+            section.header?.height = {0}
         }
-        section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
-        section.header?.height = {0}
+       
         form = Section(){
         
             $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
             $0.header?.height = { 0 }
     }
             <<< SegmentedRow<String>("segments"){
-                $0.options = ["Address", "Email", "Cell Phone","Contacts"]
-                $0.value = "Address"
+                $0.options = ["ETH Address", "Email", "Cell Phone","Contacts"]
+                $0.value = "ETH Address"
                 }
-            +++ section
-            +++ Section()
-            <<< TextAreaRow() {
+            +++ Section() {
+                $0.tag = "cellPhone_s"
+                $0.hidden = "$segments != 'Cell Phone'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+           
+            <<< cellPhoneField()
+            +++ Section() {
+                $0.tag = "Email_s"
+                $0.hidden = "$segments != 'Email'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
+            <<< emailField()
+            +++ Section() {
+                $0.tag = "Recipient_s"
+                $0.hidden = "$segments != 'ETH Address'"
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+
+            }
+            <<< addressField()
+            +++ Section(){
+                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.header?.height = { 0 }
+            }
+            <<< amountField()
+            <<< TextFloatLabelRow(){
+                $0.tag = "labelTag"
+                }.cellUpdate({ (cell, _) in
+                    cell.textField.placeholder = "Pair value"
+                    cell.textLabel?.textAlignment = .left
+                    cell.backgroundColor = UIColor.clear
+                    cell.textField.font = .italicSystemFont(ofSize: 12)
+                })
+            +++ TextAreaRow() {
                 $0.placeholder = "Add notes (Optional)"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
         }
@@ -130,6 +169,50 @@ class SendViewController: FormViewController {
             cell.textField.keyboardType = .default
         }
     }
+    
+    func emailField() -> TextFloatLabelRow {
+        let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
+            pasteAction: { [unowned self] in self.pasteAction()
+            }
+        )
+        return AppFormAppearance.textFieldFloat(tag: "email") {
+            $0.validationOptions = .validatesOnDemand
+            } .cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = "Email"
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "email-field"
+                cell.textField.keyboardType = UIKeyboardType.default
+                cell.textField.autocorrectionType = UITextAutocorrectionType.no
+                cell.textField.autocapitalizationType = UITextAutocapitalizationType.none
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                    self.inputCase = "email"
+                }
+            })
+    }
+    
+    func cellPhoneField() -> TextFloatLabelRow {
+        let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
+            pasteAction: { [unowned self] in self.pasteAction() }
+        )
+        return AppFormAppearance.textFieldFloat(tag: Values.phone) {
+            $0.validationOptions = .validatesOnDemand
+            }.cellUpdate { cell, _ in
+                cell.textField.textAlignment = .left
+                cell.textField.placeholder = "Cell Phone"
+                cell.textField.rightView = recipientRightView
+                cell.textField.rightViewMode = .always
+                cell.textField.accessibilityIdentifier = "cellPhone-field"
+                cell.textField.keyboardType = UIKeyboardType.numberPad
+            } .onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                    self.inputCase = "phone"
+                    
+                }
+            })
+    }
 
     func amountField() -> TextFloatLabelRow {
         let fiatButton = Button(size: .normal, style: .borderless)
@@ -156,7 +239,11 @@ class SendViewController: FormViewController {
             cell.textField.keyboardType = .decimalPad
             cell.textField.rightView = amountRightView
             cell.textField.rightViewMode = .always
-        }
+            }.onChange({ (row) in
+                let address = self.form.rowBy(tag:  "labelTag") as! RowOf<String>
+                address.value = self.viewModel.pairRateRepresantetion()
+                address.updateCell()
+            })
     }
 
     func collectibleField(with token: NonFungibleTokenObject) -> SendNFTRow {
