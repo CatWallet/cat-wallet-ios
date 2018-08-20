@@ -439,6 +439,7 @@
 		A2E43B4E20802879001FAD3D /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E43B4D20802879001FAD3D /* UINavigationController.swift */; };
 		A2E895D020953404003D5303 /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E895CF20953404003D5303 /* QRGenerator.swift */; };
 		AD02A25A2125061D0076A1EE /* MyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02A2592125061D0076A1EE /* MyStruct.swift */; };
+		AD8643BD212A4E8200A7DBD1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8643BC212A4E8200A7DBD1 /* ContactsViewController.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
 		BB1CC266203BA4440042E56C /* SendMaxAmountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1CC265203BA4440042E56C /* SendMaxAmountTest.swift */; };
@@ -942,6 +943,7 @@
 		A3B747245A27436E621E7E41 /* Pods-TrustUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrustUITests/Pods-TrustUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD02A2592125061D0076A1EE /* MyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStruct.swift; sourceTree = "<group>"; };
+		AD8643BC212A4E8200A7DBD1 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A86C20416AF600649DA0 /* BalanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatus.swift; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
@@ -1775,6 +1777,7 @@
 			children = (
 				291ED0911F6FA5D900E7E93A /* RequestViewController.swift */,
 				29285B411F6FB3E60044CF29 /* SendViewController.swift */,
+				AD8643BC212A4E8200A7DBD1 /* ContactsViewController.swift */,
 				291A1B661F98092F00ADEC80 /* ConfirmPaymentViewController.swift */,
 				299B5E411FD2298E0051361C /* ConfigureTransactionViewController.swift */,
 			);
@@ -2650,7 +2653,7 @@
 								enabled = 0;
 							};
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -3266,6 +3269,7 @@
 				773B8DB920716EFF00D05690 /* GetNonceProvider.swift in Sources */,
 				777871312082DF3D00CF7303 /* GetTransactionReceiptRequest.swift in Sources */,
 				77B64101209668FF00BEF3EB /* EtherNumberFormatter+Trust.swift in Sources */,
+				AD8643BD212A4E8200A7DBD1 /* ContactsViewController.swift in Sources */,
 				776C114C20605AAC00449539 /* TokensLayout.swift in Sources */,
 				77A6D8A120C4DE06000A9ADC /* TrustAPI.swift in Sources */,
 				73ED85A520349BE400593BF3 /* StringFormatter.swift in Sources */,

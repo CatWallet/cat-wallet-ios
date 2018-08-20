@@ -3,17 +3,13 @@
 import Foundation
 import RealmSwift
 
-struct MyStruct : CustomStringConvertible,Equatable{
+struct MyStruct {
     var name: String?
     var address: String?
     
     init(name: String, address: String) {
         self.name = name
         self.address = address
-    }
-    
-    var description: String {
-        return "\(self.name)"
     }
 }
 

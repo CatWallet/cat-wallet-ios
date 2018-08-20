@@ -25,6 +25,7 @@ class SendViewController: FormViewController {
     var mystruct: MyStruct?
     var getData:[MyStruct] = []
     let contact = Contact()
+    var buttonTitle = "Contact"
     @IBOutlet weak var editButton: UIBarButtonItem!
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
@@ -99,7 +100,9 @@ class SendViewController: FormViewController {
             <<< SegmentedRow<String>("segments"){
                 $0.options = ["ETH Address", "Email", "Cell Phone","Contacts"]
                 $0.value = "ETH Address"
-            }
+                }.cellUpdate({ (cell, row) in
+                    cell.tintColor = UIColor(hex: "15A7EB")
+                })
             +++ Section() {
                 $0.tag = "cellPhone_s"
                 $0.hidden = "$segments != 'Cell Phone'"
@@ -131,38 +134,54 @@ class SendViewController: FormViewController {
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
-            <<< PushRow<MyStruct>("Contacts"){
-                $0.title = $0.tag
-                $0.options = getData
-                $0.value = mystruct
-                $0.displayValueFor = {
-                    guard let person = $0 else { return nil }
-                    return person.name
-                }
-                }.onPresent({ (from, to) in
-                    to.enableDeselection = false
-                    to.dismissOnSelection = false
-                    to.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: from, action: #selector(self.addPressed(sender:)))
-                    to.selectableRowCellUpdate = { (cell, row) in
-                        let deleteAction = SwipeAction(style: .destructive, title: "Delete", handler: { (_ , _ , completionHandler) in
-                            var str: MyStruct
-                            str = self.getData[(row.indexPath?.row)!]
-                            if let getName = str.name{
-                            self.deleteContact(name: getName)
-                           }
-                            completionHandler?(true)
-                        })
-                        row.trailingSwipe.actions = [deleteAction]
-                        row.trailingSwipe.performsFirstActionWithFullSwipe = true
-
-                    }
+            <<< ButtonRow(){
+                $0.title = buttonTitle
+                }.onCellSelection({ (cell, row) in
+                    //row.presentationMode = .segueName(segueName: "ContactsViewConteoller", onDismiss: nil)
+                    let vc = ContactsViewController()
+                    vc.view.backgroundColor = .white
+                    self.present(vc, animated: true, completion: nil)
+                }).cellUpdate({ (cell, row) in
+                    cell.accessoryType = .disclosureIndicator
                 })
-                .cellUpdate({ [self] (cell, row ) in
-                    cell.height = {55}
-                    let address = self.form.rowBy(tag: Values.address) as! RowOf<String>
-                    address.value = row.value?.address
-                    address.updateCell()
-                })
+            
+            
+//            <<< PushRow<MyStruct>("Contacts"){
+//                $0.title = $0.tag
+//                $0.options = getData
+//                $0.value = mystruct
+//                $0.displayValueFor = {
+//                    guard let person = $0 else { return nil }
+//                    return person.name
+//                    }
+//
+//                }.onPresent({ (from, to) in
+//                    to.enableDeselection = false
+//                    to.dismissOnSelection = false
+//                    to.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: from, action: #selector(self.addPressed(sender:)))
+//                    to.selectableRowCellUpdate = { (cell, row) in
+//                        let deleteAction = SwipeAction(style: .destructive, title: "Delete", handler: { (_ , _ , completionHandler) in
+//                            var str: MyStruct
+//                            str = self.getData[(row.indexPath?.row)!]
+//                            self.getData.remove(at: (row.indexPath?.row)!)
+//                            if let getName = str.name{
+//                            self.deleteContact(name: getName)
+//                           }
+//                            completionHandler?(true)
+//                        })
+//                        row.trailingSwipe.actions = [deleteAction]
+//                        row.trailingSwipe.performsFirstActionWithFullSwipe = false
+//                        row.onChange({ (row) in
+//                            print("print@@@@@@@@@@")
+//                        })
+//                    }
+//                }).cellUpdate({ [self] (cell, row ) in
+//                    cell.height = {55}
+//                    let address = self.form.rowBy(tag: Values.address) as! RowOf<String>
+//                    address.value = row.value?.address
+//                    address.updateCell()
+//
+//                })
             
             
             
@@ -297,7 +316,7 @@ class SendViewController: FormViewController {
                 cell.textField.keyboardType = .decimalPad
                 cell.textField.rightView = amountRightView
                 cell.textField.rightViewMode = .always
-            }.onChange({ (row) in
+            }.onChange({ row in
                 let address = self.form.rowBy(tag:  "labelTag") as! RowOf<String>
                 address.value = self.viewModel.pairRateRepresantetion()
                 address.updateCell()
@@ -335,7 +354,6 @@ class SendViewController: FormViewController {
         try! realm.write {
             realm.add(contact)
         }
-        tableView.reloadData()
     }
     
     func deleteContact(name: String){
@@ -354,8 +372,6 @@ class SendViewController: FormViewController {
     }
     
     @objc func addPressed(sender: UIBarButtonItem){
-        
-        
         let alert = UIAlertController(title: "Add new contact", message: "Please enter name and ETH address", preferredStyle: UIAlertControllerStyle.alert)
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
             let nameTextField = alert.textFields![0] as UITextField
@@ -364,14 +380,21 @@ class SendViewController: FormViewController {
                 guard let address = Address(string: addressTextField.text!) else {
                     return self.displayError(error: Errors.invalidAddress)
                 }
-                self.addNewContact(getName, address.eip55String)
+                let queue1 = DispatchQueue(label: "pushRow1", qos: DispatchQoS.userInitiated)
+                let queue2 = DispatchQueue(label: "pushRow2", qos: DispatchQoS.utility)
+                queue1.sync {
+                    self.addNewContact(getName, address.eip55String)
+                }
+                queue2.sync {
+                    self.getContacts()
+                }
                 DispatchQueue.main.async {
-                self.getContacts()
+                    let pushRow1 = self.form.rowBy(tag: "Contacts")!
+                    print(pushRow1.tag)
+                    pushRow1.reload()
+                    pushRow1.updateCell()
                 }
             }
-            
-            self.tableView.reloadData()
-            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addTextField { (nameTextField) in
