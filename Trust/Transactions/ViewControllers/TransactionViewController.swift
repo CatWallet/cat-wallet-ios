@@ -205,8 +205,8 @@ final class TransactionViewController: UIViewController {
             self.transactionsStore.addNotes([transactionNotes])
             
             // refresh subview. This is assuming notesView is second to last, this assumption could change in the future
-            self.stackViewController.removeItemAtIndex( self.stackViewController.items.count - 2 )
             self.stackViewController.insertItem(self.notesView(), atIndex: self.stackViewController.items.count - 2 )
+            self.stackViewController.removeItemAtIndex( self.stackViewController.items.count - 2)
         }))
         alert.addAction( UIAlertAction(title: R.string.localizable.cancel(), style: UIAlertActionStyle.cancel, handler: nil)  )
         
