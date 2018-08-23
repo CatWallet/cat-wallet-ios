@@ -45,6 +45,12 @@ class SendViewController: FormViewController{
     var addressRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.address) as? TextFloatLabelRow
     }
+    var emailRow: TextFloatLabelRow? {
+        return form.rowBy(tag: Values.email) as? TextFloatLabelRow
+    }
+    var phoneRow: TextFloatLabelRow? {
+        return form.rowBy(tag: Values.phone) as? TextFloatLabelRow
+    }
     var amountRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.amount) as? TextFloatLabelRow
     }
@@ -245,10 +251,10 @@ class SendViewController: FormViewController{
     
     func emailField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
-            pasteAction: { [unowned self] in self.pasteAction()
+            pasteAction: { [unowned self] in self.emailPasteAction()
             }
         )
-        return AppFormAppearance.textFieldFloat(tag: "email") {
+        return AppFormAppearance.textFieldFloat(tag: Values.email) {
             $0.validationOptions = .validatesOnDemand
             } .cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
@@ -268,7 +274,7 @@ class SendViewController: FormViewController{
     
     func cellPhoneField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.emailCellPhoneFieldRightView(
-            pasteAction: { [unowned self] in self.pasteAction() }
+            pasteAction: { [unowned self] in self.phonePasteAction() }
         )
         return AppFormAppearance.textFieldFloat(tag: Values.phone) {
             $0.validationOptions = .validatesOnDemand
@@ -440,6 +446,22 @@ class SendViewController: FormViewController{
         }
         addressRow?.value = value
         addressRow?.reload()
+        activateAmountView()
+    }
+    @objc func emailPasteAction() {
+        guard let value = UIPasteboard.general.string?.trimmed else {
+            return displayError(error: SendInputErrors.emptyClipBoard)
+        }
+        emailRow?.value = value
+        emailRow?.reload()
+        activateAmountView()
+    }
+    @objc func phonePasteAction() {
+        guard let value = UIPasteboard.general.string?.trimmed else {
+            return displayError(error: SendInputErrors.emptyClipBoard)
+        }
+        phoneRow?.value = value
+        phoneRow?.reload()
         activateAmountView()
     }
     @objc func useMaxAmount() {
