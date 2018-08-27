@@ -4,6 +4,7 @@ import UIKit
 import Branch
 import RealmSwift
 import Parse
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -38,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         protectionCoordinator.didFinishLaunchingWithOptions()
         urlNavigatorCoordinator.branch.didFinishLaunchingWithOptions(launchOptions: launchOptions)
+        FirebaseApp.configure()
         return true
     }
 

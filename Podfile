@@ -34,6 +34,9 @@ target 'Trust' do
   pod 'URLNavigator'
   pod 'RandomColorSwift'
   pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :commit=>'82c06558df5e6a75bd9c195a4e76536618e76a9a'
+  pod 'Firebase/Core'
+  
+
 
   target 'TrustTests' do
     inherit! :search_paths
