@@ -10,6 +10,7 @@ import QRCodeReaderViewController
 import TrustCore
 import TrustKeystore
 import RealmSwift
+import Parse
 
 protocol SendViewControllerDelegate: class {
     func didPressConfirm(
@@ -104,7 +105,7 @@ class SendViewController: FormViewController{
             $0.header?.height = { 0 }
             }
             <<< SegmentedRow<String>("segments"){
-                $0.options = ["ETH Address", "Email", "Cell Phone","Contacts"]
+                $0.options = ["ETH Address", "Email", "Cell Phone", "Contacts"]
                 $0.value = "ETH Address"
                 }.cellUpdate({ (cell, row) in
                     cell.tintColor = UIColor(hex: "15A7EB")
@@ -153,6 +154,7 @@ class SendViewController: FormViewController{
                 
                 }.onPresent({ (from, to) in
                
+                    self.inputCase = "address"
                     to.enableDeselection = false
                     to.dismissOnSelection = false
                     to.selectableRowCellUpdate = { (cell, row) in
@@ -246,7 +248,11 @@ class SendViewController: FormViewController{
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "amount-field"
                 cell.textField.keyboardType = .default
-        }
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == true {
+                    self.inputCase = "address"
+                }
+            })
     }
     
     func emailField() -> TextFloatLabelRow {
@@ -341,6 +347,41 @@ class SendViewController: FormViewController{
     }
 
     
+    func getAddress(_ emailOrPhone: String, _ getCase: String) -> String {
+        var getValue = " "
+        var params = [String: String]()
+        if getCase == "email" {
+            params["email"] = emailOrPhone
+        } else if getCase == "phone"{
+            params["phone"] = emailOrPhone
+        } else {
+            return getValue
+        }
+        do {
+            let requestAddress = try PFCloud.callFunction("queryAddress", withParameters: params)
+            getValue = requestAddress as! String
+        } catch {
+            if getCase == "phone"{
+                displayError(error: Errors.userNotRegistered)
+                return getValue
+            } else {
+//                let alert = UIAlertController(title: "WARNING", message: "User not found on server, do you want to continue? ", preferredStyle: .alert)
+//                let actionYes = UIAlertAction(title: "Yes", style: .default) { _ in
+//                    self.unadd = "0x4324C112Ed618BBDE6759CC01F13DB12ee6Ad215"
+//                    self.inputCase = ""
+//                    self.send()
+//                }
+//                let actionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
+//                alert.addAction(actionYes)
+//                alert.addAction(actionNo)
+//                self.present(alert, animated: true, completion: nil)
+                displayError(error: Errors.userNotRegistered)
+                return getValue
+            }
+        }
+        return getValue
+    }
+
     func clear() {
         let fields = [addressRow, amountRow]
         for field in fields {
@@ -358,6 +399,7 @@ class SendViewController: FormViewController{
             realm.add(contact)
         }
     }
+    
     func deleteAll(){
         let realm = try! Realm()
         try! realm.write {
@@ -402,10 +444,32 @@ class SendViewController: FormViewController{
     
     @objc func send() {
         let errors = form.validate()
-        guard errors.isEmpty else { return }
-        let addressString = addressRow?.value?.trimmed ?? ""
         let amountString = viewModel.amount
-        guard let address = Address(string: addressString) else {
+        guard errors.isEmpty else { return }
+        let receivedAddress: String?
+        switch inputCase {
+        case "email":
+            if (emailRow?.value)!.isEmail {
+                receivedAddress = getAddress(emailRow?.value?.trimmed ?? "", inputCase)
+            } else {
+                return displayError(error: Errors.invalidEmail)
+            }
+        case "phone":
+            if (phoneRow?.value)!.isPhoneNumber {
+                receivedAddress = getAddress(phoneRow?.value?.trimmed ?? "", inputCase)
+            } else {
+                return displayError(error: Errors.invalidPhoneNumber)
+            }
+        default:
+            if (unadd?.isEmpty)! {
+                receivedAddress = addressRow?.value?.trimmed ?? ""
+            } else {
+                receivedAddress = unadd
+            }
+        }
+//        let addressString = addressRow?.value?.trimmed ?? ""
+//        let amountString = viewModel.amount
+        guard let address = Address(string: receivedAddress!) else {
             return displayError(error: Errors.invalidAddress)
         }
         let parsedValue: BigInt? = {

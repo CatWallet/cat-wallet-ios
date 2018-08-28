@@ -30,6 +30,12 @@
 				<string>catwallet</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundie ID</string>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>265</string>
