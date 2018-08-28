@@ -95,6 +95,14 @@ final class SettingsViewController: FormViewController, Coordinator {
         let account = session.account.wallet
 
         form = Section()
+            <<< ButtonRow("Sign Up") {
+                $0.title = $0.tag
+                }.onCellSelection({ (cell, row) in
+                    let vc = LoginViewController()
+                    self.present(vc, animated: true, completion: nil)
+                }).cellUpdate({ (cell, _ ) in
+                    cell.textLabel?.textColor = UIColor.black
+                })
 
             <<< networkRow()
 
