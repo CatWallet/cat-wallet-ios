@@ -4,6 +4,7 @@ import Foundation
 import UIKit
 import Parse
 import PhoneNumberKit
+import MBProgressHUD
 
 class LoginViewController: UIViewController {
 
@@ -11,7 +12,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerIdentityField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var initialWallet : WalletInfo?
     weak var appCoordinator : AppCoordinator?
@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     var sentCode = false
     var emailVerification = true
     var savedPhoneOrEmail = ""
+    var cloudCodePending = false;
     
     let phoneNumberKit = PhoneNumberKit()
     
@@ -42,18 +43,17 @@ class LoginViewController: UIViewController {
     }
     
     private func showBusy() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     }
 
     private func stopShowBusy() {
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
+        MBProgressHUD.hide(for: self.view, animated: true)
     }
 
     // prepare to enter phone number/email
     func step1() {
         sendButton.isEnabled = true
+        cloudCodePending = false
         segmentControl.isHidden = false
         
         registerMethodSelected( segmentControl )  // pretend button clicked, to initialize field
@@ -66,6 +66,7 @@ class LoginViewController: UIViewController {
         sentCode = true         // mark we have sent the code, to move to next step in state machine
         
         sendButton.isEnabled = true
+        cloudCodePending = false
         segmentControl.isHidden = true
 
         registerIdentityField.text = ""
@@ -85,13 +86,15 @@ class LoginViewController: UIViewController {
 
     
     @IBAction func sendClicked(_ sender: Any) {
-        sendButton.isEnabled = false
-        
         let input = registerIdentityField.text!.lowercased().trimmed
         if input.isEmpty {
             showAlert(title: R.string.localizable.registerEmptyError(), message: "")
             return
         }
+
+        if cloudCodePending { return }
+        cloudCodePending = true
+        sendButton.isEnabled = false
 
         if !sentCode {   // Send user verification code
             var params = ["email": input]
@@ -105,6 +108,8 @@ class LoginViewController: UIViewController {
                 catch {
                     // TODO some number fail because no area code, can we figure out my area code to add to it?
                     showAlert(title: R.string.localizable.registerNumberInvalid(), message: "")
+                    sendButton.isEnabled = true
+                    cloudCodePending = false
                     return
                 }
             }

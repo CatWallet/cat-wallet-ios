@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Trust" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="9Ab-0x-Bsr" id="yqE-Wb-1iN"/>
                 <outlet property="registerHelpLabel" destination="lcP-E6-Stb" id="mXn-1X-p6a"/>
                 <outlet property="registerIdentityField" destination="tFU-LM-moH" id="YLj-CQ-Ijd"/>
                 <outlet property="segmentControl" destination="bDJ-jb-feg" id="CZ2-FJ-uUg"/>
@@ -69,9 +68,6 @@
                         <action selector="sendClicked:" destination="-1" eventType="touchUpInside" id="vKo-5h-DUO"/>
                     </connections>
                 </button>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9Ab-0x-Bsr">
-                    <rect key="frame" x="191" y="416" width="37" height="37"/>
-                </activityIndicatorView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f86-eL-HNN">
                     <rect key="frame" x="315" y="30" width="50" height="50"/>
                     <constraints>
@@ -91,13 +87,11 @@
                 <constraint firstItem="fkk-n2-8qP" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="0mU-Do-yYa"/>
                 <constraint firstItem="tFU-LM-moH" firstAttribute="top" secondItem="lcP-E6-Stb" secondAttribute="top" constant="150" id="4c7-4h-0BC"/>
                 <constraint firstItem="bDJ-jb-feg" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="4nL-Ay-EEN"/>
-                <constraint firstItem="9Ab-0x-Bsr" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="6EM-Ch-90Y"/>
                 <constraint firstItem="0GC-aq-YZI" firstAttribute="trailing" secondItem="f86-eL-HNN" secondAttribute="trailing" constant="10" id="9jx-K7-d6l"/>
                 <constraint firstItem="bDJ-jb-feg" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="Hq8-v7-K3Y"/>
                 <constraint firstItem="tFU-LM-moH" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="Jeo-U2-2k0"/>
                 <constraint firstItem="bDJ-jb-feg" firstAttribute="top" secondItem="lcP-E6-Stb" secondAttribute="top" constant="100" id="Rgw-ms-U3z"/>
                 <constraint firstItem="tFU-LM-moH" firstAttribute="centerX" secondItem="0GC-aq-YZI" secondAttribute="centerX" id="TrI-YI-OzP"/>
-                <constraint firstItem="9Ab-0x-Bsr" firstAttribute="centerY" secondItem="0GC-aq-YZI" secondAttribute="centerY" id="V3R-x2-rMJ"/>
                 <constraint firstItem="lcP-E6-Stb" firstAttribute="top" secondItem="0GC-aq-YZI" secondAttribute="top" constant="60" id="hiN-Ry-2DA"/>
                 <constraint firstItem="lcP-E6-Stb" firstAttribute="width" secondItem="nmS-Q8-FDZ" secondAttribute="width" constant="-40" id="mzD-X4-fPg"/>
                 <constraint firstItem="f86-eL-HNN" firstAttribute="top" secondItem="0GC-aq-YZI" secondAttribute="top" constant="10" id="uA9-g1-qdC"/>
