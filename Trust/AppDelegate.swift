@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         window = UIWindow(frame: UIScreen.main.bounds)
 
         Parse.initialize(with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
-            configuration.server = "https://catwallet.azurewebsites.net/parse"
+            configuration.server = "https://cat-wallet.azurewebsites.net/parse"
             configuration.applicationId = "catwallet"
         }))
 
