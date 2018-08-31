@@ -4,6 +4,7 @@ import UIKit
 import Eureka
 import StoreKit
 import TrustCore
+import Parse
 
 protocol SettingsViewControllerDelegate: class {
     func didAction(action: SettingsAction, in viewController: SettingsViewController)
@@ -11,6 +12,8 @@ protocol SettingsViewControllerDelegate: class {
 
 final class SettingsViewController: FormViewController, Coordinator {
     var coordinators: [Coordinator] = []
+    var userAccount: String?
+    var walletInfo: WalletInfo?
 
     struct Values {
         static let currencyPopularKey = "0"
@@ -88,6 +91,7 @@ final class SettingsViewController: FormViewController, Coordinator {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        userStatus()
         if let stateView = networkStateView {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stateView)
         }
@@ -97,11 +101,28 @@ final class SettingsViewController: FormViewController, Coordinator {
         form = Section()
             <<< ButtonRow("Sign Up") {
                 $0.title = $0.tag
+            <<< ButtonRow("linkAccount"){
+                $0.title = userAccount
+                }.onCellSelection({ (_, _) in
+                    self.linkUserAccount(account.address.eip55String)
+                }).cellUpdate({ (cell, _ ) in
+                    cell.textLabel?.textAlignment = .left
+                    cell.accessoryType = .disclosureIndicator
+                    cell.textLabel?.textColor = UIColor.black
+                    cell.imageView?.image = R.image.settings_colorful_link()
+                })
+            
+            
+            <<< ButtonRow("signup") {
+                $0.title = "Sign Up"
                 }.onCellSelection({ (cell, row) in
                     let vc = LoginViewController()
                     self.present(vc, animated: true, completion: nil)
                 }).cellUpdate({ (cell, _ ) in
+                    cell.textLabel?.textAlignment = .left
+                    cell.accessoryType = .disclosureIndicator
                     cell.textLabel?.textColor = UIColor.black
+                    cell.imageView?.image = R.image.settings_colorful_signup()
                 })
 
             <<< networkRow()
@@ -390,6 +411,39 @@ final class SettingsViewController: FormViewController, Coordinator {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func userStatus(){
+        var currentUser = PFUser.current()
+        if currentUser != nil {
+            if currentUser!["email"] != nil{
+             userAccount = "Linked your email"
+            } else {
+                userAccount = "Linked your phone"
+            }
+            print("is a user")
+            print("will hide button")
+        } else {
+            print("not a user")
+            print("not hide user")
+        }
+
+    }
+    
+    func linkUserAccount(_ currentPublicKey: String){
+        var currentUser = PFUser.current()
+        if currentUser != nil {
+            currentUser!["walletAddress"] = currentPublicKey
+            do {
+                try currentUser?.save()
+            }
+            catch{
+                print(error.localizedDescription)
+            }
+
+        } else {
+            print("Not a user")
+        }
+
     }
 }
 
