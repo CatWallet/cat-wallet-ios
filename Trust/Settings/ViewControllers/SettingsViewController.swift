@@ -99,8 +99,7 @@ final class SettingsViewController: FormViewController, Coordinator {
         let account = session.account.wallet
 
         form = Section()
-            <<< ButtonRow("Sign Up") {
-                $0.title = $0.tag
+            
             <<< ButtonRow("linkAccount"){
                 $0.title = userAccount
                 }.onCellSelection({ (_, _) in
