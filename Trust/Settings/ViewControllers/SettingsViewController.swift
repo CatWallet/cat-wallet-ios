@@ -441,14 +441,6 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
     }
     
-    func hide(){
-        if let buttonRow = self.form.rowBy(tag: "signUp") as? ButtonRow
-        {
-            buttonRow.hidden = true
-            buttonRow.evaluateHidden()
-        }
-    }
-    
     func linkUserAccount(_ currentPublicKey: String){
         var currentUser = PFUser.current()
         if currentUser != nil {
