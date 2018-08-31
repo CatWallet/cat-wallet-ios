@@ -52,6 +52,7 @@ class LoginViewController: UIViewController {
 
     // prepare to enter phone number/email
     func step1() {
+        sentCode = false
         sendButton.isEnabled = true
         cloudCodePending = false
         segmentControl.isHidden = false
@@ -113,7 +114,6 @@ class LoginViewController: UIViewController {
                     return
                 }
             }
-            savedPhoneOrEmail = registerIdentityField.text!
 
             showBusy()
             PFCloud.callFunction(inBackground: "sendCode", withParameters: params) { [weak self] (results : Any?, error : Error?) -> Void in
@@ -160,6 +160,11 @@ class LoginViewController: UIViewController {
                             self?.appCoordinator?.showTransactions(for: self!.initialWallet!)
                         }
                     }
+                }
+                else {
+                    self?.showAlert(title: R.string.localizable.registerAssignUserErrorTitle(),
+                                    message: R.string.localizable.registerSendCodeErrorMessage() )
+                    self?.step1()
                 }
             }
 
