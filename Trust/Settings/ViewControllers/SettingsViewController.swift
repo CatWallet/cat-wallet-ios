@@ -13,7 +13,8 @@ protocol SettingsViewControllerDelegate: class {
 final class SettingsViewController: FormViewController, Coordinator {
     var coordinators: [Coordinator] = []
     var userAccount: String?
-    var walletInfo: WalletInfo?
+    var account: WalletSession?
+    var hideSignUp = true
 
     struct Values {
         static let currencyPopularKey = "0"
@@ -97,36 +98,23 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
         title = NSLocalizedString("settings.navigation.title", value: "Settings", comment: "")
         let account = session.account.wallet
+        
+        var section = Section("ACCOUNT")
+        
+        if hideSignUp{
+            section += [linkAccountRow(account.address.eip55String)]
+        } else {
+            section += [signUpRow()]
+        }
+        
 
         form = Section()
-            
-            <<< ButtonRow("linkAccount"){
-                $0.title = userAccount
-                }.onCellSelection({ (_, _) in
-                    self.linkUserAccount(account.address.eip55String)
-                }).cellUpdate({ (cell, _ ) in
-                    cell.textLabel?.textAlignment = .left
-                    cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.textColor = UIColor.black
-                    cell.imageView?.image = R.image.settings_colorful_link()
-                })
-            
-            
-            <<< ButtonRow("signup") {
-                $0.title = "Sign Up"
-                }.onCellSelection({ (cell, row) in
-                    let vc = LoginViewController()
-                    self.present(vc, animated: true, completion: nil)
-                }).cellUpdate({ (cell, _ ) in
-                    cell.textLabel?.textAlignment = .left
-                    cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.textColor = UIColor.black
-                    cell.imageView?.image = R.image.settings_colorful_signup()
-                })
 
             <<< networkRow()
 
             <<< walletsRow(for: account.address)
+            
+            +++ section
 
             +++ Section(NSLocalizedString("settings.security.label.title", value: "Security", comment: ""))
 
@@ -345,6 +333,33 @@ final class SettingsViewController: FormViewController, Coordinator {
             cell.accessoryType = .disclosureIndicator
         }
     }
+    
+    private func signUpRow() -> ButtonRow {
+        return AppFormAppearance.button { row in
+                row.title = "Sign Up"
+            }.onCellSelection({ (_, _) in
+                let vc = LoginViewController()
+                self.present(vc, animated: true, completion: nil)
+            }).cellUpdate { cell, _ in
+                cell.textLabel?.textAlignment = .left
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.textColor = UIColor.black
+                cell.imageView?.image = R.image.settings_colorful_signup()
+        }
+    }
+    
+    private func linkAccountRow(_ publicKey: String) -> ButtonRow {
+        return AppFormAppearance.button { row in
+            row.title = self.userAccount
+            }.onCellSelection({ (_, _) in
+                self.linkUserAccount(publicKey)
+            }).cellUpdate { cell, _ in
+                cell.textLabel?.textAlignment = .left
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.textColor = UIColor.black
+                cell.imageView?.image = R.image.settings_colorful_link()
+        }
+    }
 
     func setPasscode(completion: ((Bool) -> Void)? = .none) {
         let coordinator = LockCreatePasscodeCoordinator(
@@ -411,9 +426,11 @@ final class SettingsViewController: FormViewController, Coordinator {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func userStatus(){
         var currentUser = PFUser.current()
         if currentUser != nil {
+            hideSignUp = true
             if currentUser!["email"] != nil{
              userAccount = "Linked your email"
             } else {
@@ -422,10 +439,18 @@ final class SettingsViewController: FormViewController, Coordinator {
             print("is a user")
             print("will hide button")
         } else {
+            hideSignUp = false
             print("not a user")
             print("not hide user")
         }
 
+    }
+    func hide(){
+        if let buttonRow = self.form.rowBy(tag: "signUp") as? ButtonRow
+        {
+            buttonRow.hidden = true
+            buttonRow.evaluateHidden()
+        }
     }
     
     func linkUserAccount(_ currentPublicKey: String){
@@ -438,11 +463,9 @@ final class SettingsViewController: FormViewController, Coordinator {
             catch{
                 print(error.localizedDescription)
             }
-
         } else {
             print("Not a user")
         }
-
     }
 }
 
