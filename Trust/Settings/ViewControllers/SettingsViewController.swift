@@ -432,19 +432,15 @@ final class SettingsViewController: FormViewController, Coordinator {
         if currentUser != nil {
             hideSignUp = true
             if currentUser!["email"] != nil{
-             userAccount = "Linked your email"
+             userAccount = "email"
             } else {
-                userAccount = "Linked your phone"
+                userAccount = "phone"
             }
-            print("is a user")
-            print("will hide button")
         } else {
             hideSignUp = false
-            print("not a user")
-            print("not hide user")
         }
-
     }
+    
     func hide(){
         if let buttonRow = self.form.rowBy(tag: "signUp") as? ButtonRow
         {
@@ -463,6 +459,11 @@ final class SettingsViewController: FormViewController, Coordinator {
             catch{
                 print(error.localizedDescription)
             }
+            let alert = UIAlertController(title: "SUCCESS", message: "You've linked your \(userAccount!)", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Done", style: .cancel)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        
         } else {
             print("Not a user")
         }
