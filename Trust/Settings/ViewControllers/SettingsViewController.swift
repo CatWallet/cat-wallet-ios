@@ -6,6 +6,7 @@ import StoreKit
 import TrustCore
 import Parse
 
+
 protocol SettingsViewControllerDelegate: class {
     func didAction(action: SettingsAction, in viewController: SettingsViewController)
 }
@@ -89,9 +90,8 @@ final class SettingsViewController: FormViewController, Coordinator {
         super.init(nibName: nil, bundle: nil)
         self.chaineStateObservation()
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewWillAppear(_ animated: Bool) {
         userStatus()
         if let stateView = networkStateView {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stateView)
@@ -107,36 +107,42 @@ final class SettingsViewController: FormViewController, Coordinator {
             section += [signUpRow()]
         }
         
-
         form = Section()
-
+            //testing only
+            <<< ButtonRow(){
+                $0.title = "logout"
+                }.onCellSelection({ (_, _) in
+                    PFUser.logOut()
+                    print(PFUser.current())
+                })
+            
             <<< networkRow()
-
+            
             <<< walletsRow(for: account.address)
             
             +++ section
-
+            
             +++ Section(NSLocalizedString("settings.security.label.title", value: "Security", comment: ""))
-
+            
             <<< SwitchRow(Values.passcodeRow) { [weak self] in
                 $0.title = self?.viewModel.passcodeTitle
                 $0.value = self?.isPasscodeEnabled
-            }.onChange { [unowned self] row in
-                if row.value == true {
-                    self.setPasscode { result in
-                        row.value = result
-                        row.updateCell()
+                }.onChange { [unowned self] row in
+                    if row.value == true {
+                        self.setPasscode { result in
+                            row.value = result
+                            row.updateCell()
+                        }
+                    } else {
+                        self.lock.deletePasscode()
+                        self.updateAutoLockRow(with: AutoLock.immediate)
                     }
-                } else {
-                    self.lock.deletePasscode()
-                    self.updateAutoLockRow(with: AutoLock.immediate)
-                }
-            }.cellSetup { cell, _ in
-                cell.imageView?.image = R.image.settings_colorful_security()
+                }.cellSetup { cell, _ in
+                    cell.imageView?.image = R.image.settings_colorful_security()
             }
-
+            
             <<< autoLockRow
-
+            
             <<< AppFormAppearance.button { [weak self] row in
                 row.cellStyle = .value1
                 row.presentationMode = .show(controllerProvider: ControllerProvider<UIViewController>.callback {
@@ -145,49 +151,51 @@ final class SettingsViewController: FormViewController, Coordinator {
                         self?.run(action: .pushNotifications(change))
                     }
                     return controller
-                }, onDismiss: { _ in
-            })
-            }.cellUpdate { cell, _ in
-                cell.imageView?.image = R.image.settings_colorful_notifications()
-                cell.textLabel?.text = R.string.localizable.settingsPushNotificationsTitle()
-                cell.accessoryType = .disclosureIndicator
+                    }, onDismiss: { _ in
+                })
+                }.cellUpdate { cell, _ in
+                    cell.imageView?.image = R.image.settings_colorful_notifications()
+                    cell.textLabel?.text = R.string.localizable.settingsPushNotificationsTitle()
+                    cell.accessoryType = .disclosureIndicator
             }
-
+            
             +++ Section()
-
+            
             <<< currencyRow()
             <<< browserRow()
             <<< analiticsRow()
-
+            
             +++ Section(R.string.localizable.settingsJoinCommunityLabelTitle())
-
+            
             <<< linkProvider(type: .twitter)
             <<< linkProvider(type: .telegram)
             <<< linkProvider(type: .facebook)
             <<< linkProvider(type: .discord)
-
+            
             +++ Section(R.string.localizable.settingsSupportTitle())
-
+            
             <<< AppFormAppearance.button { button in
                 button.title = R.string.localizable.shareWithFriends()
                 button.cell.imageView?.image = R.image.settings_colorful_share()
-            }.onCellSelection { [unowned self] cell, _  in
-                self.helpUsCoordinator.presentSharing(in: self, from: cell.contentView)
+                }.onCellSelection { [unowned self] cell, _  in
+                    self.helpUsCoordinator.presentSharing(in: self, from: cell.contentView)
             }
-
+            
             +++ Section()
-
+            
             <<< aboutRow()
             <<< supportRow()
-
+            
             +++ Section()
-
+            
             <<< TextRow {
                 $0.title = R.string.localizable.settingsVersionLabelTitle()
                 $0.value = Bundle.main.fullVersion
                 $0.disabled = true
-            }
+        }
     }
+
+    
 
     private func networkRow() -> PushRow<RPCServer> {
         return PushRow<RPCServer> { [weak self] in
@@ -336,7 +344,7 @@ final class SettingsViewController: FormViewController, Coordinator {
     
     private func signUpRow() -> ButtonRow {
         return AppFormAppearance.button { row in
-                row.title = "Sign Up"
+                row.title = NSLocalizedString("settings.signUpRow.label.title", value: "Sign Up", comment: "")
             }.onCellSelection({ (_, _) in
                 let vc = LoginViewController()
                 self.present(vc, animated: true, completion: nil)
@@ -431,10 +439,11 @@ final class SettingsViewController: FormViewController, Coordinator {
         var currentUser = PFUser.current()
         if currentUser != nil {
             hideSignUp = true
+            
             if currentUser!["email"] != nil{
-             userAccount = "email"
+             userAccount = NSLocalizedString("settings.userStatus.email.title", value: "Link Your Email", comment: "")
             } else {
-                userAccount = "phone"
+                userAccount = NSLocalizedString("settings.userStatus.phone.title", value: "Link Your Phone", comment: "")
             }
         } else {
             hideSignUp = false
@@ -451,11 +460,10 @@ final class SettingsViewController: FormViewController, Coordinator {
             catch{
                 print(error.localizedDescription)
             }
-            let alert = UIAlertController(title: "SUCCESS", message: "You've linked your \(userAccount!)", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Done", style: .cancel)
+            let alert = UIAlertController(title: NSLocalizedString("settings.linkDevice.alertController.title", value: "Success", comment: ""), message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: NSLocalizedString("settings.linkDevice.alertAction.title", value: "Done", comment: ""), style: .cancel)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
-        
         } else {
             print("Not a user")
         }

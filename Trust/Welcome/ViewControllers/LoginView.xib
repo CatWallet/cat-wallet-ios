@@ -16,6 +16,7 @@
                 <outlet property="registerIdentityField" destination="tFU-LM-moH" id="YLj-CQ-Ijd"/>
                 <outlet property="segmentControl" destination="bDJ-jb-feg" id="CZ2-FJ-uUg"/>
                 <outlet property="sendButton" destination="fkk-n2-8qP" id="X76-vc-ivN"/>
+                <outlet property="skipButton" destination="f86-eL-HNN" id="XVx-p3-6uH"/>
                 <outlet property="view" destination="nmS-Q8-FDZ" id="AdU-51-WIO"/>
             </connections>
         </placeholder>
@@ -36,8 +37,8 @@
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bDJ-jb-feg">
                     <rect key="frame" x="20" y="180" width="335" height="29"/>
                     <segments>
-                        <segment title="Email"/>
-                        <segment title="Phone"/>
+                        <segment title=""/>
+                        <segment title=""/>
                     </segments>
                     <color key="tintColor" red="0.08235294118" green="0.65490196079999996" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -75,7 +76,6 @@
                         <constraint firstAttribute="height" constant="50" id="rvy-xh-aBE"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="Skip"/>
                     <connections>
                         <action selector="cancelClicked:" destination="-1" eventType="touchUpInside" id="LQe-Sj-IP5"/>
                     </connections>

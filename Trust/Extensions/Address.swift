@@ -25,7 +25,7 @@ enum Errors: LocalizedError {
         case .invalidAmount:
             return NSLocalizedString("send.error.invalidAmount", value: "Invalid Amount", comment: "")
         case .userNotRegistered:
-            return NSLocalizedString("userNotRegistered", value: "User is not registered", comment: "")
+            return NSLocalizedString("send.error.userNotRegistered", value: "User is not registered", comment: "")
         }
     }
 }

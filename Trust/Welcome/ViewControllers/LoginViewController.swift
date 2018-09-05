@@ -12,7 +12,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerIdentityField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    
+
+    @IBOutlet weak var skipButton: UIButton!
     var initialWallet : WalletInfo?
     weak var appCoordinator : AppCoordinator?
     
@@ -24,6 +25,8 @@ class LoginViewController: UIViewController {
     let phoneNumberKit = PhoneNumberKit()
     
     private let refreshControl = UIRefreshControl()
+    
+    
     
     @IBAction func registerMethodSelected(_ sender: Any) {
         registerIdentityField.text = ""
@@ -77,7 +80,11 @@ class LoginViewController: UIViewController {
         sendButton.setTitle( R.string.localizable.registerConfirmButton(), for: .normal)
     }
 
-    
+    func setButtonTitle(){
+        segmentControl.setTitle(NSLocalizedString("register.segmentControl.title0", comment: ""), forSegmentAt: 0)
+        segmentControl.setTitle(NSLocalizedString("register.segmentControl.title1", comment: ""), forSegmentAt: 1)
+        skipButton.setTitle(NSLocalizedString("register.skipButton.title", comment: ""), for: .normal)
+    }
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -127,6 +134,7 @@ class LoginViewController: UIViewController {
                     self?.step2()
                 }
             }
+            
 
         }
         else {   // user got code back, need to log user in
@@ -136,6 +144,7 @@ class LoginViewController: UIViewController {
             }
             else {
                 params["phone"]  = savedPhoneOrEmail
+                print(savedPhoneOrEmail)
             }
             
             showBusy()
@@ -174,7 +183,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setButtonTitle()
         step1()
     }
 

@@ -11,6 +11,7 @@ import TrustCore
 import TrustKeystore
 import RealmSwift
 import Parse
+import PhoneNumberKit
 
 protocol SendViewControllerDelegate: class {
     func didPressConfirm(
@@ -27,6 +28,7 @@ class SendViewController: FormViewController{
     var mystruct: MyStruct?
     var getData:[MyStruct] = []
     let contact = Contact()
+    let phoneNumberKit = PhoneNumberKit()
     @IBOutlet weak var editButton: UIBarButtonItem!
     private lazy var viewModel: SendViewModel = {
         return .init(transferType: transferType, config: session.config, chainState: session.chainState, storage: storage, balance: session.balance)
@@ -98,6 +100,11 @@ class SendViewController: FormViewController{
             section.header?.height = {0}
         }
         
+        let segmentAddress = NSLocalizedString("send.segmentRow.ethAddress", value: "ETH Address", comment: "")
+        let segmentEmail = NSLocalizedString("send.segmentRow.email", value: "Email", comment: "")
+        let segmentPhone = NSLocalizedString("send.segmentRow.phone", value: "Phone", comment: "")
+        let segmentContacts = NSLocalizedString("send.segmentRow.contacts", value: "Contacts", comment: "")
+        
         
         form = Section(){
             
@@ -105,14 +112,18 @@ class SendViewController: FormViewController{
             $0.header?.height = { 0 }
             }
             <<< SegmentedRow<String>("segments"){
-                $0.options = ["ETH Address", "Email", "Cell Phone", "Contacts"]
+                $0.options = ["ETH Address",
+                              "Email",
+                              "Phone",
+                              "Contacts"
+                ]
                 $0.value = "ETH Address"
                 }.cellUpdate({ (cell, row) in
                     cell.tintColor = UIColor(hex: "15A7EB")
                 })
             +++ Section() {
                 $0.tag = "cellPhone_s"
-                $0.hidden = "$segments != 'Cell Phone'"
+                $0.hidden = "$segments != 'Phone'"
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
@@ -125,6 +136,7 @@ class SendViewController: FormViewController{
                 $0.footer?.height = { 0 }
             }
             <<< emailField()
+            
             +++ Section() {
                 $0.tag = "Recipient_s"
                 $0.hidden = "$segments != 'ETH Address'"
@@ -134,14 +146,13 @@ class SendViewController: FormViewController{
             }
             <<< addressField()
             
-            
             +++ Section() {
                 $0.tag = "Contacts_s"
                 $0.hidden = "$segments != 'Contacts'"
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
-            <<< PushRow<MyStruct>("Contacts"){
+            <<< PushRow<MyStruct>(segmentContacts){
                 $0.title = $0.tag
                 $0.value = mystruct
                 $0.displayValueFor = {
@@ -194,10 +205,10 @@ class SendViewController: FormViewController{
                     cell.backgroundColor = UIColor.clear
                     cell.textField.font = .italicSystemFont(ofSize: 12)
                 })
-            +++ TextAreaRow() {
-                $0.placeholder = "Add notes (Optional)"
-                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
-        }
+//            +++ TextAreaRow() {
+//                $0.placeholder = "Add notes (Optional)"
+//                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
+//        }
             +++ Section() {
                 $0.tag = "Recipient_s"
                 $0.hidden = "$segments != 'ETH Address'"
@@ -205,7 +216,7 @@ class SendViewController: FormViewController{
                 $0.footer?.height = { 0 }
         }
             <<< ButtonRow(){
-                $0.title = "ADD CONTACT"
+                $0.title = NSLocalizedString("send.addContacts.button.title", value: "", comment: "")
                 $0.onCellSelection(self.buttonTapped)        }
     }
 
@@ -264,7 +275,7 @@ class SendViewController: FormViewController{
             $0.validationOptions = .validatesOnDemand
             } .cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
-                cell.textField.placeholder = "Email"
+                cell.textField.placeholder = NSLocalizedString("send.segmentRow.email", value: "Email", comment: "")
                 cell.textField.rightView = recipientRightView
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "email-field"
@@ -286,7 +297,7 @@ class SendViewController: FormViewController{
             $0.validationOptions = .validatesOnDemand
             }.cellUpdate { cell, _ in
                 cell.textField.textAlignment = .left
-                cell.textField.placeholder = "Cell Phone"
+                cell.textField.placeholder = NSLocalizedString("send.segmentRow.phone", value: "Phone", comment: "")
                 cell.textField.rightView = recipientRightView
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "cellPhone-field"
@@ -345,7 +356,6 @@ class SendViewController: FormViewController{
         }
         return cell
     }
-
     
     func getAddress(_ emailOrPhone: String, _ getCase: String) -> String {
         var getValue = " "
@@ -353,7 +363,15 @@ class SendViewController: FormViewController{
         if getCase == "email" {
             params["email"] = emailOrPhone
         } else if getCase == "phone"{
-            params["phone"] = emailOrPhone
+            do{
+            let num = try phoneNumberKit.parse( emailOrPhone )
+            let phoneNum = phoneNumberKit.format(num, toType: .e164)
+                params["phone"] = phoneNum
+                print(phoneNum)
+            } catch {
+                
+            }
+            
         } else {
             return getValue
         }
@@ -425,17 +443,17 @@ class SendViewController: FormViewController{
         guard let address = Address(string: addressRow?.value?.trimmed ?? "") else {
             return self.displayError(error: Errors.invalidAddress)
         }
-        let alert = UIAlertController(title: "Add new contact", message: "Please enter name and ETH address", preferredStyle: UIAlertControllerStyle.alert)
-        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+        let alert = UIAlertController(title: NSLocalizedString("send.addNewContacts.alertController.title", value: "Add New Contact", comment: ""), message: NSLocalizedString("send.addNewContacts.alertController.message", value: "Please enter name and ETH address", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+        let addAction = UIAlertAction(title: NSLocalizedString("send.addNewContacts.alertAction.okButton", value: "ADD", comment: ""), style: .default) { (action) in
             let nameTextField = alert.textFields![0] as UITextField
             if let getName = nameTextField.text {
                 self.addNewContact(getName, address.eip55String)
                 self.getData.append(MyStruct(name: getName, address: address.eip55String))
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("send.addNewContacts.alertAction.cancelButton", value: "Cancel", comment: ""), style: .cancel, handler: nil)
         alert.addTextField { (nameTextField) in
-            nameTextField.placeholder = "Enter a name"
+            nameTextField.placeholder = NSLocalizedString("send.addNewContacts.textField.placeholder", value: "Enter a name", comment: "")
             }
         alert.addAction(addAction)
         alert.addAction(cancelAction)
@@ -467,8 +485,7 @@ class SendViewController: FormViewController{
                 receivedAddress = unadd
             }
         }
-//        let addressString = addressRow?.value?.trimmed ?? ""
-//        let amountString = viewModel.amount
+
         guard let address = Address(string: receivedAddress!) else {
             return displayError(error: Errors.invalidAddress)
         }

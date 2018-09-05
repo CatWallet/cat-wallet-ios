@@ -11,6 +11,10 @@
 "register.assignUserErrorTitle" = "Error changing user";
 "register.emptyError" = "Error, input cannot be empty";
 "register.numberInvalid" = "Invalid phone number";
+"register.segmentControl.title0" = "Email";
+"register.segmentControl.title1" = "Phone";
+"register.skipButton.title" = "Skip";
+
 
 "transaction.AddNotes" = "Add Notes";
 "transaction.EditNotes" = "Edit Notes";
@@ -61,13 +65,24 @@
 "request.myPublicaddress.label.title" = "My Public %@ wallet address";
 "Retry" = "Retry";
 "Send" = "Send";
+"send.segmentRow.ethAddress" = "ETH Address";
+"send.segmentRow.email" = "Email";
+"send.segmentRow.phone" = "Phone";
+"send.segmentRow.contacts" = "Contacts";
 "send.amount.textField.placeholder" = "Amount";
 "send.error.emptyClipBoard" = "Empty ClipBoard";
 "send.error.invalidAddress" = "Invalid Address";
 "send.error.wrongInput" = "Wrong Input";
+"send.error.userNotRegistered" = "User is not registered";
 "send.max.button.title" = "Max";
 "send.paste.button.title" = "Paste";
 "send.recipientAddress.textField.placeholder" = "Recipient Address";
+"send.addContacts.button.title" = "Add Contacts";
+"send.addNewContacts.alertController.title" = "Add New Contact";
+"send.addNewContacts.alertController.message" = "Please enter name and ETH address";
+"send.addNewContacts.alertAction.okButton" = "Add";
+"send.addNewContacts.alertAction.cancelButton" = "Cancel";
+"send.addNewContacts.textField.placeholder" = "Enter a name";
 "settings.biometricsDisabled.label.title" = "Passcode";
 "settings.biometricsEnabled.label.title" = "Passcode / %@";
 "settings.community.label.title" = "Community";
@@ -87,6 +102,11 @@
 "settings.support.label.title" = "Support";
 "settings.termsOfService.button.title" = "Terms of Service";
 "settings.version.label.title" = "Version";
+"settings.signUpRow.label.title" = "Sign Up";
+"settings.userStatus.phone.title" = "Link Your Phone";
+"settings.userStatus.email.title" = "Link Your Email";
+"settings.linkDevice.alertController.title" = "Success";
+"settings.linkDevice.alertAction.title" = "Done";
 "transactions.deposit.button.title" = "Buy";
 "transactions.myAddress.button.title" = "My Address";
 "transactions.noTransactions.label.title" = "No Transactions Yet!";
