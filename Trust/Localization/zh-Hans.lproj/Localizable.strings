@@ -15,6 +15,7 @@
 "register.segmentControl.title1" = "手机";
 "register.skipButton.title" = "跳过";
 
+
 "transaction.AddNotes" = "加备注";
 "transaction.EditNotes" = "改备注";
 "transaction.NotesTitle" = "备注";

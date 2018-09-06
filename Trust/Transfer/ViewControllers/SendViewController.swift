@@ -41,10 +41,20 @@ class SendViewController: FormViewController{
         static let amount = "amount"
         static let collectible = "collectible"
     }
+    struct SendTypeValues {
+        static let address = "ETH Address"
+        static let email = "Email"
+        static let phone = "Phone"
+        static let contacts = "Contacts"
+        static let segment = "segment"
+    }
     let session: WalletSession
     let account: Account
     let transferType: TransferType
     let storage: TokensDataStore
+    var segmentRow: SegmentedRow<String>? {
+        return form.rowBy(tag: SendTypeValues.segment)
+    }
     var addressRow: TextFloatLabelRow? {
         return form.rowBy(tag: Values.address) as? TextFloatLabelRow
     }
@@ -91,68 +101,70 @@ class SendViewController: FormViewController{
         )
         
         getContacts()
-       
         
-        let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
+       let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
         fields().forEach { cell in
             section.append(cell)
             section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
             section.header?.height = {0}
         }
         
-        let segmentAddress = NSLocalizedString("send.segmentRow.ethAddress", value: "ETH Address", comment: "")
-        let segmentEmail = NSLocalizedString("send.segmentRow.email", value: "Email", comment: "")
-        let segmentPhone = NSLocalizedString("send.segmentRow.phone", value: "Phone", comment: "")
-        let segmentContacts = NSLocalizedString("send.segmentRow.contacts", value: "Contacts", comment: "")
-        
-        
-        form = Section(){
-            
-            $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
-            $0.header?.height = { 0 }
-            }
-            <<< SegmentedRow<String>("segments"){
-                $0.options = ["ETH Address",
-                              "Email",
-                              "Phone",
-                              "Contacts"
+        form
+            +++ Section(){
+                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.header?.height = { 0 }
+                }
+            <<< SegmentedRow<String>(SendTypeValues.segment){
+                $0.options = [
+                    SendType.ETHAddress.title,
+                    SendType.email.title,
+                    SendType.phone.title,
+                    SendType.contacts.title,
                 ]
-                $0.value = "ETH Address"
+                $0.value = SendType.ETHAddress.title
                 }.cellUpdate({ (cell, row) in
                     cell.tintColor = UIColor(hex: "15A7EB")
                 })
+            
             +++ Section() {
-                $0.tag = "cellPhone_s"
-                $0.hidden = "$segments != 'Phone'"
+                $0.tag = "Recipient_s"
+                $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
+                    return self?.segmentRow?.value != SendType.ETHAddress.title
+                })
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
-            
+            <<< addressField()
+
+            +++ Section() {
+                $0.tag = "cellPhone_s"
+                $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
+                    return self?.segmentRow?.value != SendType.phone.title
+                })
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
+            }
             <<< cellPhoneField()
+            
             +++ Section() {
                 $0.tag = "Email_s"
-                $0.hidden = "$segments != 'Email'"
+                $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
+                    return self?.segmentRow?.value != SendType.email.title
+                })
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
             <<< emailField()
             
             +++ Section() {
-                $0.tag = "Recipient_s"
-                $0.hidden = "$segments != 'ETH Address'"
-                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
-                $0.footer?.height = { 0 }
-                
-            }
-            <<< addressField()
-            
-            +++ Section() {
                 $0.tag = "Contacts_s"
-                $0.hidden = "$segments != 'Contacts'"
+                $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
+                    return self?.segmentRow?.value != SendType.contacts.title
+                })
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
             }
-            <<< PushRow<MyStruct>(segmentContacts){
+            <<< PushRow<MyStruct>(SendType.contacts.title){
                 $0.title = $0.tag
                 $0.value = mystruct
                 $0.displayValueFor = {
@@ -190,8 +202,6 @@ class SendViewController: FormViewController{
                     address.updateCell()
                 })
             
-            
-            
             +++ Section(){
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.header?.height = { 0 }
@@ -205,21 +215,20 @@ class SendViewController: FormViewController{
                     cell.backgroundColor = UIColor.clear
                     cell.textField.font = .italicSystemFont(ofSize: 12)
                 })
-//            +++ TextAreaRow() {
-//                $0.placeholder = "Add notes (Optional)"
-//                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
-//        }
+
             +++ Section() {
                 $0.tag = "Recipient_s"
-                $0.hidden = "$segments != 'ETH Address'"
+                $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
+                    return self?.segmentRow?.value != SendType.ETHAddress.title
+                })
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
         }
             <<< ButtonRow(){
                 $0.title = NSLocalizedString("send.addContacts.button.title", value: "", comment: "")
                 $0.onCellSelection(self.buttonTapped)        }
+    
     }
-
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
