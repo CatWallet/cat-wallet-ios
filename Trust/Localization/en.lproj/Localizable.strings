@@ -83,6 +83,9 @@
 "send.addNewContacts.alertAction.okButton" = "Add";
 "send.addNewContacts.alertAction.cancelButton" = "Cancel";
 "send.addNewContacts.textField.placeholder" = "Enter a name";
+"send.queryAddress.errorMessage" = "The user is not found on our server, do you want to continue?";
+"send.queryAddress.yes" = "Yes";
+"send.queryAddress.no" = "No";
 "settings.biometricsDisabled.label.title" = "Passcode";
 "settings.biometricsEnabled.label.title" = "Passcode / %@";
 "settings.community.label.title" = "Community";

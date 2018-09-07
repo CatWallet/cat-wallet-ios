@@ -83,6 +83,9 @@
 "send.addNewContacts.alertAction.okButton" = "添加";
 "send.addNewContacts.alertAction.cancelButton" = "取消";
 "send.addNewContacts.textField.placeholder" = "请输入名字";
+"send.queryAddress.errorMessage" = "用户不存在，请问是否要继续？";
+"send.queryAddress.yes" = "确定";
+"send.queryAddress.no" = "取消";
 "settings.biometricsDisabled.label.title" = "密码";
 "settings.biometricsEnabled.label.title" = "密码 / %@";
 "settings.community.label.title" = "社区";

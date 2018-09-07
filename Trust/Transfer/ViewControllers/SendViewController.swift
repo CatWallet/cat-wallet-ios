@@ -22,9 +22,8 @@ protocol SendViewControllerDelegate: class {
 }
 var buttonTitle = "Contact"
 class SendViewController: FormViewController{
-    
+    var serverPubKey: String?
     var inputCase = ""
-    var unadd: String?
     var mystruct: MyStruct?
     var getData:[MyStruct] = []
     let contact = Contact()
@@ -389,24 +388,32 @@ class SendViewController: FormViewController{
             getValue = requestAddress as! String
         } catch {
             if getCase == "phone"{
-                displayError(error: Errors.userNotRegistered)
+                requestPubKeyfromServer(params: params)
                 return getValue
             } else {
-//                let alert = UIAlertController(title: "WARNING", message: "User not found on server, do you want to continue? ", preferredStyle: .alert)
-//                let actionYes = UIAlertAction(title: "Yes", style: .default) { _ in
-//                    self.unadd = "0x4324C112Ed618BBDE6759CC01F13DB12ee6Ad215"
-//                    self.inputCase = ""
-//                    self.send()
-//                }
-//                let actionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
-//                alert.addAction(actionYes)
-//                alert.addAction(actionNo)
-//                self.present(alert, animated: true, completion: nil)
-                displayError(error: Errors.userNotRegistered)
+                requestPubKeyfromServer(params: params)
                 return getValue
             }
         }
         return getValue
+    }
+    
+    func requestPubKeyfromServer(params: [String: String]){
+        let alert = UIAlertController(title: "", message: NSLocalizedString("send.queryAddress.errorMessage", comment: ""), preferredStyle: .alert)
+        let actionYes = UIAlertAction(title: NSLocalizedString("send.queryAddress.yes", comment: ""), style: .default) { _ in
+            do {
+                let createWallet = try PFCloud.callFunction("createWallet", withParameters: params)
+                self.serverPubKey = createWallet as! String
+            } catch {
+                
+            }
+            self.inputCase = ""
+            self.send()
+        }
+        let actionNo = UIAlertAction(title: NSLocalizedString("send.queryAddress.no", comment: ""), style: .cancel, handler: nil)
+        alert.addAction(actionYes)
+        alert.addAction(actionNo)
+        self.present(alert, animated: true, completion: nil)
     }
 
     func clear() {
@@ -488,10 +495,10 @@ class SendViewController: FormViewController{
                 return displayError(error: Errors.invalidPhoneNumber)
             }
         default:
-            if (unadd?.isEmpty)! {
+            if (serverPubKey?.isEmpty)! {
                 receivedAddress = addressRow?.value?.trimmed ?? ""
             } else {
-                receivedAddress = unadd
+                receivedAddress = serverPubKey
             }
         }
 
