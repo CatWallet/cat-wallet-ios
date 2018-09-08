@@ -109,12 +109,12 @@ final class SettingsViewController: FormViewController, Coordinator {
         
         form = Section()
             //testing only
-//            <<< ButtonRow(){
-//                $0.title = "logout"
-//                }.onCellSelection({ (_, _) in
-//                    PFUser.logOut()
-//                    print(PFUser.current())
-//                })
+            <<< ButtonRow(){
+                $0.title = "logout"
+                }.onCellSelection({ (_, _) in
+                    PFUser.logOut()
+                    print(PFUser.current())
+                })
             
             <<< networkRow()
             

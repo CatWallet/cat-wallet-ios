@@ -375,9 +375,8 @@ class SendViewController: FormViewController{
             let num = try phoneNumberKit.parse( emailOrPhone )
             let phoneNum = phoneNumberKit.format(num, toType: .e164)
                 params["phone"] = phoneNum
-                print(phoneNum)
             } catch {
-                
+                print(error.localizedDescription)
             }
             
         } else {
@@ -387,13 +386,8 @@ class SendViewController: FormViewController{
             let requestAddress = try PFCloud.callFunction("queryAddress", withParameters: params)
             getValue = requestAddress as! String
         } catch {
-            if getCase == "phone"{
-                requestPubKeyfromServer(params: params)
-                return getValue
-            } else {
-                requestPubKeyfromServer(params: params)
-                return getValue
-            }
+            requestPubKeyfromServer(params: params)
+            return getValue
         }
         return getValue
     }
@@ -403,9 +397,11 @@ class SendViewController: FormViewController{
         let actionYes = UIAlertAction(title: NSLocalizedString("send.queryAddress.yes", comment: ""), style: .default) { _ in
             do {
                 let createWallet = try PFCloud.callFunction("createWallet", withParameters: params)
+                print(createWallet)
                 self.serverPubKey = createWallet as! String
             } catch {
-                
+                print(error.localizedDescription)
+                return
             }
             self.inputCase = ""
             self.send()
