@@ -5,6 +5,7 @@ import Foundation
 import UIKit
 import Result
 import StatefulViewController
+import Parse
 
 enum ConfirmType {
     case sign
@@ -17,7 +18,6 @@ enum ConfirmResult {
 }
 
 class ConfirmPaymentViewController: UIViewController {
-
     private let keystore: Keystore
     let session: WalletSession
     lazy var sendTransactionCoordinator = {
@@ -188,6 +188,17 @@ class ConfirmPaymentViewController: UIViewController {
         )
         self.configure(for: viewModel)
     }
+    
+    private func notifyNewPaidWallet(){
+        if let param = params{
+            do {
+                _ = try PFCloud.callFunction("notifyNewPaidWallet", withParameters: param)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -206,7 +217,7 @@ class ConfirmPaymentViewController: UIViewController {
 
     @objc func send() {
         self.displayLoading()
-
+        notifyNewPaidWallet()
         let transaction = configurator.signTransaction
         self.sendTransactionCoordinator.send(transaction: transaction) { [weak self] result in
             guard let `self` = self else { return }

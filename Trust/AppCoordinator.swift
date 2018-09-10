@@ -67,7 +67,7 @@ class AppCoordinator: NSObject, Coordinator {
             let registerViewController = LoginViewController(nibName: "LoginView", bundle: nil)
             registerViewController.initialWallet = walletToShowAfter     // show this wallet's balance afer we are done
             registerViewController.appCoordinator = self
-            navigationController.present(registerViewController, animated: true, completion: nil)
+            navigationController.pushViewController(registerViewController, animated: false)
             return true
         }
         return false

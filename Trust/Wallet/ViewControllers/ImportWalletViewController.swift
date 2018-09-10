@@ -1,6 +1,7 @@
 // Copyright DApps Platform Inc. All rights reserved.
 
 import UIKit
+import Parse
 import Eureka
 import TrustCore
 import QRCodeReaderViewController
@@ -12,6 +13,7 @@ protocol ImportWalletViewControllerDelegate: class {
 final class ImportWalletViewController: FormViewController {
 
     let keystore: Keystore
+    var keyStoreString: String?
     private let viewModel = ImportWalletViewModel()
 
     struct Values {
@@ -57,7 +59,7 @@ final class ImportWalletViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        fetchKeyStore()
         title = viewModel.title
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: R.image.import_options(), style: .done, target: self, action: #selector(importOptions)),
@@ -76,6 +78,8 @@ final class ImportWalletViewController: FormViewController {
         )
 
         let initialName = WalletInfo.initialName(index: keystore.wallets.count)
+        
+        
 
         form
             +++ Section()
@@ -96,6 +100,9 @@ final class ImportWalletViewController: FormViewController {
                 })
             }
             <<< AppFormAppearance.textArea(tag: Values.keystore) { [weak self] in
+                if let keystore = self?.keyStoreString{
+                    $0.value = keystore
+                }
                 $0.placeholder = self?.viewModel.keystorePlaceholder
                 $0.textAreaHeight = .fixed(cellHeight: 140)
                 $0.add(rule: RuleRequired())
@@ -247,6 +254,15 @@ final class ImportWalletViewController: FormViewController {
         let controller = QRCodeReaderViewController()
         controller.delegate = self
         present(controller, animated: true, completion: nil)
+    }
+    
+    func fetchKeyStore(){
+        let currentUser = PFUser.current()
+        if currentUser != nil{
+            if let keystore = currentUser!["keyStore"]{
+                keyStoreString = keystore as? String
+            }
+        }
     }
 
     func setValueForCurrentField(string: String) {

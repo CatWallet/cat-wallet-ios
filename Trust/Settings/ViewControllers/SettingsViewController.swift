@@ -109,12 +109,12 @@ final class SettingsViewController: FormViewController, Coordinator {
         
         form = Section()
             //testing only
-            <<< ButtonRow(){
-                $0.title = "logout"
-                }.onCellSelection({ (_, _) in
-                    PFUser.logOut()
-                    print(PFUser.current())
-                })
+//            <<< ButtonRow(){
+//                $0.title = "logout"
+//                }.onCellSelection({ (_, _) in
+//                    PFUser.logOut()
+//                    print(PFUser.current())
+//                })
             
             <<< networkRow()
             
@@ -436,10 +436,9 @@ final class SettingsViewController: FormViewController, Coordinator {
     }
     
     func userStatus(){
-        var currentUser = PFUser.current()
+        let currentUser = PFUser.current()
         if currentUser != nil {
             hideSignUp = true
-            
             if currentUser!["email"] != nil{
              userAccount = NSLocalizedString("settings.userStatus.email.title", value: "Link Your Email", comment: "")
             } else {

@@ -16,12 +16,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var skipButton: UIButton!
     var initialWallet : WalletInfo?
     weak var appCoordinator : AppCoordinator?
-    
     var sentCode = false
     var emailVerification = true
     var savedPhoneOrEmail = ""
-    var cloudCodePending = false;
-    
+    var cloudCodePending = false
+
     let phoneNumberKit = PhoneNumberKit()
     
     private let refreshControl = UIRefreshControl()
@@ -91,6 +90,16 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default))
         present(alert, animated: true, completion: nil)
     }
+    
+    func checkKeyStore(){
+        let currentUser = PFUser.current()
+        if currentUser != nil{
+            if let keystore = currentUser!["keyStore"]{
+                let we = WelcomeViewController()
+                appCoordinator?.didPressImportWallet(in: we)
+            }
+        }
+    }
 
     
     @IBAction func sendClicked(_ sender: Any) {
@@ -134,8 +143,6 @@ class LoginViewController: UIViewController {
                     self?.step2()
                 }
             }
-            
-
         }
         else {   // user got code back, need to log user in
             var params = ["code" : registerIdentityField.text!]
@@ -144,13 +151,11 @@ class LoginViewController: UIViewController {
             }
             else {
                 params["phone"]  = savedPhoneOrEmail
-                print(savedPhoneOrEmail)
             }
-            
+
             showBusy()
             PFCloud.callFunction(inBackground: "logIn", withParameters: params) {
                 [weak self] (response: Any?, error: Error?) -> Void in
-                
                 self?.stopShowBusy()
                 if let error = error {
                     self?.step1()
@@ -165,6 +170,7 @@ class LoginViewController: UIViewController {
                             self?.step1()
                         }
                         else {
+                            self?.checkKeyStore()
                             self?.dismiss(animated: true, completion: nil)
                             self?.appCoordinator?.showTransactions(for: self!.initialWallet!)
                         }
@@ -176,10 +182,8 @@ class LoginViewController: UIViewController {
                     self?.step1()
                 }
             }
-
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

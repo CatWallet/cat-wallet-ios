@@ -20,3 +20,5 @@ class Contact: Object {
     @objc dynamic var name: String?
     @objc dynamic var address: String?
 }
+
+var params: [String: String]?

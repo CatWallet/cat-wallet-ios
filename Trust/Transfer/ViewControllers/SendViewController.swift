@@ -386,23 +386,23 @@ class SendViewController: FormViewController{
             let requestAddress = try PFCloud.callFunction("queryAddress", withParameters: params)
             getValue = requestAddress as! String
         } catch {
-            requestPubKeyfromServer(params: params)
+            requestPubKeyfromServer(param: params)
             return getValue
         }
         return getValue
     }
     
-    func requestPubKeyfromServer(params: [String: String]){
+    func requestPubKeyfromServer(param: [String: String]){
         let alert = UIAlertController(title: "", message: NSLocalizedString("send.queryAddress.errorMessage", comment: ""), preferredStyle: .alert)
         let actionYes = UIAlertAction(title: NSLocalizedString("send.queryAddress.yes", comment: ""), style: .default) { _ in
             do {
-                let createWallet = try PFCloud.callFunction("createWallet", withParameters: params)
-                print(createWallet)
+                let createWallet = try PFCloud.callFunction("createWallet", withParameters: param)
                 self.serverPubKey = createWallet as! String
             } catch {
                 print(error.localizedDescription)
                 return
             }
+            params = param
             self.inputCase = ""
             self.send()
         }
