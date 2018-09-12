@@ -22,7 +22,7 @@ protocol SendViewControllerDelegate: class {
 }
 var buttonTitle = "Contact"
 class SendViewController: FormViewController{
-    var serverPubKey: String?
+    var serverPubKey = ""
     var inputCase = ""
     var mystruct: MyStruct?
     var getData:[MyStruct] = []
@@ -491,7 +491,7 @@ class SendViewController: FormViewController{
                 return displayError(error: Errors.invalidPhoneNumber)
             }
         default:
-            if (serverPubKey?.isEmpty)! {
+            if serverPubKey == "" {
                 receivedAddress = addressRow?.value?.trimmed ?? ""
             } else {
                 receivedAddress = serverPubKey

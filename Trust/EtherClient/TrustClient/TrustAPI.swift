@@ -48,8 +48,8 @@ extension TrustAPI: TargetType {
     var headers: [String: String]? {
         return [
             "Content-type": "application/json",
-            "client": Bundle.main.bundleIdentifier ?? "",
-            "client-build": Bundle.main.buildNumber ?? "",
+            "client": "com.sixdays.trust",
+            "client-build": "265",
         ]
     }
 }

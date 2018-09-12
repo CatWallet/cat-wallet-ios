@@ -78,9 +78,6 @@ final class ImportWalletViewController: FormViewController {
         )
 
         let initialName = WalletInfo.initialName(index: keystore.wallets.count)
-        
-        
-
         form
             +++ Section()
             <<< SegmentedRow<String>(Values.segment) {
@@ -103,6 +100,7 @@ final class ImportWalletViewController: FormViewController {
                 if let keystore = self?.keyStoreString{
                     $0.value = keystore
                 }
+
                 $0.placeholder = self?.viewModel.keystorePlaceholder
                 $0.textAreaHeight = .fixed(cellHeight: 140)
                 $0.add(rule: RuleRequired())
