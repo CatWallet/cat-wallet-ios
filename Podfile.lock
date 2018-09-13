@@ -105,6 +105,7 @@ PODS:
   - SipHash (1.2.0)
   - StatefulViewController (3.0)
   - SwiftLint (0.25.0)
+  - SWSegmentedControl (2.6.1)
   - TrezorCrypto (0.0.5)
   - TrustCore (0.0.7):
     - BigInt
@@ -146,6 +147,7 @@ DEPENDENCIES:
   - SeedStackViewController
   - StatefulViewController
   - SwiftLint
+  - SWSegmentedControl
   - TrustCore (~> 0.0.7)
   - TrustKeystore (from `https://github.com/TrustWallet/trust-keystore`, commit `9efdccfcace4d42874838243cb2b4710636fd563`)
   - TrustWalletSDK (from `https://github.com/TrustWallet/TrustSDK-iOS`, commit `82c06558df5e6a75bd9c195a4e76536618e76a9a`)
@@ -189,6 +191,7 @@ SPEC REPOS:
     - SipHash
     - StatefulViewController
     - SwiftLint
+    - SWSegmentedControl
     - TrezorCrypto
     - TrustCore
     - URLNavigator
@@ -264,6 +267,7 @@ SPEC CHECKSUMS:
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
+  SWSegmentedControl: 5770c91bb4b438be300371221e38f4af5100bba2
   TrezorCrypto: ecef681446bf02af6248d3b5e394026d7e766e56
   TrustCore: 688df9a241008cf9cfa3842ec8ef28777a8b7534
   TrustKeystore: fdd5936098af80b9478122bbd3a89477a5389298
@@ -271,6 +275,6 @@ SPEC CHECKSUMS:
   TrustWeb3Provider: 50fa391bdf170feb43dd4419992931510a5751d8
   URLNavigator: af5582fbbb3586c958be16835d799bfdb23a4793
 
-PODFILE CHECKSUM: 0eb62c4f3a273097a89c25085912694b0fa61907
+PODFILE CHECKSUM: 64c01972609fbeb50a63754c673f81b676b4891c
 
 COCOAPODS: 1.5.3

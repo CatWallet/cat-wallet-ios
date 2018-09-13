@@ -35,7 +35,7 @@ target 'Trust' do
   pod 'RandomColorSwift'
   pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :commit=>'82c06558df5e6a75bd9c195a4e76536618e76a9a'
   pod 'Firebase/Core'
-  
+  pod 'SWSegmentedControl'
 
 
   target 'TrustTests' do
@@ -67,5 +67,9 @@ post_install do |installer|
     #         config.build_settings['MACH_O_TYPE'] = 'staticlib'
     #     end
     # end
+  end
+  installer.pods_project.build_configurations.each do |config|
+      config.build_settings.delete('CODE_SIGNING_ALLOWED')
+      config.build_settings.delete('CODE_SIGNING_REQUIRED')
   end
 end

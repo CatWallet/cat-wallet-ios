@@ -5,14 +5,18 @@ import UIKit
 import Parse
 import PhoneNumberKit
 import MBProgressHUD
+import SWSegmentedControl
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, SWSegmentedControlDelegate {
 
+    
+    @IBOutlet weak var segment: SWSegmentedControl!
     @IBOutlet weak var registerHelpLabel: UILabel!
     @IBOutlet weak var registerIdentityField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-
+    @IBOutlet weak var info: UIButton!
+    
     @IBOutlet weak var skipButton: UIButton!
     var initialWallet : WalletInfo?
     weak var appCoordinator : AppCoordinator?
@@ -27,9 +31,9 @@ class LoginViewController: UIViewController {
     
     
     
-    @IBAction func registerMethodSelected(_ sender: Any) {
+    @IBAction func segmentedChanged(_ sender: SWSegmentedControl) {
         registerIdentityField.text = ""
-        if segmentControl.selectedSegmentIndex == 0 {
+        if segment.selectedSegmentIndex == 0 {
             emailVerification = true
             registerIdentityField.placeholder = R.string.localizable.registerEnterEmail()
         }
@@ -37,6 +41,13 @@ class LoginViewController: UIViewController {
             emailVerification = false
             registerIdentityField.placeholder = R.string.localizable.registerEnterPhone()
         }
+    }
+    
+    @IBAction func infoButton(_ sender: UIButton) {
+        let alert = UIAlertController(title: "", message: R.string.localizable.registerSignupHelp(), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("register.info.title", value: "", comment: ""), style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func cancelClicked(_ sender: Any) {
@@ -51,17 +62,26 @@ class LoginViewController: UIViewController {
     private func stopShowBusy() {
         MBProgressHUD.hide(for: self.view, animated: true)
     }
+    
+    func definInfoButton(){
+        info.layer.shadowColor = UIColor.black.cgColor
+        info.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        info.layer.masksToBounds = false
+        info.layer.cornerRadius = info.frame.width / 2
+        info.layer.borderWidth = 1
+        info.layer.borderColor = UIColor(hex: "5E5E5E").cgColor
+    }
 
     // prepare to enter phone number/email
     func step1() {
         sentCode = false
         sendButton.isEnabled = true
         cloudCodePending = false
-        segmentControl.isHidden = false
+        segment.isHidden = false
         
-        registerMethodSelected( segmentControl )  // pretend button clicked, to initialize field
+        segmentedChanged(segment)  // pretend button clicked, to initialize field
         sendButton.setTitle( R.string.localizable.registerSendButton(), for: .normal)
-        registerHelpLabel.text = R.string.localizable.registerSignupHelp()
+        //registerHelpLabel.text = R.string.localizable.registerSignupHelp()
     }
     
     // get phone number/email, but prepare to confirm verification code
@@ -70,18 +90,18 @@ class LoginViewController: UIViewController {
         
         sendButton.isEnabled = true
         cloudCodePending = false
-        segmentControl.isHidden = true
+        segment.isHidden = true
 
         registerIdentityField.text = ""
         registerIdentityField.placeholder = R.string.localizable.registerEnterCode()
 
-        registerHelpLabel.text = R.string.localizable.registerConfirmCodeHelp()
+        //registerHelpLabel.text = R.string.localizable.registerConfirmCodeHelp()
         sendButton.setTitle( R.string.localizable.registerConfirmButton(), for: .normal)
     }
 
     func setButtonTitle(){
-        segmentControl.setTitle(NSLocalizedString("register.segmentControl.title0", comment: ""), forSegmentAt: 0)
-        segmentControl.setTitle(NSLocalizedString("register.segmentControl.title1", comment: ""), forSegmentAt: 1)
+        segment.setTitle(NSLocalizedString("register.segmentControl.title0", comment: ""), forSegmentAt: 0)
+        segment.setTitle(NSLocalizedString("register.segmentControl.title1", comment: ""), forSegmentAt: 1)
         skipButton.setTitle(NSLocalizedString("register.skipButton.title", comment: ""), for: .normal)
     }
     
@@ -187,8 +207,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        definInfoButton()
         setButtonTitle()
         step1()
+      
     }
 
 }
