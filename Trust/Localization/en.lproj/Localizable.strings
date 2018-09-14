@@ -1,7 +1,7 @@
 "register.enterEmail" = "Enter your email";
 "register.enterPhone" = "Enter your phone, start with country code";
-"register.sendButton" = "Send Verification Code";
-"register.enterCode" = "Enter verification code";
+"register.sendButton" = "SEND VERIFICATION CODE";
+"register.enterCode" = "ENTER VERIFICATION CODE";
 "register.signupHelp" = "Register so that anyone can send you Ether with just your email or phone number.";
 "register.confirmCodeHelp" = "We sent you a verification code. Please enter the code to login.";
 "register.confirmButton" = "Confirm Code";
@@ -13,7 +13,7 @@
 "register.numberInvalid" = "Invalid phone number";
 "register.segmentControl.title0" = "Email";
 "register.segmentControl.title1" = "Phone";
-"register.skipButton.title" = "Skip";
+"register.skipButton.title" = "SKIP";
 "register.info.title" = "Ok";
 
 
@@ -78,7 +78,7 @@
 "send.max.button.title" = "Max";
 "send.paste.button.title" = "Paste";
 "send.recipientAddress.textField.placeholder" = "Recipient Address";
-"send.addContacts.button.title" = "Add Contacts";
+"send.addContacts.button.title" = "ADD CONTACT";
 "send.addNewContacts.alertController.title" = "Add New Contact";
 "send.addNewContacts.alertController.message" = "Please enter name and ETH address";
 "send.addNewContacts.alertAction.okButton" = "Add";

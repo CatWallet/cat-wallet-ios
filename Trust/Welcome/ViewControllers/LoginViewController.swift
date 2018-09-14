@@ -11,10 +11,8 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
 
     
     @IBOutlet weak var segment: SWSegmentedControl!
-    @IBOutlet weak var registerHelpLabel: UILabel!
     @IBOutlet weak var registerIdentityField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var info: UIButton!
     
     @IBOutlet weak var skipButton: UIButton!
@@ -78,10 +76,23 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
         sendButton.isEnabled = true
         cloudCodePending = false
         segment.isHidden = false
-        
         segmentedChanged(segment)  // pretend button clicked, to initialize field
-        sendButton.setTitle( R.string.localizable.registerSendButton(), for: .normal)
-        //registerHelpLabel.text = R.string.localizable.registerSignupHelp()
+        if  Locale.current.languageCode == "en" {
+            let main_string = R.string.localizable.registerSendButton()
+            let cat_to_red = "CAT"
+            let string_to_color1 = "SEND VERIFI"
+            let string_to_color2 = "ION CODE"
+            let range = (main_string as NSString).range(of: cat_to_red)
+            let range1 = (main_string as NSString).range(of: string_to_color1)
+            let range2 = (main_string as NSString).range(of: string_to_color2)
+            let attribute = NSMutableAttributedString.init(string: main_string)
+            attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red , range: range)
+            attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(hex: "5E5E5E") , range: range1)
+            attribute.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor(hex: "5E5E5E") , range: range2)
+            sendButton.setAttributedTitle(attribute, for: .normal)
+        } else {
+            sendButton.setTitle( R.string.localizable.registerSendButton(), for: .normal)
+        }
     }
     
     // get phone number/email, but prepare to confirm verification code
@@ -94,8 +105,6 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
 
         registerIdentityField.text = ""
         registerIdentityField.placeholder = R.string.localizable.registerEnterCode()
-
-        //registerHelpLabel.text = R.string.localizable.registerConfirmCodeHelp()
         sendButton.setTitle( R.string.localizable.registerConfirmButton(), for: .normal)
     }
 
