@@ -105,7 +105,14 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
 
         registerIdentityField.text = ""
         registerIdentityField.placeholder = R.string.localizable.registerEnterCode()
-        sendButton.setTitle( R.string.localizable.registerConfirmButton(), for: .normal)
+        if  Locale.current.languageCode == "en" {
+            let buttonColor = UIColor(hex: "5E5E5E")
+            let attributedStringColor = [NSAttributedStringKey.foregroundColor : buttonColor];
+            let attribute = NSAttributedString(string: R.string.localizable.registerConfirmButton(), attributes: attributedStringColor)
+            sendButton.setAttributedTitle(attribute, for: .normal)
+        } else {
+            sendButton.setTitle(R.string.localizable.registerConfirmButton(), for: .normal)
+        }
     }
 
     func setButtonTitle(){

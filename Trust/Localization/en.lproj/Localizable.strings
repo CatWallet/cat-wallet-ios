@@ -1,10 +1,10 @@
 "register.enterEmail" = "Enter your email";
 "register.enterPhone" = "Enter your phone, start with country code";
 "register.sendButton" = "SEND VERIFICATION CODE";
-"register.enterCode" = "ENTER VERIFICATION CODE";
+"register.enterCode" = "Eenter verification code";
 "register.signupHelp" = "Register so that anyone can send you Ether with just your email or phone number.";
 "register.confirmCodeHelp" = "We sent you a verification code. Please enter the code to login.";
-"register.confirmButton" = "Confirm Code";
+"register.confirmButton" = "CONFIRM CODE";
 "register.sendCodeErrorTitle" = "Error sending code";
 "register.sendCodeErrorMessage" = "Error Message: ";
 "register.loginErrorTitle" = "Error logging in";
