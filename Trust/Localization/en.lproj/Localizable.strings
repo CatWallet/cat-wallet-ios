@@ -111,6 +111,7 @@
 "settings.userStatus.email.title" = "Link Your Email";
 "settings.linkDevice.alertController.title" = "Success";
 "settings.linkDevice.alertAction.title" = "Done";
+"settings.linkedAddress.labelRow.title" = "You've not linked an Address";
 "transactions.deposit.button.title" = "Buy";
 "transactions.myAddress.button.title" = "My Address";
 "transactions.noTransactions.label.title" = "No Transactions Yet!";

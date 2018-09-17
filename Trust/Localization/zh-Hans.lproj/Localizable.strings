@@ -111,6 +111,7 @@
 "settings.userStatus.email.title" = "链接你的邮箱";
 "settings.linkDevice.alertController.title" = "链接成功";
 "settings.linkDevice.alertAction.title" = "确认";
+"settings.linkedAddress.labelRow.title" = "还未链接你的地址";
 "transactions.deposit.button.title" = "购买";
 "transactions.myAddress.button.title" = "我的地址";
 "transactions.noTransactions.label.title" = "暂无交易";

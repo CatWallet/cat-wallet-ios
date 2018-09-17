@@ -22,12 +22,8 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
     var emailVerification = true
     var savedPhoneOrEmail = ""
     var cloudCodePending = false
-
     let phoneNumberKit = PhoneNumberKit()
-    
     private let refreshControl = UIRefreshControl()
-    
-    
     
     @IBAction func segmentedChanged(_ sender: SWSegmentedControl) {
         registerIdentityField.text = ""
@@ -98,7 +94,6 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
     // get phone number/email, but prepare to confirm verification code
     func step2() {
         sentCode = true         // mark we have sent the code, to move to next step in state machine
-        
         sendButton.isEnabled = true
         cloudCodePending = false
         segment.isHidden = true
@@ -138,7 +133,6 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
         }
     }
 
-    
     @IBAction func sendClicked(_ sender: Any) {
         let input = registerIdentityField.text!.lowercased().trimmed
         if input.isEmpty {
@@ -227,7 +221,5 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
         definInfoButton()
         setButtonTitle()
         step1()
-      
     }
-
 }

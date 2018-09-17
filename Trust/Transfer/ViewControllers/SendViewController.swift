@@ -6,6 +6,7 @@ import Eureka
 import JSONRPCKit
 import APIKit
 import BigInt
+import MBProgressHUD
 import QRCodeReaderViewController
 import TrustCore
 import TrustKeystore
@@ -239,7 +240,6 @@ class SendViewController: FormViewController{
         return viewModel.views.map { field(for: $0) }
     }
 
-    
     private func field(for type: SendViewType) -> BaseRow {
         switch type {
         case .address:
@@ -251,7 +251,6 @@ class SendViewController: FormViewController{
         }
     }
 
-    
     func addressField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.addressFieldRightView(
             pasteAction: { [unowned self] in self.pasteAction() },
@@ -313,12 +312,10 @@ class SendViewController: FormViewController{
             } .onCellHighlightChanged({ (cell, row) in
                 if row.isHighlighted == true {
                     self.inputCase = "phone"
-                    
                 }
             })
     }
 
-    
     func amountField() -> TextFloatLabelRow {
         let fiatButton = Button(size: .normal, style: .borderless)
         fiatButton.translatesAutoresizingMaskIntoConstraints = false
@@ -351,7 +348,6 @@ class SendViewController: FormViewController{
             })
     }
 
-    
     func collectibleField(with token: NonFungibleTokenObject) -> SendNFTRow {
         let cell = SendNFTRow(tag: Values.collectible)
         let viewModel = NFTDetailsViewModel(token: token)
@@ -366,6 +362,7 @@ class SendViewController: FormViewController{
     }
     
     func getAddress(_ emailOrPhone: String, _ getCase: String) -> String {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         var getValue = " "
         var params = [String: String]()
         if getCase == "email" {
@@ -376,9 +373,11 @@ class SendViewController: FormViewController{
                 let phoneNum = phoneNumberKit.format(num, toType: .e164)
                 params["phone"] = phoneNum
             } catch {
+                MBProgressHUD.hide(for: self.view, animated: true)
                 print(error.localizedDescription)
             }
         } else {
+            MBProgressHUD.hide(for: self.view, animated: true)
             return getValue
         }
         do {
@@ -386,8 +385,10 @@ class SendViewController: FormViewController{
             getValue = requestAddress as! String
         } catch {
             requestPubKeyfromServer(param: params)
+            MBProgressHUD.hide(for: self.view, animated: true)
             return getValue
         }
+        MBProgressHUD.hide(for: self.view, animated: true)
         return getValue
     }
     
@@ -419,7 +420,6 @@ class SendViewController: FormViewController{
         }
     }
 
-    
     func addNewContact(_ name: String, _ address: String){
         let realm = try! Realm()
         contact.address = address
@@ -465,7 +465,7 @@ class SendViewController: FormViewController{
         let cancelAction = UIAlertAction(title: NSLocalizedString("send.addNewContacts.alertAction.cancelButton", value: "Cancel", comment: ""), style: .cancel, handler: nil)
         alert.addTextField { (nameTextField) in
             nameTextField.placeholder = NSLocalizedString("send.addNewContacts.textField.placeholder", value: "Enter a name", comment: "")
-            }
+        }
         alert.addAction(addAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
@@ -476,6 +476,7 @@ class SendViewController: FormViewController{
         let amountString = viewModel.amount
         guard errors.isEmpty else { return }
         let receivedAddress: String?
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         switch inputCase {
         case "email":
             if (emailRow?.value)!.isEmail {
@@ -496,7 +497,7 @@ class SendViewController: FormViewController{
                 receivedAddress = serverPubKey
             }
         }
-
+        MBProgressHUD.hide(for: self.view, animated: true)
         guard let address = Address(string: receivedAddress!) else {
             return displayError(error: Errors.invalidAddress)
         }

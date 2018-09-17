@@ -16,6 +16,8 @@ final class SettingsViewController: FormViewController, Coordinator {
     var userAccount: String?
     var account: WalletSession?
     var hideSignUp = true
+    var linkedAddress : String?
+    var currentUser = PFUser.current()
 
     struct Values {
         static let currencyPopularKey = "0"
@@ -93,6 +95,7 @@ final class SettingsViewController: FormViewController, Coordinator {
     
     override func viewWillAppear(_ animated: Bool) {
         userStatus()
+        getLinkedAddress()
         if let stateView = networkStateView {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: stateView)
         }
@@ -101,8 +104,16 @@ final class SettingsViewController: FormViewController, Coordinator {
         
         var section = Section("ACCOUNT")
         
+        let labelRow = LabelRow("labelTag"){
+            $0.title = linkedAddress
+            }.cellUpdate { (cell, row) in
+                cell.textLabel?.textColor = UIColor.gray
+                cell.textLabel?.font = .italicSystemFont(ofSize: 12)
+                cell.imageView?.image = R.image.settings_colorful_LinkedAddress()
+        }
+        
         if hideSignUp{
-            section += [linkAccountRow(account.address.eip55String)]
+            section += [linkAccountRow(account.address.eip55String),labelRow]
         } else {
             section += [signUpRow()]
         }
@@ -194,8 +205,6 @@ final class SettingsViewController: FormViewController, Coordinator {
                 $0.disabled = true
         }
     }
-
-    
 
     private func networkRow() -> PushRow<RPCServer> {
         return PushRow<RPCServer> { [weak self] in
@@ -435,11 +444,11 @@ final class SettingsViewController: FormViewController, Coordinator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func userStatus(){
+    func userStatus() {
         let currentUser = PFUser.current()
         if currentUser != nil {
             hideSignUp = true
-            if currentUser!["email"] != nil{
+            if currentUser!["email"] != nil {
              userAccount = NSLocalizedString("settings.userStatus.email.title", value: "Link Your Email", comment: "")
             } else {
                 userAccount = NSLocalizedString("settings.userStatus.phone.title", value: "Link Your Phone", comment: "")
@@ -449,22 +458,34 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
     }
     
-    func linkUserAccount(_ currentPublicKey: String){
-        var currentUser = PFUser.current()
+    func linkUserAccount(_ currentPublicKey: String) {
         if currentUser != nil {
             currentUser!["walletAddress"] = currentPublicKey
             do {
                 try currentUser?.save()
-            }
-            catch{
+            } catch {
                 print(error.localizedDescription)
             }
+            linkedAddress = currentPublicKey
+            let address = self.form.rowBy(tag: "labelTag") as! RowOf<String>
+            address.title = currentPublicKey
+            address.updateCell()
             let alert = UIAlertController(title: NSLocalizedString("settings.linkDevice.alertController.title", value: "Success", comment: ""), message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: NSLocalizedString("settings.linkDevice.alertAction.title", value: "Done", comment: ""), style: .cancel)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         } else {
             print("Not a user")
+        }
+    }
+    
+    func getLinkedAddress(){
+        if currentUser != nil {
+            if let address = currentUser!["walletAddress"] {
+                linkedAddress = address as! String
+            } else {
+                linkedAddress = NSLocalizedString("settings.linkedAddress.labelRow.title", comment: "")
+            }
         }
     }
 }
