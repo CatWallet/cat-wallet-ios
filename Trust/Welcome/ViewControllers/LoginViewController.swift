@@ -132,6 +132,7 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
         if currentUser != nil{
             if let keystore = currentUser!["keyStore"]{
                 let we = WelcomeViewController()
+                self.dismiss(animated: true, completion: nil)
                 appCoordinator?.didPressImportWallet(in: we)
             }
         }

@@ -6,6 +6,7 @@ import Eureka
 import TrustCore
 import QRCodeReaderViewController
 
+
 protocol ImportWalletViewControllerDelegate: class {
     func didImportAccount(account: WalletInfo, fields: [WalletInfoField], in viewController: ImportWalletViewController)
 }
@@ -97,7 +98,7 @@ final class ImportWalletViewController: FormViewController {
                 })
             }
             <<< AppFormAppearance.textArea(tag: Values.keystore) { [weak self] in
-                if let keystore = self?.keyStoreString{
+                if let keystore = self?.keyStoreString {
                     $0.value = keystore
                 }
 
@@ -175,6 +176,17 @@ final class ImportWalletViewController: FormViewController {
         let walletInfo = WalletInfo(wallet: account)
         delegate?.didImportAccount(account: walletInfo, fields: [.name(name)], in: self)
     }
+    
+    //Message tells server that the user has claimed the wallet
+    func claimed() {
+        let currentUser = PFUser.current()
+        if currentUser != nil {
+            currentUser!["claimed"] = "True"
+            currentUser?.saveInBackground()
+        } else {
+         //
+        }
+    }
 
     func importWallet() {
         let validatedError = keystoreRow?.section?.form?.validate()
@@ -204,11 +216,11 @@ final class ImportWalletViewController: FormViewController {
                 return .watch(address: address)
             }
         }()
-
         keystore.importWallet(type: importType) { result in
             self.hideLoading(animated: false)
             switch result {
             case .success(let account):
+                self.claimed()
                 self.didImport(account: account, name: name)
             case .failure(let error):
                 self.displayError(error: error)
@@ -254,11 +266,13 @@ final class ImportWalletViewController: FormViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    func fetchKeyStore(){
+    func fetchKeyStore() {
         let currentUser = PFUser.current()
-        if currentUser != nil{
-            if let keystore = currentUser!["keyStore"]{
-                keyStoreString = keystore as? String
+        if currentUser != nil {
+            if currentUser!["claimed"] == nil {
+                if let keystore = currentUser!["keyStore"] {
+                    keyStoreString = keystore as? String
+                }
             }
         }
     }

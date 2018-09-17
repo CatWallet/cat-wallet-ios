@@ -201,7 +201,7 @@ class SendViewController: FormViewController{
                     address.updateCell()
                 })
             
-            +++ Section(){
+            +++ Section() {
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.header?.height = { 0 }
             }
@@ -223,7 +223,7 @@ class SendViewController: FormViewController{
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
         }
-            <<< ButtonRow(){
+            <<< ButtonRow() {
                 $0.title = NSLocalizedString("send.addContacts.button.title", value: "", comment: "")
                 $0.onCellSelection(self.buttonTapped)        }
     
@@ -371,14 +371,13 @@ class SendViewController: FormViewController{
         if getCase == "email" {
             params["email"] = emailOrPhone
         } else if getCase == "phone"{
-            do{
-            let num = try phoneNumberKit.parse( emailOrPhone )
-            let phoneNum = phoneNumberKit.format(num, toType: .e164)
+            do {
+                let num = try phoneNumberKit.parse( emailOrPhone )
+                let phoneNum = phoneNumberKit.format(num, toType: .e164)
                 params["phone"] = phoneNum
             } catch {
                 print(error.localizedDescription)
             }
-            
         } else {
             return getValue
         }
@@ -430,23 +429,23 @@ class SendViewController: FormViewController{
         }
     }
     
-    func deleteAll(){
+    func deleteAll() {
         let realm = try! Realm()
         try! realm.write {
             realm.delete(realm.objects(Contact.self))
         }
     }
     
-    func deleteContact(name: String){
+    func deleteContact(name: String) {
         let realm = try! Realm()
         try! realm.write {
             realm.delete(realm.objects(Contact.self).filter("name=%@", name))
         }
     }
     
-    func getContacts(){
+    func getContacts() {
         let people = try! Realm().objects(Contact.self)
-        for person in people{
+        for person in people {
             getData.append(MyStruct(name: person.name!, address: person.address!))
         }
     }
@@ -532,8 +531,6 @@ class SendViewController: FormViewController{
         guard let value = UIPasteboard.general.string?.trimmed else {
             return displayError(error: SendInputErrors.emptyClipBoard)
         }
-
-        
         guard CryptoAddressValidator.isValidAddress(value) else {
             return displayError(error: Errors.invalidAddress)
         }
