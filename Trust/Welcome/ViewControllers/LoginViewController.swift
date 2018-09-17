@@ -122,10 +122,10 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func checkKeyStore(){
+    func checkKeyStore() {
         let currentUser = PFUser.current()
-        if currentUser != nil{
-            if let keystore = currentUser!["keyStore"]{
+        if currentUser != nil {
+            if let _ = currentUser!["keyStore"] {
                 let we = WelcomeViewController()
                 self.dismiss(animated: true, completion: nil)
                 appCoordinator?.didPressImportWallet(in: we)
@@ -202,8 +202,14 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
                         }
                         else {
                             self?.checkKeyStore()
-                            self?.dismiss(animated: true, completion: nil)
-                            self?.appCoordinator?.showTransactions(for: self!.initialWallet!)
+                            if self?.initialWallet != nil{
+                                self?.dismiss(animated: true, completion: nil)
+                                self?.appCoordinator?.showTransactions(for: self!.initialWallet!)
+                            } else {
+                                let we = WelcomeViewController()
+                                self?.dismiss(animated: true, completion: nil)
+                                self?.appCoordinator?.didPressImportWallet(in: we)
+                            }
                         }
                     }
                 }

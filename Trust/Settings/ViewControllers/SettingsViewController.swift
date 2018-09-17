@@ -142,9 +142,7 @@ final class SettingsViewController: FormViewController, Coordinator {
                 }.cellSetup { cell, _ in
                     cell.imageView?.image = R.image.settings_colorful_security()
             }
-            
             <<< autoLockRow
-            
             <<< AppFormAppearance.button { [weak self] row in
                 row.cellStyle = .value1
                 row.presentationMode = .show(controllerProvider: ControllerProvider<UIViewController>.callback {
@@ -162,20 +160,17 @@ final class SettingsViewController: FormViewController, Coordinator {
             }
             
             +++ Section()
-            
             <<< currencyRow()
             <<< browserRow()
             <<< analiticsRow()
             
             +++ Section(R.string.localizable.settingsJoinCommunityLabelTitle())
-            
             <<< linkProvider(type: .twitter)
             <<< linkProvider(type: .telegram)
             <<< linkProvider(type: .facebook)
             <<< linkProvider(type: .discord)
             
             +++ Section(R.string.localizable.settingsSupportTitle())
-            
             <<< AppFormAppearance.button { button in
                 button.title = R.string.localizable.shareWithFriends()
                 button.cell.imageView?.image = R.image.settings_colorful_share()
@@ -184,12 +179,10 @@ final class SettingsViewController: FormViewController, Coordinator {
             }
             
             +++ Section()
-            
             <<< aboutRow()
             <<< supportRow()
             
             +++ Section()
-            
             <<< TextRow {
                 $0.title = R.string.localizable.settingsVersionLabelTitle()
                 $0.value = Bundle.main.fullVersion

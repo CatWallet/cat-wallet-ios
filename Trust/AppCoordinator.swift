@@ -43,6 +43,14 @@ class AppCoordinator: NSObject, Coordinator {
         appTracker.start()
         handleNotifications()
         applyStyle()
+        
+        
+        if !keystore.hasWallets{
+            let registerViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+            registerViewController.appCoordinator = self
+            navigationController.present(registerViewController, animated: false)
+        }
+        
         resetToWelcomeScreen()
 
         if keystore.hasWallets {
