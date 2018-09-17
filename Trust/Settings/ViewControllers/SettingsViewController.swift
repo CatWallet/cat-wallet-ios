@@ -101,9 +101,7 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
         title = NSLocalizedString("settings.navigation.title", value: "Settings", comment: "")
         let account = session.account.wallet
-        
-        var section = Section("ACCOUNT")
-        
+        var section = Section(NSLocalizedString("settings.account.section.title", comment: ""))
         let labelRow = LabelRow("labelTag"){
             $0.title = linkedAddress
             }.cellUpdate { (cell, row) in
@@ -119,13 +117,6 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
         
         form = Section()
-            //testing only
-//            <<< ButtonRow(){
-//                $0.title = "logout"
-//                }.onCellSelection({ (_, _) in
-//                    PFUser.logOut()
-//                    print(PFUser.current())
-//                })
             
             <<< networkRow()
             
