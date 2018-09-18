@@ -9,12 +9,10 @@ import SWSegmentedControl
 
 class LoginViewController: UIViewController, SWSegmentedControlDelegate {
 
-    
     @IBOutlet weak var segment: SWSegmentedControl!
     @IBOutlet weak var registerIdentityField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var info: UIButton!
-    
     @IBOutlet weak var skipButton: UIButton!
     var initialWallet : WalletInfo?
     weak var appCoordinator : AppCoordinator?

@@ -44,8 +44,7 @@ class AppCoordinator: NSObject, Coordinator {
         handleNotifications()
         applyStyle()
         
-        
-        if !keystore.hasWallets{
+        if !keystore.hasWallets {
             let registerViewController = LoginViewController(nibName: "LoginView", bundle: nil)
             registerViewController.appCoordinator = self
             navigationController.present(registerViewController, animated: false)
