@@ -43,8 +43,12 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
     }
     
     @IBAction func cancelClicked(_ sender: Any) {
+        if initialWallet != nil{
         appCoordinator?.showTransactions(for: initialWallet!)
         self.dismiss(animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     private func showBusy() {

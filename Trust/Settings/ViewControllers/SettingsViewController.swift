@@ -16,8 +16,7 @@ final class SettingsViewController: FormViewController, Coordinator {
     var userAccount: String?
     var account: WalletSession?
     var hideSignUp = true
-    var linkedAddress : String?
-    var currentUser = PFUser.current()
+    var linkedAddress = NSLocalizedString("settings.linkedAddress.labelRow.title", comment: "")
 
     struct Values {
         static let currencyPopularKey = "0"
@@ -102,7 +101,7 @@ final class SettingsViewController: FormViewController, Coordinator {
         title = NSLocalizedString("settings.navigation.title", value: "Settings", comment: "")
         let account = session.account.wallet
         var section = Section(NSLocalizedString("settings.account.section.title", comment: ""))
-        let labelRow = LabelRow("labelTag"){
+        let labelRow = LabelRow("labelTag") {
             $0.title = linkedAddress
             }.cellUpdate { (cell, row) in
                 cell.textLabel?.textColor = UIColor.gray
@@ -110,7 +109,7 @@ final class SettingsViewController: FormViewController, Coordinator {
                 cell.imageView?.image = R.image.settings_colorful_LinkedAddress()
         }
         
-        if hideSignUp{
+        if hideSignUp {
             section += [linkAccountRow(account.address.eip55String),labelRow]
         } else {
             section += [signUpRow()]
@@ -443,6 +442,7 @@ final class SettingsViewController: FormViewController, Coordinator {
     }
     
     func linkUserAccount(_ currentPublicKey: String) {
+        var currentUser = PFUser.current()
         if currentUser != nil {
             currentUser!["walletAddress"] = currentPublicKey
             do {
@@ -464,14 +464,17 @@ final class SettingsViewController: FormViewController, Coordinator {
     }
     
     func getLinkedAddress(){
+        var currentUser = PFUser.current()
         if currentUser != nil {
             if let address = currentUser!["walletAddress"] {
+                print(address)
                 linkedAddress = address as! String
             } else {
                 linkedAddress = NSLocalizedString("settings.linkedAddress.labelRow.title", comment: "")
             }
         }
     }
+    
 }
 
 extension SettingsViewController: LockCreatePasscodeCoordinatorDelegate {
