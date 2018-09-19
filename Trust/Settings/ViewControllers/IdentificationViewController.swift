@@ -2,24 +2,19 @@
 
 import UIKit
 import Eureka
+import ImageRow
 
 class IdentificationViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        form +++
+            Section(R.string.localizable.identificationImageRowSectionTitle())
+            <<< ImageRow() {
+                $0.title = R.string.localizable.identificationImageRowTitle()
+                $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum, .Camera]
+                $0.clearAction = .yes(style: .destructive)
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

@@ -54,6 +54,8 @@ PODS:
   - "GoogleUtilities/NSData+zlib (5.2.2)"
   - GoogleUtilities/Reachability (5.2.2):
     - GoogleUtilities/Logger
+  - ImageRow (3.1.0):
+    - Eureka (~> 4.0)
   - JdenticonSwift (0.0.1)
   - JSONRPCKit (2.0.0):
     - Result (~> 3.0)
@@ -130,6 +132,7 @@ DEPENDENCIES:
   - Eureka
   - Fabric
   - Firebase/Core
+  - ImageRow (~> 3.0)
   - JdenticonSwift
   - JSONRPCKit (from `https://github.com/bricklife/JSONRPCKit.git`)
   - KeychainSwift
@@ -171,6 +174,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
+    - ImageRow
     - JdenticonSwift
     - KeychainSwift
     - Kingfisher
@@ -245,6 +249,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
   GoogleAppMeasurement: f7507b39b70ad0bd80b3d81518b2f43868974307
   GoogleUtilities: 06b66f9567769a7958db20a92f0128b2843e49d5
+  ImageRow: 1ea483078bfa3d880a7fc76fdfcddfd5f29a9e6b
   JdenticonSwift: bc532f2761566eb29f26b085e5f72de25bc065ce
   JSONRPCKit: 22132c575ba2dc6f2f4ae72fda4943a63efca686
   KeychainSwift: f9f7910449a0c0fd2cabc889121530dd2c477c33
@@ -275,6 +280,6 @@ SPEC CHECKSUMS:
   TrustWeb3Provider: 50fa391bdf170feb43dd4419992931510a5751d8
   URLNavigator: af5582fbbb3586c958be16835d799bfdb23a4793
 
-PODFILE CHECKSUM: 64c01972609fbeb50a63754c673f81b676b4891c
+PODFILE CHECKSUM: 4ec6d29f1d3ca1de57f101ed0f258c75a5f92f3b
 
 COCOAPODS: 1.5.3

@@ -36,6 +36,7 @@ target 'Trust' do
   pod 'TrustWalletSDK', :git=>'https://github.com/TrustWallet/TrustSDK-iOS', :commit=>'82c06558df5e6a75bd9c195a4e76536618e76a9a'
   pod 'Firebase/Core'
   pod 'SWSegmentedControl'
+  pod 'ImageRow', '~> 3.0'
 
 
   target 'TrustTests' do
