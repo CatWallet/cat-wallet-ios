@@ -6,7 +6,6 @@ import Eureka
 import JSONRPCKit
 import APIKit
 import BigInt
-import MBProgressHUD
 import QRCodeReaderViewController
 import TrustCore
 import TrustKeystore
@@ -362,7 +361,6 @@ class SendViewController: FormViewController{
     }
     
     func getAddress(_ emailOrPhone: String, _ getCase: String) -> String {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
         var getValue = " "
         var params = [String: String]()
         if getCase == "email" {
@@ -373,11 +371,9 @@ class SendViewController: FormViewController{
                 let phoneNum = phoneNumberKit.format(num, toType: .e164)
                 params["phone"] = phoneNum
             } catch {
-                MBProgressHUD.hide(for: self.view, animated: true)
                 print(error.localizedDescription)
             }
         } else {
-            MBProgressHUD.hide(for: self.view, animated: true)
             return getValue
         }
         do {
@@ -385,10 +381,8 @@ class SendViewController: FormViewController{
             getValue = requestAddress as! String
         } catch {
             requestPubKeyfromServer(param: params)
-            MBProgressHUD.hide(for: self.view, animated: true)
             return getValue
         }
-        MBProgressHUD.hide(for: self.view, animated: true)
         return getValue
     }
     
@@ -400,13 +394,17 @@ class SendViewController: FormViewController{
                 self.serverPubKey = createWallet as! String
             } catch {
                 print(error.localizedDescription)
+                self.hideLoading()
                 return
             }
             params = param
             self.inputCase = ""
+            self.hideLoading()
             self.send()
         }
-        let actionNo = UIAlertAction(title: NSLocalizedString("send.queryAddress.no", comment: ""), style: .cancel, handler: nil)
+        let actionNo = UIAlertAction(title: NSLocalizedString("send.queryAddress.no", comment: ""), style: .cancel) { (_) in
+            self.hideLoading()
+        }
         alert.addAction(actionYes)
         alert.addAction(actionNo)
         self.present(alert, animated: true, completion: nil)
@@ -476,18 +474,21 @@ class SendViewController: FormViewController{
         let amountString = viewModel.amount
         guard errors.isEmpty else { return }
         let receivedAddress: String?
-        MBProgressHUD.showAdded(to: self.view, animated: true)
         switch inputCase {
         case "email":
             if (emailRow?.value)!.isEmail {
+                self.displayLoading(text: "", animated: true)
                 receivedAddress = getAddress(emailRow?.value?.trimmed ?? "", inputCase)
             } else {
+                self.hideLoading()
                 return displayError(error: Errors.invalidEmail)
             }
         case "phone":
             if (phoneRow?.value)!.isPhoneNumber {
+                self.displayLoading(text: "", animated: true)
                 receivedAddress = getAddress(phoneRow?.value?.trimmed ?? "", inputCase)
             } else {
+                self.hideLoading()
                 return displayError(error: Errors.invalidPhoneNumber)
             }
         default:
@@ -497,7 +498,6 @@ class SendViewController: FormViewController{
                 receivedAddress = serverPubKey
             }
         }
-        MBProgressHUD.hide(for: self.view, animated: true)
         guard let address = Address(string: receivedAddress!) else {
             return displayError(error: Errors.invalidAddress)
         }
@@ -521,6 +521,7 @@ class SendViewController: FormViewController{
             gasPrice: viewModel.gasPrice,
             nonce: .none
         )
+        self.hideLoading()
         self.delegate?.didPressConfirm(transaction: transaction, transferType: transferType, in: self)
     }
     @objc func openReader() {
