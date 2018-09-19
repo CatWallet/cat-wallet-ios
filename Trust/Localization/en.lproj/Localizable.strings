@@ -14,7 +14,7 @@
 "register.segmentControl.title0" = "Email";
 "register.segmentControl.title1" = "Phone";
 "register.skipButton.title" = "SKIP";
-"register.info.title" = "Ok";
+"register.info.title" = "OK";
 
 
 "transaction.AddNotes" = "Add Notes";
@@ -114,6 +114,7 @@
 "settings.linkedAddress.labelRow.title" = "You've not linked an Address";
 "settings.account.section.title" = "ACCOUNT";
 "settings.identification.title" = "Identification";
+"settings.identification.message" = "Once your identity is verified, you will be able to access more features!";
 "transactions.deposit.button.title" = "Buy";
 "transactions.myAddress.button.title" = "My Address";
 "transactions.noTransactions.label.title" = "No Transactions Yet!";

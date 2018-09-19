@@ -11,7 +11,7 @@ protocol SettingsViewControllerDelegate: class {
     func didAction(action: SettingsAction, in viewController: SettingsViewController)
 }
 
-final class SettingsViewController: FormViewController, Coordinator {
+final class SettingsViewController: FormViewController, Coordinator{
     var coordinators: [Coordinator] = []
     var userAccount: String?
     var account: WalletSession?
@@ -302,8 +302,17 @@ final class SettingsViewController: FormViewController, Coordinator {
             }.cellUpdate { cell, _ in
                 cell.imageView?.image = R.image.settings_colorful_identification()
                 cell.textLabel?.text = R.string.localizable.settingsIdentificationTitle()
-                cell.accessoryType = .disclosureIndicator
+                let button = UIButton(type: .detailDisclosure)
+                button.addTarget(self, action: #selector(self.detailDisclosureAction), for: UIControlEvents.touchUpInside)
+                cell.accessoryView = button
         }
+    }
+    
+    @objc func detailDisclosureAction(){
+        let alert = UIAlertController(title: "", message: R.string.localizable.settingsIdentificationMessage(), preferredStyle: .alert)
+        let action = UIAlertAction(title: R.string.localizable.registerInfoTitle(), style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 
     private func aboutRow() -> ButtonRow {
@@ -444,7 +453,7 @@ final class SettingsViewController: FormViewController, Coordinator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func userStatus() {
+    private func userStatus() {
         let currentUser = PFUser.current()
         if currentUser != nil {
             hideSignUp = true
@@ -458,7 +467,7 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
     }
     
-    func linkUserAccount(_ currentPublicKey: String) {
+    private func linkUserAccount(_ currentPublicKey: String) {
         var currentUser = PFUser.current()
         if currentUser != nil {
             currentUser!["walletAddress"] = currentPublicKey
@@ -480,7 +489,8 @@ final class SettingsViewController: FormViewController, Coordinator {
         }
     }
     
-    func getLinkedAddress(){
+    
+    private func getLinkedAddress(){
         var currentUser = PFUser.current()
         if currentUser != nil {
             if let address = currentUser!["walletAddress"] {
