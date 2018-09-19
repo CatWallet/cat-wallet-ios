@@ -117,6 +117,7 @@
 "settings.identification.message" = "Once your identity is verified, you will be able to access more features!";
 "identification.imageRow.section.title" = "Identification Attachment";
 "identification.imageRow.title" = "Attachment";
+"identification.buttonRow.title" = "UPLOAD";
 "transactions.deposit.button.title" = "Buy";
 "transactions.myAddress.button.title" = "My Address";
 "transactions.noTransactions.label.title" = "No Transactions Yet!";

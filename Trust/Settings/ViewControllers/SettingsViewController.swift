@@ -363,7 +363,7 @@ final class SettingsViewController: FormViewController, Coordinator{
     private func signUpRow() -> ButtonRow {
         return AppFormAppearance.button { row in
                 row.title = NSLocalizedString("settings.signUpRow.label.title", value: "Sign Up", comment: "")
-            }.onCellSelection({ (_, _) in
+            }.onCellSelection ({ (_, _) in
                 let vc = LoginViewController()
                 self.present(vc, animated: true, completion: nil)
             }).cellUpdate { cell, _ in
@@ -377,7 +377,7 @@ final class SettingsViewController: FormViewController, Coordinator{
     private func linkAccountRow(_ publicKey: String) -> ButtonRow {
         return AppFormAppearance.button { row in
             row.title = self.userAccount
-            }.onCellSelection({ (_, _) in
+            }.onCellSelection ({ (_, _) in
                 self.linkUserAccount(publicKey)
             }).cellUpdate { cell, _ in
                 cell.textLabel?.textAlignment = .left
@@ -494,7 +494,6 @@ final class SettingsViewController: FormViewController, Coordinator{
         var currentUser = PFUser.current()
         if currentUser != nil {
             if let address = currentUser!["walletAddress"] {
-                print(address)
                 linkedAddress = address as! String
             } else {
                 linkedAddress = NSLocalizedString("settings.linkedAddress.labelRow.title", comment: "")
