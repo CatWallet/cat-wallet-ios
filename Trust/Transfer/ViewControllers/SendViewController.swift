@@ -20,7 +20,6 @@ protocol SendViewControllerDelegate: class {
         in viewController: SendViewController
     )
 }
-var buttonTitle = "Contact"
 class SendViewController: FormViewController{
     var serverPubKey = ""
     var inputCase = ""

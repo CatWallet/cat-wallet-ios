@@ -108,9 +108,11 @@ final class SettingsViewController: FormViewController, Coordinator {
                 cell.textLabel?.font = .italicSystemFont(ofSize: 12)
                 cell.imageView?.image = R.image.settings_colorful_LinkedAddress()
         }
-        
         if hideSignUp {
-            section += [linkAccountRow(account.address.eip55String),labelRow]
+            section += [identificationRow(),
+                        linkAccountRow(account.address.eip55String),
+                        labelRow
+                        ]
         } else {
             section += [signUpRow()]
         }
@@ -286,6 +288,21 @@ final class SettingsViewController: FormViewController, Coordinator {
             cell.imageView?.image = R.image.settings_colorful_support()
             cell.textLabel?.text = NSLocalizedString("settings.support.title", value: "Support", comment: "")
             cell.accessoryType = .disclosureIndicator
+        }
+    }
+    
+    private func identificationRow() -> ButtonRow {
+        return AppFormAppearance.button { [weak self] row in
+            row.cellStyle = .value1
+            row.presentationMode = .show(controllerProvider: ControllerProvider<UIViewController>.callback {
+                let controller = IdentificationViewController()
+                return controller
+                }, onDismiss: { _ in
+            })
+            }.cellUpdate { cell, _ in
+                cell.imageView?.image = R.image.settings_colorful_identification()
+                cell.textLabel?.text = R.string.localizable.settingsIdentificationTitle()
+                cell.accessoryType = .disclosureIndicator
         }
     }
 

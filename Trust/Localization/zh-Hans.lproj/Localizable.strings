@@ -113,6 +113,7 @@
 "settings.linkDevice.alertAction.title" = "确认";
 "settings.linkedAddress.labelRow.title" = "还未链接你的地址";
 "settings.account.section.title" = "账户";
+"settings.identification.title" = "身份验证";
 "transactions.deposit.button.title" = "购买";
 "transactions.myAddress.button.title" = "我的地址";
 "transactions.noTransactions.label.title" = "暂无交易";
