@@ -15,6 +15,9 @@
 "register.segmentControl.title1" = "Phone";
 "register.skipButton.title" = "SKIP";
 "register.info.title" = "OK";
+"Saved Photos" = "Saved Photos";
+"Take photo" = "Take photo";
+"Photo Library" = "Photo Library";
 
 
 "transaction.AddNotes" = "Add Notes";

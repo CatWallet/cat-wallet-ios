@@ -15,6 +15,9 @@
 "register.segmentControl.title1" = "手机";
 "register.skipButton.title" = "跳过";
 "register.info.title" = "确认";
+"Saved Photos" = "储存的照片";
+"Take photo" = "相机";
+"Photo Library" = "照片";
 
 
 "transaction.AddNotes" = "加备注";
