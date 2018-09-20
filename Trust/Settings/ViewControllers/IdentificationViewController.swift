@@ -32,7 +32,8 @@ class IdentificationViewController: FormViewController {
             let currentUser = PFUser.current()
             if currentUser != nil {
                 displayLoading()
-                let imageFile = PFFile (name:"ID.png", data:imageData!)
+                let userName = currentUser!["username"]
+                let imageFile = PFFile (name:"ID_\(String(describing: userName)).png", data:imageData!)
                 currentUser!["imageFile"] = imageFile
                 currentUser!.saveInBackground(block: { (_, error) in
                     if error == nil {
