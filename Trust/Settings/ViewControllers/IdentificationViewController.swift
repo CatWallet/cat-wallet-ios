@@ -25,16 +25,16 @@ class IdentificationViewController: FormViewController {
                 })
     }
     
-    func uploadIdentity(){
+    func uploadIdentity() {
         let row = form.rowBy(tag: "imageRow") as! ImageRow
         if let value = row.value {
             let imageData = UIImagePNGRepresentation(value)
             let currentUser = PFUser.current()
             if currentUser != nil {
-                let imageFile = PFFile(name:"ID.png", data:imageData!)
-                currentUser?["imageFile"] = imageFile
-                currentUser?.saveInBackground(block: { (_, error) in
-                    if error == nil{
+                let imageFile = PFFile (name:"ID.png", data:imageData!)
+                currentUser!["imageFile"] = imageFile
+                currentUser!.saveInBackground(block: { (_, error) in
+                    if error == nil {
                         self.navigationController?.popViewController(animated: true)
                     } else {
                         print(error.debugDescription)
