@@ -114,7 +114,7 @@
 "settings.linkedAddress.labelRow.title" = "还未链接你的地址";
 "settings.account.section.title" = "账户";
 "settings.identification.title" = "身份验证";
-"settings.identification.message" = "验证通过后，你可以体验钱包的更多更多功能！";
+"settings.identification.message" = "验证身份通过后，你可以体验钱包的更多更多功能！";
 "identification.imageRow.section.title" = "生份证名附件";
 "identification.imageRow.title" = "附件";
 "identification.buttonRow.title" = "上传";

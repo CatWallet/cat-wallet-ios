@@ -143,7 +143,30 @@ final class SettingsViewController: FormViewController, Coordinator{
                 }.cellSetup { cell, _ in
                     cell.imageView?.image = R.image.settings_colorful_security()
             }
-            <<< autoLockRow
+            <<< PushRow<AutoLock>{
+                let strongSelf = self
+                $0.title = strongSelf.viewModel.autoLockTitle
+                $0.options = strongSelf.viewModel.autoLockOptions
+                $0.value = strongSelf.lock.getAutoLockType()
+                $0.selectorTitle = strongSelf.viewModel.autoLockTitle
+                $0.displayValueFor = { value in
+                    return value?.displayName
+                }
+                $0.hidden = Condition.function([Values.passcodeRow], { form -> Bool in
+                    return !((form.rowBy(tag: Values.passcodeRow) as? SwitchRow)?.value ?? false)
+                })
+                }.onChange { [weak self] row in
+                    let autoLockType = row.value ?? AutoLock.immediate
+                    self?.lock.setAutoLockType(type: autoLockType)
+                    self?.lock.removeAutoLockTime()
+                }.onPresent { _, selectorController in
+                    selectorController.enableDeselection = false
+                }.cellSetup { cell, _ in
+                    cell.imageView?.image = R.image.settings_colorful_auto()
+            }
+
+            
+            //<<< autoLockRow
             <<< AppFormAppearance.button { [weak self] row in
                 row.cellStyle = .value1
                 row.presentationMode = .show(controllerProvider: ControllerProvider<UIViewController>.callback {
