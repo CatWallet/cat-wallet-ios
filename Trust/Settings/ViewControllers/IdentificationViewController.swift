@@ -28,12 +28,11 @@ class IdentificationViewController: FormViewController {
     func uploadIdentity() {
         let row = form.rowBy(tag: "imageRow") as! ImageRow
         if let value = row.value {
-            let imageData = UIImagePNGRepresentation(value)
             let currentUser = PFUser.current()
+            let imageData = UIImagePNGRepresentation(value)
             if currentUser != nil {
                 displayLoading()
-                let userName = currentUser!["username"]
-                let imageFile = PFFile (name:"ID_\(String(describing: userName)).png", data:imageData!)
+                let imageFile = PFFile (name:"ID.png", data:imageData!)
                 currentUser!["imageFile"] = imageFile
                 currentUser!.saveInBackground(block: { (_, error) in
                     if error == nil {
