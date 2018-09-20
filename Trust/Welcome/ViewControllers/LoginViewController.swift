@@ -208,9 +208,8 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
                                 self?.dismiss(animated: true, completion: nil)
                                 self?.appCoordinator?.showTransactions(for: self!.initialWallet!)
                             } else {
-                                let we = WelcomeViewController()
+                                self?.checkKeyStore()
                                 self?.dismiss(animated: true, completion: nil)
-                                self?.appCoordinator?.didPressImportWallet(in: we)
                             }
                         }
                     }
