@@ -11,7 +11,7 @@ protocol SettingsViewControllerDelegate: class {
     func didAction(action: SettingsAction, in viewController: SettingsViewController)
 }
 
-final class SettingsViewController: FormViewController, Coordinator{
+final class SettingsViewController: FormViewController, Coordinator {
     var coordinators: [Coordinator] = []
     var userAccount: String?
     var account: WalletSession?
@@ -143,7 +143,7 @@ final class SettingsViewController: FormViewController, Coordinator{
                 }.cellSetup { cell, _ in
                     cell.imageView?.image = R.image.settings_colorful_security()
             }
-            <<< PushRow<AutoLock>{
+            <<< PushRow<AutoLock> {
                 let strongSelf = self
                 $0.title = strongSelf.viewModel.autoLockTitle
                 $0.options = strongSelf.viewModel.autoLockOptions
@@ -200,7 +200,7 @@ final class SettingsViewController: FormViewController, Coordinator{
                 button.cell.imageView?.image = R.image.settings_colorful_share()
                 }.onCellSelection { [unowned self] cell, _  in
                     self.helpUsCoordinator.presentSharing(in: self, from: cell.contentView)
-            }
+                }
             
             +++ Section()
             <<< aboutRow()
@@ -211,7 +211,7 @@ final class SettingsViewController: FormViewController, Coordinator{
                 $0.title = R.string.localizable.settingsVersionLabelTitle()
                 $0.value = Bundle.main.fullVersion
                 $0.disabled = true
-        }
+            }
     }
 
     private func networkRow() -> PushRow<RPCServer> {
@@ -394,7 +394,7 @@ final class SettingsViewController: FormViewController, Coordinator{
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.textColor = UIColor.black
                 cell.imageView?.image = R.image.settings_colorful_signup()
-        }
+            }
     }
     
     private func linkAccountRow(_ publicKey: String) -> ButtonRow {
@@ -407,7 +407,7 @@ final class SettingsViewController: FormViewController, Coordinator{
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.textColor = UIColor.black
                 cell.imageView?.image = R.image.settings_colorful_link()
-        }
+            }
     }
 
     func setPasscode(completion: ((Bool) -> Void)? = .none) {
@@ -491,7 +491,7 @@ final class SettingsViewController: FormViewController, Coordinator{
     }
     
     private func linkUserAccount(_ currentPublicKey: String) {
-        var currentUser = PFUser.current()
+        let currentUser = PFUser.current()
         if currentUser != nil {
             currentUser!["walletAddress"] = currentPublicKey
             do {
@@ -514,7 +514,7 @@ final class SettingsViewController: FormViewController, Coordinator{
     
     
     private func getLinkedAddress(){
-        var currentUser = PFUser.current()
+        let currentUser = PFUser.current()
         if currentUser != nil {
             if let address = currentUser!["walletAddress"] {
                 linkedAddress = address as! String
