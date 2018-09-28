@@ -441,6 +441,9 @@
 		AD02A25A2125061D0076A1EE /* MyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02A2592125061D0076A1EE /* MyStruct.swift */; };
 		AD06A1ED2152B8B100D6F81B /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */; };
 		AD1EEACC215DA98A00D69F01 /* CryptosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */; };
+		AD1EEACE215DB1F700D69F01 /* CryptosUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */; };
+		AD1EEAD0215DB22400D69F01 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */; };
+		AD1EEAD2215DB84000D69F01 /* CryptosData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD1215DB84000D69F01 /* CryptosData.swift */; };
 		AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */; };
 		AD9AE40A2141B152002912FC /* SendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AE4092141B152002912FC /* SendType.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
@@ -948,6 +951,9 @@
 		AD02A2592125061D0076A1EE /* MyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStruct.swift; sourceTree = "<group>"; };
 		AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosViewController.swift; sourceTree = "<group>"; };
+		AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosUrl.swift; sourceTree = "<group>"; };
+		AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
+		AD1EEAD1215DB84000D69F01 /* CryptosData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosData.swift; sourceTree = "<group>"; };
 		AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9AE4092141B152002912FC /* SendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendType.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
@@ -2498,6 +2504,9 @@
 			isa = PBXGroup;
 			children = (
 				AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */,
+				AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */,
+				AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */,
+				AD1EEAD1215DB84000D69F01 /* CryptosData.swift */,
 			);
 			path = Cryptos;
 			sourceTree = "<group>";
@@ -3012,6 +3021,7 @@
 				296106D01F778A8D0006164B /* TransferType.swift in Sources */,
 				29E14FDB1F7F4F3D00185568 /* Transaction.swift in Sources */,
 				BBF4F9B72029D0B3009E04C0 /* GasViewModel.swift in Sources */,
+				AD1EEAD2215DB84000D69F01 /* CryptosData.swift in Sources */,
 				73C41C75201B65AD00243C6C /* LockCreatePasscodeCoordinator.swift in Sources */,
 				7301BA9220A3117000E1AFE5 /* AutoLock.swift in Sources */,
 				296106C81F7646590006164B /* TokensViewModel.swift in Sources */,
@@ -3085,6 +3095,7 @@
 				2959960C1FAB03EC00DB66A8 /* CoinbaseBuyWidget.swift in Sources */,
 				291A1B671F98092F00ADEC80 /* ConfirmPaymentViewController.swift in Sources */,
 				29F1C8421FEB62ED003780D8 /* EditTokenTableCellViewModel.swift in Sources */,
+				AD1EEACE215DB1F700D69F01 /* CryptosUrl.swift in Sources */,
 				2931122E1FC94E4200966EEA /* SettingsError.swift in Sources */,
 				29FA00D0201CA66A002F7DC5 /* DAppError.swift in Sources */,
 				291EC9DF1F7053C50004EDD0 /* NavigationController.swift in Sources */,
@@ -3286,6 +3297,7 @@
 				771A847320322F2500528D28 /* BrowserConfigurationViewController.swift in Sources */,
 				29DBF2A31F9DBFF400327C60 /* BackupCoordinator.swift in Sources */,
 				290B2B611F9179880053C83E /* AccountViewModel.swift in Sources */,
+				AD1EEAD0215DB22400D69F01 /* WebServiceHandler.swift in Sources */,
 				2963B6C11F9AE0E4003063C1 /* Data.swift in Sources */,
 				2932045E1F8EEE760095B7C1 /* BalanceCoordinator.swift in Sources */,
 				77CB8398206B8E1C006F34A8 /* ScanQRCodeCoordinator.swift in Sources */,
