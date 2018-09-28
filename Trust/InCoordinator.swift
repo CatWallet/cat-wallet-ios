@@ -141,8 +141,12 @@ class InCoordinator: Coordinator {
         settingsCoordinator.delegate = self
         settingsCoordinator.start()
         addCoordinator(settingsCoordinator)
-
+        
+        let cryptosviewcontroller = CryptosViewController()
+        cryptosviewcontroller.tabBarItem = viewModel.CryptosBarItem
+            
         tabBarController.viewControllers = [
+            cryptosviewcontroller,
             browserCoordinator.navigationController.childNavigationController,
             walletCoordinator.navigationController.childNavigationController,
             settingsCoordinator.navigationController.childNavigationController,

@@ -440,6 +440,7 @@
 		A2E895D020953404003D5303 /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E895CF20953404003D5303 /* QRGenerator.swift */; };
 		AD02A25A2125061D0076A1EE /* MyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02A2592125061D0076A1EE /* MyStruct.swift */; };
 		AD06A1ED2152B8B100D6F81B /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */; };
+		AD1EEACC215DA98A00D69F01 /* CryptosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */; };
 		AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */; };
 		AD9AE40A2141B152002912FC /* SendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AE4092141B152002912FC /* SendType.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
@@ -946,6 +947,7 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD02A2592125061D0076A1EE /* MyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStruct.swift; sourceTree = "<group>"; };
 		AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
+		AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosViewController.swift; sourceTree = "<group>"; };
 		AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9AE4092141B152002912FC /* SendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendType.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
@@ -1050,6 +1052,7 @@
 		2912CCF71F6A830700C6CBE3 /* Trust */ = {
 			isa = PBXGroup;
 			children = (
+				AD1EEACA215DA94A00D69F01 /* Cryptos */,
 				73ACEEF620163B4E003DD71D /* Lock */,
 				29E6E0681FE897BB0079265A /* Browser */,
 				2959960F1FAB065700DB66A8 /* Deposit */,
@@ -2491,6 +2494,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AD1EEACA215DA94A00D69F01 /* Cryptos */ = {
+			isa = PBXGroup;
+			children = (
+				AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */,
+			);
+			path = Cryptos;
+			sourceTree = "<group>";
+		};
 		BB3864A1208F1C3000CBF773 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -3230,6 +3241,7 @@
 				73ED85A72034BFEF00593BF3 /* UITextFieldAdditions.swift in Sources */,
 				2923D9B51FDA4E07000CF3F8 /* PasswordGenerator.swift in Sources */,
 				4EEE540F20799701007D300D /* CoinTicker.swift in Sources */,
+				AD1EEACC215DA98A00D69F01 /* CryptosViewController.swift in Sources */,
 				298542F51FBD8E6A00CB5081 /* ConfigExplorer.swift in Sources */,
 				29A13E2C1F6A955700E432A2 /* CreateWalletViewModel.swift in Sources */,
 				29F1C84A1FEB6D6B003780D8 /* EditTokenViewModel.swift in Sources */,
