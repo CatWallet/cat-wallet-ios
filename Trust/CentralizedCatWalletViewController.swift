@@ -5,12 +5,10 @@ import WebKit
 
 class CentralizedCatWalletViewController: UIViewController {
 
-    var web: UIWebView = UIWebView()
+    var web: WKWebView = WKWebView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         setWebView()
-        // Do any additional setup after loading the view.
     }
     
     private func setWebView() {
@@ -20,18 +18,21 @@ class CentralizedCatWalletViewController: UIViewController {
         web.frame = CGRect(x: 0, y: 0, width: screentWidth, height: screenHeight)
         self.view.addSubview(web)
         let url = URL(string: "https://www.youtube.com")
+        let task = URLSession.shared.dataTask(with: url!) { _, response, _ in
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+            } else {
+                print("something wrong")
+            }
+        }
+        
+        task.resume()
         let request = URLRequest(url: url!)
-        web.loadRequest(request)
+        print(request)
+        web.load(request)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
     }
-    */
-
 }
