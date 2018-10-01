@@ -9,7 +9,7 @@ final class WebServiceHandler: NSObject {
     static var sharedInstance = WebServiceHandler()
     private override init() {}
     
-    func getActors(completion: @escaping completionHandler) {
+    func getCryptos(completion: @escaping completionHandler) {
         var result: DataResult? = nil
         URLSession.shared.dataTask(with: apiURL!) { (data, response, error) in
             guard error == nil else {
@@ -17,14 +17,17 @@ final class WebServiceHandler: NSObject {
                 return
             }
             do {
-                let jsonDecoder = JSONDecoder()
-                result = try jsonDecoder.decode(DataResult.self, from: data!)
+               // let jsonDecoder = JSONDecoder()
+                let decoder = JSONDecoder()
+                // Swift 4.1
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                result = try decoder.decode(DataResult.self, from: data!)
+                //decode(DataResult.self, from: data!)
                 completion(result)
-            } catch {
-                print("Decode Failed")
+            } catch let jsonErr{
+                print("Decode Failed", jsonErr)
                 return
             }
-            
-            }.resume()
+        }.resume()
     }
 }

@@ -144,7 +144,7 @@ class InCoordinator: Coordinator {
         let cryptosviewcontroller = CryptosViewController()
         cryptosviewcontroller.tabBarItem = viewModel.CryptosBarItem
         tabBarController.viewControllers = [
-            cryptosviewcontroller,
+            //cryptosviewcontroller,
             browserCoordinator.navigationController.childNavigationController,
             walletCoordinator.navigationController.childNavigationController,
             settingsCoordinator.navigationController.childNavigationController,
