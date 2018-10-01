@@ -444,6 +444,7 @@
 		AD1EEACE215DB1F700D69F01 /* CryptosUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */; };
 		AD1EEAD0215DB22400D69F01 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */; };
 		AD1EEAD2215DB84000D69F01 /* CryptosData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD1215DB84000D69F01 /* CryptosData.swift */; };
+		AD1EEAD92162C4A900D69F01 /* CentralizedCatWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */; };
 		AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */; };
 		AD9AE40A2141B152002912FC /* SendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AE4092141B152002912FC /* SendType.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
@@ -954,6 +955,7 @@
 		AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosUrl.swift; sourceTree = "<group>"; };
 		AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
 		AD1EEAD1215DB84000D69F01 /* CryptosData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosData.swift; sourceTree = "<group>"; };
+		AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralizedCatWalletViewController.swift; sourceTree = "<group>"; };
 		AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9AE4092141B152002912FC /* SendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendType.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
@@ -1058,6 +1060,7 @@
 		2912CCF71F6A830700C6CBE3 /* Trust */ = {
 			isa = PBXGroup;
 			children = (
+				AD1EEAD72162C45100D69F01 /* CentralizedCatWallet */,
 				AD1EEACA215DA94A00D69F01 /* Cryptos */,
 				73ACEEF620163B4E003DD71D /* Lock */,
 				29E6E0681FE897BB0079265A /* Browser */,
@@ -2511,6 +2514,14 @@
 			path = Cryptos;
 			sourceTree = "<group>";
 		};
+		AD1EEAD72162C45100D69F01 /* CentralizedCatWallet */ = {
+			isa = PBXGroup;
+			children = (
+				AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */,
+			);
+			name = CentralizedCatWallet;
+			sourceTree = "<group>";
+		};
 		BB3864A1208F1C3000CBF773 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -3301,6 +3312,7 @@
 				2963B6C11F9AE0E4003063C1 /* Data.swift in Sources */,
 				2932045E1F8EEE760095B7C1 /* BalanceCoordinator.swift in Sources */,
 				77CB8398206B8E1C006F34A8 /* ScanQRCodeCoordinator.swift in Sources */,
+				AD1EEAD92162C4A900D69F01 /* CentralizedCatWalletViewController.swift in Sources */,
 				29AD3D5920F5BD97007893C9 /* WalletsCoordinator.swift in Sources */,
 				771D5371205923F500C79485 /* NetworkConditionViewModel.swift in Sources */,
 				2912CD321F6A83EE00C6CBE3 /* WelcomeViewController.swift in Sources */,
