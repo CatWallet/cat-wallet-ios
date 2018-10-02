@@ -17,12 +17,12 @@ class CentralizedCatWalletViewController: UIViewController {
         let screenHeight = scrrenSize.height
         web.frame = CGRect(x: 0, y: 0, width: screentWidth, height: screenHeight)
         self.view.addSubview(web)
-        let url = URL(string: "https://www.youtube.com")
+        let url = URL(string: "https://www.google.com")
         let task = URLSession.shared.dataTask(with: url!) { _, response, _ in
             if let httpResponse = response as? HTTPURLResponse {
-                print(httpResponse.statusCode)
+                //print(httpResponse.statusCode)
             } else {
-                print("something wrong")
+                //print("something wrong")
             }
         }
         task.resume()
@@ -31,7 +31,9 @@ class CentralizedCatWalletViewController: UIViewController {
         web.load(request)
     }
     
-    override var prefersStatusBarHidden: Bool{
-        return true
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
 }

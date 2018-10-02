@@ -91,6 +91,7 @@
 "send.queryAddress.errorMessage" = "The user has not registered, do you want to continue?";
 "send.queryAddress.yes" = "Yes";
 "send.queryAddress.no" = "No";
+"send.pairValue" = "Pair value";
 "settings.biometricsDisabled.label.title" = "Passcode";
 "settings.biometricsEnabled.label.title" = "Passcode / %@";
 "settings.community.label.title" = "Community";

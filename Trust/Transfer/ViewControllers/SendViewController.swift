@@ -168,7 +168,6 @@ class SendViewController: FormViewController{
                 }
                 
                 }.onPresent({ (from, to) in
-               
                     self.inputCase = "address"
                     to.enableDeselection = false
                     to.dismissOnSelection = false
@@ -205,7 +204,7 @@ class SendViewController: FormViewController{
             <<< TextFloatLabelRow(){
                 $0.tag = "labelTag"
                 }.cellUpdate({ (cell, _) in
-                    cell.textField.placeholder = "Pair value"
+                    cell.textField.placeholder = R.string.localizable.sendPairValue()
                     cell.textLabel?.textAlignment = .left
                     cell.backgroundColor = UIColor.clear
                     cell.textField.font = .italicSystemFont(ofSize: 12)
