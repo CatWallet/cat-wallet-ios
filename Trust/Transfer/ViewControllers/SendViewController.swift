@@ -97,7 +97,7 @@ class SendViewController: FormViewController{
             target: self,
             action: #selector(send)
         )
-        
+        createButton()
         getContacts()
         
         
@@ -576,6 +576,21 @@ class SendViewController: FormViewController{
         updatePriceSection()
         //Set focuse on pair change.
         activateAmountView()
+    }
+    func createButton() {
+        var button = UIButton(type: UIButtonType.system) as UIButton
+        button = Button(size: .large, style: .solid)
+        button.setTitle(R.string.localizable.next(), for: UIControlState.normal)
+        button.tintColor = UIColor.black
+        button.addTarget(self, action: #selector(send), for: .touchUpInside)
+        self.view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addConstraints([
+            NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIScreen.main.bounds.width - 20),
+            NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 55),
+            NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 10),
+            NSLayoutConstraint(item: button, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: -50),
+            ])
     }
     func activateAmountView() {
         amountRow?.cell.textField.becomeFirstResponder()
