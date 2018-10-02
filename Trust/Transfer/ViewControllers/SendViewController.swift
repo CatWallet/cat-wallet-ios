@@ -201,7 +201,7 @@ class SendViewController: FormViewController{
                 $0.footer?.height = { 0 }
             }
             
-            <<< amountField()
+            <<< AmountField()
             <<< TextFloatLabelRow(){
                 $0.tag = "labelTag"
                 }.cellUpdate({ (cell, _) in
@@ -230,23 +230,6 @@ class SendViewController: FormViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.applyTintAdjustment()
-        //self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.none
-    }
-
-    
-    private func fields() -> [BaseRow] {
-        return viewModel.views.map { field(for: $0) }
-    }
-
-    private func field(for type: SendViewType) -> BaseRow {
-        switch type {
-        case .address:
-            return addressField()
-        case .amount:
-            return amountField()
-        case .collectible(let token):
-            return collectibleField(with: token)
-        }
     }
 
     func addressField() -> TextFloatLabelRow {
@@ -315,7 +298,7 @@ class SendViewController: FormViewController{
             })
     }
 
-    func amountField() -> TextFloatLabelRow {
+    func AmountField() -> TextFloatLabelRow {
         let fiatButton = Button(size: .normal, style: .borderless)
         fiatButton.translatesAutoresizingMaskIntoConstraints = false
         fiatButton.setTitle(viewModel.currentPair.right, for: .normal)
