@@ -25,7 +25,6 @@ class CentralizedCatWalletViewController: UIViewController {
                 print("something wrong")
             }
         }
-        
         task.resume()
         let request = URLRequest(url: url!)
         print(request)

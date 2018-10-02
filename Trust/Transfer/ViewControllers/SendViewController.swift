@@ -100,12 +100,6 @@ class SendViewController: FormViewController{
         
         getContacts()
         
-       let section = Section(header: "", footer: viewModel.isFiatViewHidden() ? "" : viewModel.pairRateRepresantetion())
-        fields().forEach { cell in
-            section.append(cell)
-            section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
-            section.header?.height = {0}
-        }
         
         form
             +++ Section(){
@@ -203,7 +197,10 @@ class SendViewController: FormViewController{
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.header?.height = { 0 }
+                $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.footer?.height = { 0 }
             }
+            
             <<< amountField()
             <<< TextFloatLabelRow(){
                 $0.tag = "labelTag"
@@ -219,18 +216,21 @@ class SendViewController: FormViewController{
                 $0.hidden = Eureka.Condition.function([SendTypeValues.segment], { [weak self] _ in
                     return self?.segmentRow?.value != SendType.ETHAddress.title
                 })
+                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
+                $0.header?.height = { 0 }
                 $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 $0.footer?.height = { 0 }
-        }
+            }
             <<< ButtonRow() {
                 $0.title = NSLocalizedString("send.addContacts.button.title", value: "", comment: "")
-                $0.onCellSelection(self.buttonTapped)        }
-    
+                $0.onCellSelection(self.buttonTapped)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.applyTintAdjustment()
+        //self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.none
     }
 
     
@@ -264,6 +264,7 @@ class SendViewController: FormViewController{
                 cell.textField.rightViewMode = .always
                 cell.textField.accessibilityIdentifier = "amount-field"
                 cell.textField.keyboardType = .default
+                cell.separatorInset = UIEdgeInsetsMake(10, 50, 0, 50)
             }.onCellHighlightChanged({ (cell, row) in
                 if row.isHighlighted == true {
                     self.inputCase = "address"
