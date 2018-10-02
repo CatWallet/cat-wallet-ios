@@ -232,6 +232,22 @@ class SendViewController: FormViewController{
         self.navigationController?.applyTintAdjustment()
     }
 
+    
+    private func fields() -> [BaseRow] {
+        return viewModel.views.map { field(for: $0) }
+    }
+
+    private func field(for type: SendViewType) -> BaseRow {
+        switch type {
+        case .address:
+            return addressField()
+        case .amount:
+            return AmountField()
+        case .collectible(let token):
+            return collectibleField(with: token)
+        }
+    }
+
     func addressField() -> TextFloatLabelRow {
         let recipientRightView = FieldAppereance.addressFieldRightView(
             pasteAction: { [unowned self] in self.pasteAction() },
