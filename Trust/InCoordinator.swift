@@ -141,8 +141,8 @@ class InCoordinator: Coordinator {
         settingsCoordinator.delegate = self
         settingsCoordinator.start()
         addCoordinator(settingsCoordinator)
-        //let cryptosviewcontroller = CryptosViewController()
-        let cryptosviewcontroller = CentralizedCatWalletViewController()
+        let cryptosviewcontroller = CryptosViewController()
+        //let cryptosviewcontroller = CentralizedCatWalletViewController()
         cryptosviewcontroller.tabBarItem = viewModel.CryptosBarItem
         tabBarController.viewControllers = [
             //cryptosviewcontroller,

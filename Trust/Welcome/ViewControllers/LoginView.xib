@@ -63,7 +63,7 @@
                                     <constraint firstAttribute="height" constant="50" id="bbc-A9-K0U"/>
                                     <constraint firstAttribute="width" constant="50" id="gG6-CU-WUn"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>

@@ -82,7 +82,7 @@
 "send.max.button.title" = "Max";
 "send.paste.button.title" = "Paste";
 "send.recipientAddress.textField.placeholder" = "Recipient Address";
-"send.addContacts.button.title" = "ADD CONTACT";
+"send.addContacts.button.title" = "Add Contact";
 "send.addNewContacts.alertController.title" = "Add New Contact";
 "send.addNewContacts.alertController.message" = "Please enter name and ETH address";
 "send.addNewContacts.alertAction.okButton" = "Add";

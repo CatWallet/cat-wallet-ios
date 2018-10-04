@@ -3,10 +3,11 @@
 
 import Foundation
 
-struct CryptosData: Codable {
-    var rank, name, price ,percent_change_1h : String
+struct CryptosData: Decodable {
+    var name : String
+    //var price : Double
+    //var percent_change_1h : Double
 }
 
-struct DataResult: Codable {
-    var Cryptos: [CryptosData]
-}
+var result = [CryptosData]()
+
