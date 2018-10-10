@@ -440,13 +440,7 @@
 		A2E895D020953404003D5303 /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E895CF20953404003D5303 /* QRGenerator.swift */; };
 		AD02A25A2125061D0076A1EE /* MyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02A2592125061D0076A1EE /* MyStruct.swift */; };
 		AD06A1ED2152B8B100D6F81B /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */; };
-		AD1EEACC215DA98A00D69F01 /* CryptosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */; };
-		AD1EEACE215DB1F700D69F01 /* CryptosUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */; };
-		AD1EEAD0215DB22400D69F01 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */; };
-		AD1EEAD2215DB84000D69F01 /* CryptosData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD1215DB84000D69F01 /* CryptosData.swift */; };
 		AD1EEAD92162C4A900D69F01 /* CentralizedCatWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */; };
-		AD1EEADE21643D0800D69F01 /* CryptosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEADC21643D0800D69F01 /* CryptosTableViewCell.swift */; };
-		AD1EEADF21643D0800D69F01 /* CryptosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD1EEADD21643D0800D69F01 /* CryptosTableViewCell.xib */; };
 		AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */; };
 		AD9AE40A2141B152002912FC /* SendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AE4092141B152002912FC /* SendType.swift */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
@@ -953,13 +947,7 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD02A2592125061D0076A1EE /* MyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStruct.swift; sourceTree = "<group>"; };
 		AD06A1EC2152B8B100D6F81B /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
-		AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosViewController.swift; sourceTree = "<group>"; };
-		AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosUrl.swift; sourceTree = "<group>"; };
-		AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
-		AD1EEAD1215DB84000D69F01 /* CryptosData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosData.swift; sourceTree = "<group>"; };
 		AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralizedCatWalletViewController.swift; sourceTree = "<group>"; };
-		AD1EEADC21643D0800D69F01 /* CryptosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosTableViewCell.swift; sourceTree = "<group>"; };
-		AD1EEADD21643D0800D69F01 /* CryptosTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CryptosTableViewCell.xib; sourceTree = "<group>"; };
 		AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9AE4092141B152002912FC /* SendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendType.swift; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
@@ -1065,7 +1053,6 @@
 			isa = PBXGroup;
 			children = (
 				AD1EEAD72162C45100D69F01 /* CentralizedCatWallet */,
-				AD1EEACA215DA94A00D69F01 /* Cryptos */,
 				73ACEEF620163B4E003DD71D /* Lock */,
 				29E6E0681FE897BB0079265A /* Browser */,
 				2959960F1FAB065700DB66A8 /* Deposit */,
@@ -2507,19 +2494,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		AD1EEACA215DA94A00D69F01 /* Cryptos */ = {
-			isa = PBXGroup;
-			children = (
-				AD1EEACB215DA98A00D69F01 /* CryptosViewController.swift */,
-				AD1EEACD215DB1F700D69F01 /* CryptosUrl.swift */,
-				AD1EEACF215DB22400D69F01 /* WebServiceHandler.swift */,
-				AD1EEAD1215DB84000D69F01 /* CryptosData.swift */,
-				AD1EEADC21643D0800D69F01 /* CryptosTableViewCell.swift */,
-				AD1EEADD21643D0800D69F01 /* CryptosTableViewCell.xib */,
-			);
-			path = Cryptos;
-			sourceTree = "<group>";
-		};
 		AD1EEAD72162C45100D69F01 /* CentralizedCatWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -2754,7 +2728,6 @@
 				035865C4210EC86600F9DD1D /* LoginView.xib in Resources */,
 				AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */,
 				73DE7B3320987D8F00AE04E6 /* NonFungibleCollectionViewCell.xib in Resources */,
-				AD1EEADF21643D0800D69F01 /* CryptosTableViewCell.xib in Resources */,
 				296106CE1F777E410006164B /* LaunchScreen.storyboard in Resources */,
 				290B2B541F8F50030053C83E /* Localizable.strings in Resources */,
 				2912CD021F6A830700C6CBE3 /* Assets.xcassets in Resources */,
@@ -3039,7 +3012,6 @@
 				296106D01F778A8D0006164B /* TransferType.swift in Sources */,
 				29E14FDB1F7F4F3D00185568 /* Transaction.swift in Sources */,
 				BBF4F9B72029D0B3009E04C0 /* GasViewModel.swift in Sources */,
-				AD1EEAD2215DB84000D69F01 /* CryptosData.swift in Sources */,
 				73C41C75201B65AD00243C6C /* LockCreatePasscodeCoordinator.swift in Sources */,
 				7301BA9220A3117000E1AFE5 /* AutoLock.swift in Sources */,
 				296106C81F7646590006164B /* TokensViewModel.swift in Sources */,
@@ -3113,7 +3085,6 @@
 				2959960C1FAB03EC00DB66A8 /* CoinbaseBuyWidget.swift in Sources */,
 				291A1B671F98092F00ADEC80 /* ConfirmPaymentViewController.swift in Sources */,
 				29F1C8421FEB62ED003780D8 /* EditTokenTableCellViewModel.swift in Sources */,
-				AD1EEACE215DB1F700D69F01 /* CryptosUrl.swift in Sources */,
 				2931122E1FC94E4200966EEA /* SettingsError.swift in Sources */,
 				29FA00D0201CA66A002F7DC5 /* DAppError.swift in Sources */,
 				291EC9DF1F7053C50004EDD0 /* NavigationController.swift in Sources */,
@@ -3257,7 +3228,6 @@
 				293112121FC4F48400966EEA /* ServiceProvider.swift in Sources */,
 				77B806AF20776EDA005FDCBE /* HistoryViewModel.swift in Sources */,
 				73C5CF45201A7CAB00C74316 /* LockPasscodeViewController.swift in Sources */,
-				AD1EEADE21643D0800D69F01 /* CryptosTableViewCell.swift in Sources */,
 				2912CD2F1F6A83A100C6CBE3 /* ImportWalletViewController.swift in Sources */,
 				A2B7ECAE2039001300828E7D /* ExportPrivateKeyViewController.swift in Sources */,
 				7721A6D0202EFD07004DB16C /* AddCustomNetworkCoordinator.swift in Sources */,
@@ -3271,7 +3241,6 @@
 				73ED85A72034BFEF00593BF3 /* UITextFieldAdditions.swift in Sources */,
 				2923D9B51FDA4E07000CF3F8 /* PasswordGenerator.swift in Sources */,
 				4EEE540F20799701007D300D /* CoinTicker.swift in Sources */,
-				AD1EEACC215DA98A00D69F01 /* CryptosViewController.swift in Sources */,
 				298542F51FBD8E6A00CB5081 /* ConfigExplorer.swift in Sources */,
 				29A13E2C1F6A955700E432A2 /* CreateWalletViewModel.swift in Sources */,
 				29F1C84A1FEB6D6B003780D8 /* EditTokenViewModel.swift in Sources */,
@@ -3316,7 +3285,6 @@
 				771A847320322F2500528D28 /* BrowserConfigurationViewController.swift in Sources */,
 				29DBF2A31F9DBFF400327C60 /* BackupCoordinator.swift in Sources */,
 				290B2B611F9179880053C83E /* AccountViewModel.swift in Sources */,
-				AD1EEAD0215DB22400D69F01 /* WebServiceHandler.swift in Sources */,
 				2963B6C11F9AE0E4003063C1 /* Data.swift in Sources */,
 				2932045E1F8EEE760095B7C1 /* BalanceCoordinator.swift in Sources */,
 				77CB8398206B8E1C006F34A8 /* ScanQRCodeCoordinator.swift in Sources */,

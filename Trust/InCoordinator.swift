@@ -145,9 +145,9 @@ class InCoordinator: Coordinator {
         //let cryptosviewcontroller = CentralizedCatWalletViewController()
         cryptosviewcontroller.tabBarItem = viewModel.CryptosBarItem
         tabBarController.viewControllers = [
-            //cryptosviewcontroller,
-            browserCoordinator.navigationController.childNavigationController,
+            cryptosviewcontroller,
             walletCoordinator.navigationController.childNavigationController,
+            browserCoordinator.navigationController.childNavigationController,
             settingsCoordinator.navigationController.childNavigationController,
         ]
 
