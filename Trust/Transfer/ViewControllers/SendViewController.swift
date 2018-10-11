@@ -468,6 +468,8 @@ class SendViewController: FormViewController{
     }
     
     @objc func send() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         let errors = form.validate()
         let amountString = viewModel.amount
         guard errors.isEmpty else { return }

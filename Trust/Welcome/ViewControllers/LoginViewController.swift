@@ -136,6 +136,8 @@ class LoginViewController: UIViewController, SWSegmentedControlDelegate {
     }
 
     @IBAction func sendClicked(_ sender: Any) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         let input = registerIdentityField.text!.lowercased().trimmed
         if input.isEmpty {
             showAlert(title: R.string.localizable.registerEmptyError(), message: "")

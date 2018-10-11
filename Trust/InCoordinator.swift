@@ -152,7 +152,7 @@ class InCoordinator: Coordinator {
         addCoordinator(coinMarketCoordinator)
         
         tabBarController.viewControllers = [
-            browserCoordinator.navigationController.childNavigationController,
+            //browserCoordinator.navigationController.childNavigationController,
             coinMarketCoordinator.navigationController.childNavigationController,
             walletCoordinator.navigationController.childNavigationController,
             settingsCoordinator.navigationController.childNavigationController,
