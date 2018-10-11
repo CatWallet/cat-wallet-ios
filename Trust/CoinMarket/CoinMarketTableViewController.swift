@@ -8,7 +8,8 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(CoinMarketTableViewCell.self, forCellReuseIdentifier: "coinMArketCell")
+        tableView.register(UINib(nibName: "CoinMarketTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
+        //tableView.register(CoinMarketTableViewCell.self, forCellReuseIdentifier: "myCell")
         self.title = R.string.localizable.marketTabbarItemTitle()
         getInfo()
         //navigationController?.navigationBar.prefersLargeTitles = true
@@ -35,15 +36,24 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "coinMArketCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CoinMarketTableViewCell
         cell.textLabel?.text = coinData[indexPath.row].name
-        //cell.detailTextLabel?.text = String(coinData[indexPath.row].price)
-
+        let price = coinData[indexPath.row].quote.USD.price
+        cell.priceLabel.text = "$" + String(price)
         return cell
+    }
+    
+    func currencyFormatter (Price: NSNumber) -> String{
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale.current
+        let priceString = currencyFormatter.string(from: Price)!
+        return String(priceString)
     }
    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        
     }
 
 }

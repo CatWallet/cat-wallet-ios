@@ -4,6 +4,8 @@ import UIKit
 
 class CoinMarketTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var priceLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
