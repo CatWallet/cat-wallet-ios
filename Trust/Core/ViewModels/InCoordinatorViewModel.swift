@@ -20,9 +20,9 @@ struct InCoordinatorViewModel {
         return UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
     }
 
-    var CryptosBarItem: UITabBarItem {
+    var MarketBarItem: UITabBarItem {
         return UITabBarItem(
-            title: NSLocalizedString("Cryptos.tabbar.item.title", value: "Cryptos", comment: ""),
+            title: NSLocalizedString("Market.tabbar.item.title", value: "Market", comment: ""),
             image: R.image.crypto_tab_icon(),
             selectedImage: nil
         )

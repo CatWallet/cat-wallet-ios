@@ -27,6 +27,9 @@ class InCoordinator: Coordinator {
     var browserCoordinator: BrowserCoordinator? {
         return self.coordinators.compactMap { $0 as? BrowserCoordinator }.first
     }
+    var coinMarketCoordinator: CoinMarketCoordinator? {
+        return self.coordinators.compactMap { $0 as? CoinMarketCoordinator }.first
+    }
     var settingsCoordinator: SettingsCoordinator? {
         return self.coordinators.compactMap { $0 as? SettingsCoordinator }.first
     }
@@ -141,13 +144,17 @@ class InCoordinator: Coordinator {
         settingsCoordinator.delegate = self
         settingsCoordinator.start()
         addCoordinator(settingsCoordinator)
-        let cryptosviewcontroller = CryptosViewController()
+        
+        let coinMarketCoordinator = CoinMarketCoordinator()
         //let cryptosviewcontroller = CentralizedCatWalletViewController()
-        cryptosviewcontroller.tabBarItem = viewModel.CryptosBarItem
+        coinMarketCoordinator.start()
+        coinMarketCoordinator.rootViewController.tabBarItem = viewModel.MarketBarItem
+        addCoordinator(coinMarketCoordinator)
+        
         tabBarController.viewControllers = [
-            cryptosviewcontroller,
-            walletCoordinator.navigationController.childNavigationController,
             browserCoordinator.navigationController.childNavigationController,
+            coinMarketCoordinator.navigationController.childNavigationController,
+            walletCoordinator.navigationController.childNavigationController,
             settingsCoordinator.navigationController.childNavigationController,
         ]
 
