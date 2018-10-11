@@ -37,10 +37,16 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CoinMarketTableViewCell
-        cell.textLabel?.font = UIFont(name: "Body", size: 11)
-        cell.textLabel?.text = coinData[indexPath.row].name
+        cell.nameLabel.text = coinData[indexPath.row].name
         let price = coinData[indexPath.row].quote.USD.price
-        cell.priceLabel.text = "$" + String(price)
+        let priceChange = coinData[indexPath.row].quote.USD.percent_change_1h
+        cell.priceLabel.text = "$" + String(format: "%.4f", price)
+        if priceChange > 0 {
+            cell.priceChangeLabel.textColor = UIColor.blue
+        } else {
+            cell.priceChangeLabel.textColor = UIColor.red
+        }
+        cell.priceChangeLabel.text = String(format: "%.3f", priceChange)
         return cell
     }
     

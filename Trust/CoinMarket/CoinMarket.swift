@@ -18,5 +18,5 @@ struct CoinQuote: Decodable {
 
 struct CoinUSD: Decodable {
     let price: Double
-    //let percent_change_1h: Double
+    let percent_change_1h: Double
 }
