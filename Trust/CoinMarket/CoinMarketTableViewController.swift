@@ -9,7 +9,6 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "CoinMarketTableViewCell", bundle: nil), forCellReuseIdentifier: "myCell")
-        //tableView.register(CoinMarketTableViewCell.self, forCellReuseIdentifier: "myCell")
         self.title = R.string.localizable.marketTabbarItemTitle()
         getInfo()
         //navigationController?.navigationBar.prefersLargeTitles = true
@@ -34,23 +33,25 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
         return coinData.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CoinMarketTableViewCell
         cell.nameLabel.text = coinData[indexPath.row].name
         let price = coinData[indexPath.row].quote.USD.price
         let priceChange = coinData[indexPath.row].quote.USD.percent_change_1h
-        cell.priceLabel.text = "$" + String(format: "%.4f", price)
+        
         if priceChange > 0 {
             cell.priceChangeLabel.textColor = UIColor.blue
+            cell.priceLabel.textColor = UIColor.blue
         } else {
             cell.priceChangeLabel.textColor = UIColor.red
+            cell.priceLabel.textColor = UIColor.red
         }
         cell.priceChangeLabel.text = String(format: "%.3f", priceChange)
+        cell.priceLabel.text = "$" + String(format: "%.4f", price)
         return cell
     }
     
-    func currencyFormatter (Price: NSNumber) -> String{
+    func currencyFormatter (Price: NSNumber) -> String {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true
         currencyFormatter.numberStyle = .currency
