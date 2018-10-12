@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         protectionCoordinator.didFinishLaunchingWithOptions()
         urlNavigatorCoordinator.branch.didFinishLaunchingWithOptions(launchOptions: launchOptions)
         FirebaseApp.configure()
+        Fabric.sharedSDK().debug = true
         return true
     }
 

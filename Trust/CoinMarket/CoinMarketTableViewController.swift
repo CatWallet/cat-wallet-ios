@@ -61,7 +61,10 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
     }
    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = CoinMarketDetialViewController(nibName: "CoinMarketDetialViewController", bundle: nil)
+            if let navigator = navigationController {
+                vc.title = coinData[indexPath.row].name
+                navigator.pushViewController(vc, animated: true)
+        }
     }
-
 }

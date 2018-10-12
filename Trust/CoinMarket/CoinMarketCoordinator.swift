@@ -2,7 +2,6 @@
 
 import Foundation
 
-
 final class CoinMarketCoordinator: Coordinator {
     var coordinators: [Coordinator] = []
     let navigationController: NavigationController

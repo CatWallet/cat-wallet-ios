@@ -2,7 +2,7 @@
 
 import Foundation
 
-typealias completionHandler = (Any) ->()
+typealias completionHandler = (Any) ->Void
 
 final class WebServiceHandler: NSObject {
     static var sharedInstance = WebServiceHandler()
@@ -17,9 +17,7 @@ final class WebServiceHandler: NSObject {
                     print("Failed to get data from url:", err)
                     return
                 }
-                
                 guard let data = data else { return }
-                
                 do {
                     let decoder = JSONDecoder()
                     //decoder.keyDecodingStrategy = .convertFromSnakeCase

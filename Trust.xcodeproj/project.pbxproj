@@ -450,6 +450,8 @@
 		ADEBBF26216EB380000F5DB8 /* CoinMarketContant.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */; };
 		ADEBBF28216EBF31000F5DB8 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */; };
 		ADEBBF2A216EBF78000F5DB8 /* CoinMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */; };
+		ADEBBF2D217022A1000F5DB8 /* CoinMarketDetialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */; };
+		ADEBBF2E217022A1000F5DB8 /* CoinMarketDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
 		BB1CC266203BA4440042E56C /* SendMaxAmountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1CC265203BA4440042E56C /* SendMaxAmountTest.swift */; };
@@ -964,6 +966,8 @@
 		ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketContant.swift; sourceTree = "<group>"; };
 		ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
 		ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarket.swift; sourceTree = "<group>"; };
+		ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketDetialViewController.swift; sourceTree = "<group>"; };
+		ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinMarketDetialViewController.xib; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A86C20416AF600649DA0 /* BalanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatus.swift; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
@@ -2527,6 +2531,8 @@
 				ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */,
 				ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */,
 				ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */,
+				ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */,
+				ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */,
 			);
 			path = CoinMarket;
 			sourceTree = "<group>";
@@ -2750,6 +2756,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADEBBF2E217022A1000F5DB8 /* CoinMarketDetialViewController.xib in Resources */,
 				902CAB592051818B00F96FFE /* BookmarkViewCell.xib in Resources */,
 				771AA966200D5F1900D25403 /* WordCollectionViewCell.xib in Resources */,
 				29AD3D5520F5BA2E007893C9 /* WalletTableViewCell.xib in Resources */,
@@ -3027,6 +3034,7 @@
 				29C80D491FB51C380037B1E0 /* Dictionary.swift in Sources */,
 				BB767E2E205E10FD00263658 /* Debounce.swift in Sources */,
 				77872D232023F43B0032D687 /* TransactionsTracker.swift in Sources */,
+				ADEBBF2D217022A1000F5DB8 /* CoinMarketDetialViewController.swift in Sources */,
 				776C1147205CF6DF00449539 /* TokenHeaderView.swift in Sources */,
 				BB3E2A0B20A03D22000F8B76 /* ENSStore.swift in Sources */,
 				29FA00CE201CA64E002F7DC5 /* DappCommand.swift in Sources */,
