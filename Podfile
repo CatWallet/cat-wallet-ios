@@ -37,6 +37,7 @@ target 'Trust' do
   pod 'Firebase/Core'
   pod 'SWSegmentedControl'
   pod 'ImageRow', '~> 3.0'
+  pod 'Charts'
 
 
   target 'TrustTests' do

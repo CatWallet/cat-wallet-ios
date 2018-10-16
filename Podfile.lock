@@ -8,6 +8,9 @@ PODS:
   - Branch (0.24.1):
     - Branch/Core (= 0.24.1)
   - Branch/Core (0.24.1)
+  - Charts (3.1.1):
+    - Charts/Core (= 3.1.1)
+  - Charts/Core (3.1.1)
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - CryptoSwift (0.10.0)
@@ -127,6 +130,7 @@ DEPENDENCIES:
   - APIKit
   - BigInt (~> 3.0)
   - Branch
+  - Charts
   - Crashlytics (~> 3.10)
   - CryptoSwift (~> 0.10.0)
   - Eureka
@@ -164,6 +168,7 @@ SPEC REPOS:
     - BigInt
     - Bolts
     - Branch
+    - Charts
     - Crashlytics
     - CryptoSwift
     - Eureka
@@ -239,6 +244,7 @@ SPEC CHECKSUMS:
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Branch: 8b59411a12867bde4fe8c9d3c0f107c5811e303e
+  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   Eureka: 0748c7bbb2560130e43c7bfa83e99c98854a1f42
@@ -280,6 +286,6 @@ SPEC CHECKSUMS:
   TrustWeb3Provider: 50fa391bdf170feb43dd4419992931510a5751d8
   URLNavigator: af5582fbbb3586c958be16835d799bfdb23a4793
 
-PODFILE CHECKSUM: 4ec6d29f1d3ca1de57f101ed0f258c75a5f92f3b
+PODFILE CHECKSUM: 0eba5fd41af2397add1030180267fcd3b4a2f788
 
 COCOAPODS: 1.5.3

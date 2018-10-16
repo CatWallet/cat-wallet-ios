@@ -443,15 +443,15 @@
 		AD1EEAD92162C4A900D69F01 /* CentralizedCatWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */; };
 		AD4A66982134B43E00F92A5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */; };
 		AD9AE40A2141B152002912FC /* SendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9AE4092141B152002912FC /* SendType.swift */; };
-		ADEBBF1E216EA4F5000F5DB8 /* CoinMarketCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF1D216EA4F5000F5DB8 /* CoinMarketCoordinator.swift */; };
-		ADEBBF20216EA9D0000F5DB8 /* CoinMarketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF1F216EA9D0000F5DB8 /* CoinMarketTableViewController.swift */; };
-		ADEBBF23216EAE82000F5DB8 /* CoinMarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF21216EAE82000F5DB8 /* CoinMarketTableViewCell.swift */; };
-		ADEBBF24216EAE82000F5DB8 /* CoinMarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADEBBF22216EAE82000F5DB8 /* CoinMarketTableViewCell.xib */; };
-		ADEBBF26216EB380000F5DB8 /* CoinMarketContant.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */; };
-		ADEBBF28216EBF31000F5DB8 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */; };
-		ADEBBF2A216EBF78000F5DB8 /* CoinMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */; };
-		ADEBBF2D217022A1000F5DB8 /* CoinMarketDetialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */; };
-		ADEBBF2E217022A1000F5DB8 /* CoinMarketDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */; };
+		ADEBBF3D21754DBF000F5DB8 /* CoinMarketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3421754DBD000F5DB8 /* CoinMarketTableViewController.swift */; };
+		ADEBBF3E21754DBF000F5DB8 /* CoinMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3521754DBD000F5DB8 /* CoinMarket.swift */; };
+		ADEBBF3F21754DBF000F5DB8 /* CoinMarketCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3621754DBD000F5DB8 /* CoinMarketCoordinator.swift */; };
+		ADEBBF4021754DBF000F5DB8 /* CoinMarketContant.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3721754DBD000F5DB8 /* CoinMarketContant.swift */; };
+		ADEBBF4121754DBF000F5DB8 /* WebServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3821754DBE000F5DB8 /* WebServiceHandler.swift */; };
+		ADEBBF4221754DBF000F5DB8 /* CoinMarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADEBBF3921754DBE000F5DB8 /* CoinMarketTableViewCell.xib */; };
+		ADEBBF4321754DBF000F5DB8 /* CoinMarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3A21754DBE000F5DB8 /* CoinMarketTableViewCell.swift */; };
+		ADEBBF4421754DBF000F5DB8 /* CoinMarketDetialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEBBF3B21754DBF000F5DB8 /* CoinMarketDetialViewController.swift */; };
+		ADEBBF4521754DBF000F5DB8 /* CoinMarketDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADEBBF3C21754DBF000F5DB8 /* CoinMarketDetialViewController.xib */; };
 		BB03A86D20416AF600649DA0 /* BalanceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A86C20416AF600649DA0 /* BalanceStatus.swift */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
 		BB1CC266203BA4440042E56C /* SendMaxAmountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1CC265203BA4440042E56C /* SendMaxAmountTest.swift */; };
@@ -959,15 +959,15 @@
 		AD1EEAD82162C4A900D69F01 /* CentralizedCatWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralizedCatWalletViewController.swift; sourceTree = "<group>"; };
 		AD4A66972134B43E00F92A5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD9AE4092141B152002912FC /* SendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendType.swift; sourceTree = "<group>"; };
-		ADEBBF1D216EA4F5000F5DB8 /* CoinMarketCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketCoordinator.swift; sourceTree = "<group>"; };
-		ADEBBF1F216EA9D0000F5DB8 /* CoinMarketTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketTableViewController.swift; sourceTree = "<group>"; };
-		ADEBBF21216EAE82000F5DB8 /* CoinMarketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketTableViewCell.swift; sourceTree = "<group>"; };
-		ADEBBF22216EAE82000F5DB8 /* CoinMarketTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinMarketTableViewCell.xib; sourceTree = "<group>"; };
-		ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketContant.swift; sourceTree = "<group>"; };
-		ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
-		ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarket.swift; sourceTree = "<group>"; };
-		ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketDetialViewController.swift; sourceTree = "<group>"; };
-		ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinMarketDetialViewController.xib; sourceTree = "<group>"; };
+		ADEBBF3421754DBD000F5DB8 /* CoinMarketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarketTableViewController.swift; sourceTree = "<group>"; };
+		ADEBBF3521754DBD000F5DB8 /* CoinMarket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarket.swift; sourceTree = "<group>"; };
+		ADEBBF3621754DBD000F5DB8 /* CoinMarketCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarketCoordinator.swift; sourceTree = "<group>"; };
+		ADEBBF3721754DBD000F5DB8 /* CoinMarketContant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarketContant.swift; sourceTree = "<group>"; };
+		ADEBBF3821754DBE000F5DB8 /* WebServiceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceHandler.swift; sourceTree = "<group>"; };
+		ADEBBF3921754DBE000F5DB8 /* CoinMarketTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoinMarketTableViewCell.xib; sourceTree = "<group>"; };
+		ADEBBF3A21754DBE000F5DB8 /* CoinMarketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarketTableViewCell.swift; sourceTree = "<group>"; };
+		ADEBBF3B21754DBF000F5DB8 /* CoinMarketDetialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinMarketDetialViewController.swift; sourceTree = "<group>"; };
+		ADEBBF3C21754DBF000F5DB8 /* CoinMarketDetialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoinMarketDetialViewController.xib; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A86C20416AF600649DA0 /* BalanceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatus.swift; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
@@ -1070,7 +1070,7 @@
 		2912CCF71F6A830700C6CBE3 /* Trust */ = {
 			isa = PBXGroup;
 			children = (
-				ADEBBF10216E97AD000F5DB8 /* CoinMarket */,
+				ADEBBF3321754DA7000F5DB8 /* CoinMarket */,
 				AD1EEAD72162C45100D69F01 /* CentralizedCatWallet */,
 				73ACEEF620163B4E003DD71D /* Lock */,
 				29E6E0681FE897BB0079265A /* Browser */,
@@ -2521,20 +2521,20 @@
 			name = CentralizedCatWallet;
 			sourceTree = "<group>";
 		};
-		ADEBBF10216E97AD000F5DB8 /* CoinMarket */ = {
+		ADEBBF3321754DA7000F5DB8 /* CoinMarket */ = {
 			isa = PBXGroup;
 			children = (
-				ADEBBF1D216EA4F5000F5DB8 /* CoinMarketCoordinator.swift */,
-				ADEBBF1F216EA9D0000F5DB8 /* CoinMarketTableViewController.swift */,
-				ADEBBF21216EAE82000F5DB8 /* CoinMarketTableViewCell.swift */,
-				ADEBBF22216EAE82000F5DB8 /* CoinMarketTableViewCell.xib */,
-				ADEBBF25216EB380000F5DB8 /* CoinMarketContant.swift */,
-				ADEBBF27216EBF31000F5DB8 /* WebServiceHandler.swift */,
-				ADEBBF29216EBF78000F5DB8 /* CoinMarket.swift */,
-				ADEBBF2B217022A1000F5DB8 /* CoinMarketDetialViewController.swift */,
-				ADEBBF2C217022A1000F5DB8 /* CoinMarketDetialViewController.xib */,
+				ADEBBF3521754DBD000F5DB8 /* CoinMarket.swift */,
+				ADEBBF3721754DBD000F5DB8 /* CoinMarketContant.swift */,
+				ADEBBF3621754DBD000F5DB8 /* CoinMarketCoordinator.swift */,
+				ADEBBF3B21754DBF000F5DB8 /* CoinMarketDetialViewController.swift */,
+				ADEBBF3C21754DBF000F5DB8 /* CoinMarketDetialViewController.xib */,
+				ADEBBF3A21754DBE000F5DB8 /* CoinMarketTableViewCell.swift */,
+				ADEBBF3921754DBE000F5DB8 /* CoinMarketTableViewCell.xib */,
+				ADEBBF3421754DBD000F5DB8 /* CoinMarketTableViewController.swift */,
+				ADEBBF3821754DBE000F5DB8 /* WebServiceHandler.swift */,
 			);
-			path = CoinMarket;
+			name = CoinMarket;
 			sourceTree = "<group>";
 		};
 		BB3864A1208F1C3000CBF773 /* Extensions */ = {
@@ -2756,7 +2756,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADEBBF2E217022A1000F5DB8 /* CoinMarketDetialViewController.xib in Resources */,
+				ADEBBF4521754DBF000F5DB8 /* CoinMarketDetialViewController.xib in Resources */,
 				902CAB592051818B00F96FFE /* BookmarkViewCell.xib in Resources */,
 				771AA966200D5F1900D25403 /* WordCollectionViewCell.xib in Resources */,
 				29AD3D5520F5BA2E007893C9 /* WalletTableViewCell.xib in Resources */,
@@ -2769,7 +2769,7 @@
 				2912CD021F6A830700C6CBE3 /* Assets.xcassets in Resources */,
 				73CBC75F2020CBF800374666 /* AccountViewCell.xib in Resources */,
 				29F1C8481FEB6664003780D8 /* EditTokenTableViewCell.xib in Resources */,
-				ADEBBF24216EAE82000F5DB8 /* CoinMarketTableViewCell.xib in Resources */,
+				ADEBBF4221754DBF000F5DB8 /* CoinMarketTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2898,6 +2898,7 @@
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -2936,6 +2937,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -3025,7 +3027,6 @@
 				295A59381F71C1B90092F0FC /* AccountsCoordinator.swift in Sources */,
 				903682F8204AC52F00013479 /* BookmarksViewModel.swift in Sources */,
 				299B5E2D1FCBC0660051361C /* BalanceProtocol.swift in Sources */,
-				ADEBBF2A216EBF78000F5DB8 /* CoinMarket.swift in Sources */,
 				296421971F70C1F200EB363B /* ErrorView.swift in Sources */,
 				903682F1204A6DB800013479 /* BookmarkViewController.swift in Sources */,
 				734AFD1520F1558800864E8E /* NotificationBadge.swift in Sources */,
@@ -3034,7 +3035,8 @@
 				29C80D491FB51C380037B1E0 /* Dictionary.swift in Sources */,
 				BB767E2E205E10FD00263658 /* Debounce.swift in Sources */,
 				77872D232023F43B0032D687 /* TransactionsTracker.swift in Sources */,
-				ADEBBF2D217022A1000F5DB8 /* CoinMarketDetialViewController.swift in Sources */,
+				ADEBBF3F21754DBF000F5DB8 /* CoinMarketCoordinator.swift in Sources */,
+				ADEBBF4421754DBF000F5DB8 /* CoinMarketDetialViewController.swift in Sources */,
 				776C1147205CF6DF00449539 /* TokenHeaderView.swift in Sources */,
 				BB3E2A0B20A03D22000F8B76 /* ENSStore.swift in Sources */,
 				29FA00CE201CA64E002F7DC5 /* DappCommand.swift in Sources */,
@@ -3086,8 +3088,8 @@
 				29850D251F6B27A800791A49 /* R.generated.swift in Sources */,
 				296105931FA2AA2100292494 /* SignTransaction.swift in Sources */,
 				296105951FA2DEF000292494 /* TransactionDirection.swift in Sources */,
+				ADEBBF4121754DBF000F5DB8 /* WebServiceHandler.swift in Sources */,
 				291ED08B1F6F5D2100E7E93A /* Bundle.swift in Sources */,
-				ADEBBF28216EBF31000F5DB8 /* WebServiceHandler.swift in Sources */,
 				293B8B451F70A20200356286 /* TransactionViewCell.swift in Sources */,
 				771D0646208B3FAD00016B72 /* MonetaryAmountViewModel.swift in Sources */,
 				29FC0CB81F8299510036089F /* Coordinator.swift in Sources */,
@@ -3105,6 +3107,7 @@
 				736D6ECF20DBD946008C2CC4 /* AnaliticsViewController.swift in Sources */,
 				2961BD071FB146EB00C4B840 /* ChainState.swift in Sources */,
 				A2B7ECAC2038FFBC00828E7D /* ExportPrivateKeyViewModel.swift in Sources */,
+				ADEBBF3D21754DBF000F5DB8 /* CoinMarketTableViewController.swift in Sources */,
 				73D26837202E827E009777A1 /* DecimalFormatter.swift in Sources */,
 				29285B421F6FB3E60044CF29 /* SendViewController.swift in Sources */,
 				2996F14D1F6CA743005C33AE /* UIViewController.swift in Sources */,
@@ -3118,7 +3121,6 @@
 				298542E51FBA9B0700CB5081 /* ShapeShift.swift in Sources */,
 				77B806B220778F6A005FDCBE /* URLViewModel.swift in Sources */,
 				29C70C7C201990540072E454 /* SendTransaction.swift in Sources */,
-				ADEBBF20216EA9D0000F5DB8 /* CoinMarketTableViewController.swift in Sources */,
 				73D30FF2204F274B00433377 /* NetworkStateView.swift in Sources */,
 				29AD3D5720F5BB08007893C9 /* File.swift in Sources */,
 				771AA962200D5EC700D25403 /* PassphraseViewModel.swift in Sources */,
@@ -3144,6 +3146,7 @@
 				29DBF2A71F9F145900327C60 /* StateViewModel.swift in Sources */,
 				2923D9B31FDA49F8000CF3F8 /* SkipBackupFilesInitializer.swift in Sources */,
 				294DFBA01FE0CADE004CEB56 /* TransactionDetailsViewModel.swift in Sources */,
+				ADEBBF3E21754DBF000F5DB8 /* CoinMarket.swift in Sources */,
 				90DDF48520518AE50016E6D4 /* BookmarkViewModel.swift in Sources */,
 				BBB61E122050993A00428BBD /* BrowserErrorView.swift in Sources */,
 				29C80D4B1FB51C460037B1E0 /* Decimal.swift in Sources */,
@@ -3181,7 +3184,6 @@
 				73200B7020488C9300118A82 /* TrustNetworkProtocol.swift in Sources */,
 				77B806A9207766DC005FDCBE /* MasterBrowserViewController.swift in Sources */,
 				2955378C205F2670006049B3 /* ImageURLFormatter.swift in Sources */,
-				ADEBBF1E216EA4F5000F5DB8 /* CoinMarketCoordinator.swift in Sources */,
 				2928500A208E9A5F00EC5AFB /* SearchEngine.swift in Sources */,
 				771D536F2058BB0D00C79485 /* BrowserCoordinator.swift in Sources */,
 				29FF12FB1F74CC8200AFD326 /* EthereumAddressRule.swift in Sources */,
@@ -3256,6 +3258,7 @@
 				77E0E773201FAD06009B4B31 /* BrowserURLParser.swift in Sources */,
 				73ACEF0520163F46003DD71D /* LockEnterPasscodeCoordinator.swift in Sources */,
 				29F1C863200375D2003780D8 /* Wallet.swift in Sources */,
+				ADEBBF4321754DBF000F5DB8 /* CoinMarketTableViewCell.swift in Sources */,
 				A2B7ECAA2038122200828E7D /* ExportPrivateKeyCoordinator.swift in Sources */,
 				29E6E06E1FE897EE0079265A /* BrowserViewController.swift in Sources */,
 				2912CCF91F6A830700C6CBE3 /* AppDelegate.swift in Sources */,
@@ -3302,7 +3305,6 @@
 				294BB5112086CE4A00430EFA /* DAppRequster.swift in Sources */,
 				73DE7B3220987D8F00AE04E6 /* NonFungibleCollectionViewCell.swift in Sources */,
 				77B806A52075C33D005FDCBE /* SharedMigrationInitializer.swift in Sources */,
-				ADEBBF23216EAE82000F5DB8 /* CoinMarketTableViewCell.swift in Sources */,
 				29F114F41FA8117C00114A29 /* SendCoordinator.swift in Sources */,
 				293B8B411F707F4600356286 /* TransactionViewModel.swift in Sources */,
 				77787134208462EF00CF7303 /* TransactionsLayout.swift in Sources */,
@@ -3370,7 +3372,7 @@
 				291ED08D1F6F5F0A00E7E93A /* KeyStoreError.swift in Sources */,
 				776C1149205D02E800449539 /* TokenViewModel.swift in Sources */,
 				29F1C83E1FEB5C91003780D8 /* EditTokensViewController.swift in Sources */,
-				ADEBBF26216EB380000F5DB8 /* CoinMarketContant.swift in Sources */,
+				ADEBBF4021754DBF000F5DB8 /* CoinMarketContant.swift in Sources */,
 				296AF9A31F733AB30058AF78 /* WalletCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

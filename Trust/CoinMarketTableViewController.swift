@@ -63,7 +63,12 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CoinMarketDetialViewController(nibName: "CoinMarketDetialViewController", bundle: nil)
             if let navigator = navigationController {
+                let price = coinData[indexPath.row].quote.USD.price
+                let priceChange = coinData[indexPath.row].quote.USD.percent_change_1h
                 vc.title = coinData[indexPath.row].name
+                vc.getPricechange = priceChange
+                vc.getPrice = "$" + String(format: "%.4f", price)
+                vc.getName = coinData[indexPath.row].name
                 navigator.pushViewController(vc, animated: true)
         }
     }
