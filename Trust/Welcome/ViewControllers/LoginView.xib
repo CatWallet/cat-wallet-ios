@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f86-eL-HNN">
-                                <rect key="frame" x="344" y="20" width="50" height="50"/>
+                                <rect key="frame" x="344" y="40" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="f86-eL-HNN" secondAttribute="height" multiplier="1:1" id="Ufi-jR-JiD"/>
                                     <constraint firstAttribute="height" constant="50" id="bbc-A9-K0U"/>
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1c-eQ-BtU" customClass="SWSegmentedControl" customModule="SWSegmentedControl">
-                                <rect key="frame" x="20" y="125" width="374" height="34"/>
+                                <rect key="frame" x="20" y="145" width="374" height="14"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
@@ -92,7 +92,7 @@
                             <constraint firstItem="b1c-eQ-BtU" firstAttribute="leading" secondItem="zBa-kK-FId" secondAttribute="leading" constant="20" id="Uyv-Ve-SOe"/>
                             <constraint firstAttribute="trailing" secondItem="b1c-eQ-BtU" secondAttribute="trailing" constant="20" id="XoW-FB-ken"/>
                             <constraint firstItem="fkk-n2-8qP" firstAttribute="centerX" secondItem="zBa-kK-FId" secondAttribute="centerX" id="bhd-G7-JLd"/>
-                            <constraint firstItem="f86-eL-HNN" firstAttribute="top" secondItem="zBa-kK-FId" secondAttribute="top" constant="20" id="ere-0Q-ujr"/>
+                            <constraint firstItem="f86-eL-HNN" firstAttribute="top" secondItem="zBa-kK-FId" secondAttribute="top" constant="40" id="ere-0Q-ujr"/>
                             <constraint firstItem="fkk-n2-8qP" firstAttribute="centerY" secondItem="zBa-kK-FId" secondAttribute="centerY" id="fUX-g4-9Fi"/>
                             <constraint firstItem="b1c-eQ-BtU" firstAttribute="top" secondItem="f86-eL-HNN" secondAttribute="bottom" constant="55" id="hdb-jp-Fmw"/>
                         </constraints>

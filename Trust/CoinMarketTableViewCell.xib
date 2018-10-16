@@ -20,8 +20,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KlA-NE-i4p">
-                        <rect key="frame" x="275.5" y="11" width="28.5" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <rect key="frame" x="273" y="11" width="31" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -30,16 +30,16 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="ZL1-Cf-qb9"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oz0-YD-3ac">
-                        <rect key="frame" x="189" y="11" width="55" height="22"/>
+                        <rect key="frame" x="179" y="11" width="55" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="55" id="VL1-iX-o5e"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -49,7 +49,7 @@
                     <constraint firstItem="Oz0-YD-3ac" firstAttribute="centerY" secondItem="KlA-NE-i4p" secondAttribute="centerY" id="7Ph-jF-nq0"/>
                     <constraint firstItem="KlA-NE-i4p" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="7xT-YM-o4Q"/>
                     <constraint firstItem="KlA-NE-i4p" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="DIh-tU-gMZ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Oz0-YD-3ac" secondAttribute="trailing" constant="60" id="IaG-nF-HV0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Oz0-YD-3ac" secondAttribute="trailing" constant="70" id="IaG-nF-HV0"/>
                     <constraint firstItem="KlA-NE-i4p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Mha-On-5QQ"/>
                     <constraint firstItem="Wn6-mk-yOE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="b1e-Ec-PYd"/>
                     <constraint firstItem="Wn6-mk-yOE" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="cDb-dy-zO5"/>

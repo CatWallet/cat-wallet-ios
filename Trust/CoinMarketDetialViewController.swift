@@ -3,20 +3,19 @@
 import UIKit
 import Charts
 
-class CoinMarketDetialViewController: UIViewController, ChartViewDelegate {
+class CoinMarketDetialViewController: UIViewController, ChartViewDelegate{
 
     @IBOutlet weak var priceChange: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var showPrice: UILabel!
     @IBOutlet weak var chartView: LineChartView!
-    
     var getPricechange = 0.0
     var getName: String?
     var getPrice: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        
         let data = dataWithCount(36, range: 100)
         let color = UIColor(red: 250/255, green: 104/255, blue: 104/255, alpha: 1)
         data.setValueFont(UIFont(name: "HelveticaNeue", size: 7)!)
@@ -68,5 +67,9 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate {
         set1.highlightColor = .white
         set1.drawValuesEnabled = false
         return LineChartData(dataSet: set1)
+    }
+    
+    public func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print("Bar selected")
     }
 }
