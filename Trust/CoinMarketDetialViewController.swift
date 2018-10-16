@@ -49,6 +49,9 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate{
         chart.leftAxis.spaceBottom = 0.4
         chart.rightAxis.enabled = false
         chart.xAxis.enabled = false
+        chart.delegate                  = self
+        chart.pinchZoomEnabled          = false
+        chart.doubleTapToZoomEnabled    = false
         chart.data = data
         chart.animate(xAxisDuration: 2.5)
     }
@@ -70,6 +73,6 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate{
     }
     
     public func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print("Bar selected")
+        showPrice.text = "$" + String(entry.x)
     }
 }
