@@ -19,6 +19,7 @@
 "Take photo" = "Take photo";
 "Photo Library" = "Photo Library";
 "Market.tabbar.item.title" = "Market";
+"showPrice.label.text" = "Select a node to get the price!";
 
 
 "transaction.AddNotes" = "Add Notes";

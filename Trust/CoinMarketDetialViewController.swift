@@ -33,6 +33,7 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate{
         priceChange.text = String(format: "%.3f", getPricechange)
         name.text = getName
         price.text = getPrice
+        showPrice.text = R.string.localizable.showPriceLabelText()
     }
     
     func setupChart(_ chart: LineChartView, data: LineChartData, color: UIColor) {
