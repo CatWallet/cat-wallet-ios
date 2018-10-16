@@ -16,8 +16,11 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setChartValue()
-        // Do any additional setup after loading the view.
+        
+        let data = dataWithCount(36, range: 100)
+        let color = UIColor(red: 250/255, green: 104/255, blue: 104/255, alpha: 1)
+        data.setValueFont(UIFont(name: "HelveticaNeue", size: 7)!)
+        setupChart(chartView, data: data, color: color)
     }
     
     func setUI() {
@@ -33,47 +36,37 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate {
         price.text = getPrice
     }
     
-    func setChartValue() {
-        let values = (0..<20).map { (i) -> ChartDataEntry in
-            let val = Double(arc4random_uniform(UInt32(20)))
-            return ChartDataEntry(x: Double(i), y: val)
-        }
-        
-        let set1 = LineChartDataSet(values: values, label: "DataSet 1")
-        let data = LineChartData(dataSet: set1)
-        (data.getDataSetByIndex(0) as! LineChartDataSet).circleHoleColor = UIColor(red: 89/255, green: 199/255, blue: 250/255, alpha: 1)
-        
-        chartView.backgroundColor = UIColor(red: 89/255, green: 199/255, blue: 250/255, alpha: 1)
-        
-        chartView.chartDescription?.enabled = false
-        
-        chartView.dragEnabled = true
-        chartView.setScaleEnabled(true)
-        chartView.pinchZoomEnabled = false
-        chartView.setViewPortOffsets(left: 10, top: 0, right: 10, bottom: 0)
-        
-        chartView.legend.enabled = false
-        
-        chartView.leftAxis.enabled = false
-        chartView.leftAxis.spaceTop = 0.4
-        chartView.leftAxis.spaceBottom = 0.4
-        chartView.rightAxis.enabled = false
-        chartView.xAxis.enabled = false
-        self.chartView.data = data
-        
-        chartView.animate(xAxisDuration: 2.5)
+    func setupChart(_ chart: LineChartView, data: LineChartData, color: UIColor) {
+        (data.getDataSetByIndex(0) as! LineChartDataSet).circleHoleColor = color
+        chart.backgroundColor = color
+        chart.chartDescription?.enabled = false
+        chart.dragEnabled = true
+        chart.setScaleEnabled(true)
+        chart.pinchZoomEnabled = false
+        chart.setViewPortOffsets(left: 10, top: 0, right: 10, bottom: 0)
+        chart.legend.enabled = false
+        chart.leftAxis.enabled = false
+        chart.leftAxis.spaceTop = 0.4
+        chart.leftAxis.spaceBottom = 0.4
+        chart.rightAxis.enabled = false
+        chart.xAxis.enabled = false
+        chart.data = data
+        chart.animate(xAxisDuration: 2.5)
     }
     
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func dataWithCount(_ count: Int, range: UInt32) -> LineChartData {
+        let yVals = (0..<count).map { i -> ChartDataEntry in
+            let val = Double(arc4random_uniform(range)) + 3
+            return ChartDataEntry(x: Double(i), y: val)
+        }
+        let set1 = LineChartDataSet(values: yVals, label: "DataSet 1")
+        set1.lineWidth = 1.75
+        set1.circleRadius = 5.0
+        set1.circleHoleRadius = 2.5
+        set1.setColor(.white)
+        set1.setCircleColor(.white)
+        set1.highlightColor = .white
+        set1.drawValuesEnabled = false
+        return LineChartData(dataSet: set1)
     }
-    */
-
 }
