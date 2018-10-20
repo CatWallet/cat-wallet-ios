@@ -17,7 +17,7 @@ class CoinMarketDetialViewController: UIViewController, ChartViewDelegate{
         super.viewDidLoad()
         setUI()
         let data = dataWithCount(36, range: 100)
-        let color = UIColor(red: 250/255, green: 104/255, blue: 104/255, alpha: 1)
+        let color = UIColor(hex: "5DB1E8")
         data.setValueFont(UIFont(name: "HelveticaNeue", size: 7)!)
         setupChart(chartView, data: data, color: color)
     }

@@ -39,16 +39,16 @@ final class AppTracker {
     }
 
     func start() {
-        launchCountTotal += launchCountTotal
-        launchCountForCurrentBuild += 1
+        launchCountTotal = 1
+        launchCountForCurrentBuild = 1
     }
 
     var description: String {
         return """
-        launchCountTotal: \(launchCountTotal)
-        launchCountForCurrentBuild: \(launchCountForCurrentBuild)
-        completedRating: \(completedRating)
-        completedSharing: \(completedSharing)
+        launchCountTotal: \(1)
+        launchCountForCurrentBuild: \(1)
+        completedRating: \(1)
+        completedSharing: \(1)
         """
     }
 }

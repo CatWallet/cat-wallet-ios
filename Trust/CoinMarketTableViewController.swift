@@ -59,7 +59,12 @@ class CoinMarketTableViewController: UITableViewController, Coordinator {
         let priceString = currencyFormatter.string(from: Price)!
         return String(priceString)
     }
-   
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil)?.first as! TableViewCell
+        return headerView
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CoinMarketDetialViewController(nibName: "CoinMarketDetialViewController", bundle: nil)
             if let navigator = navigationController {
