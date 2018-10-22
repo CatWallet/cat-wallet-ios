@@ -3,8 +3,8 @@
 import UIKit
 
 struct Colors {
-    static let darkBlue = UIColor(hex: "15A7EB")
-    static let blue = UIColor(hex: "15A7EB")
+    static let darkBlue = UIColor(hex: "ff9900")
+    static let blue = UIColor(hex: "ff9900")
     static let red = UIColor(hex: "f7506c")
     static let errorRed = UIColor(hex: "E32146")
     static let veryLightRed = UIColor(hex: "FFF4F4")

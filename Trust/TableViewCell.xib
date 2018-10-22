@@ -41,7 +41,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="bsj-GO-90T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="8Pz-SN-YCe"/>
                     <constraint firstItem="ZeD-1M-Gmm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="FmG-Zu-N4l"/>

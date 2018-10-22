@@ -25,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Uct-rz-J3b">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_logo_2nd" translatesAutoresizingMaskIntoConstraints="NO" id="Uct-rz-J3b">
                     <rect key="frame" x="-24" y="137" width="462" height="462"/>
                 </imageView>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rC-9m-Wuz">
@@ -121,7 +121,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.08235294118" green="0.65490196079999996" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.94592100379999999" green="0.61953967809999999" blue="0.22289878129999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="8rC-9m-Wuz" firstAttribute="trailing" secondItem="0GC-aq-YZI" secondAttribute="trailing" id="1YO-FV-f5h"/>
                 <constraint firstItem="Uct-rz-J3b" firstAttribute="centerX" secondItem="nmS-Q8-FDZ" secondAttribute="centerX" id="4fO-Jl-7H5"/>
@@ -142,6 +142,6 @@
         </view>
     </objects>
     <resources>
-        <image name="launch_screen_logo" width="462" height="462"/>
+        <image name="launch_screen_logo_2nd" width="462" height="462"/>
     </resources>
 </document>
